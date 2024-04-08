@@ -1,31 +1,42 @@
 {
-  "name": "fugir-io.github.io",
-  "version": "0.1.0",
-  "private": true,
+  "name": "codeblind.ai",
+  "version": "0.0.1",
+  "version.next": "0.0.2",
+  "description": "Lander site codeblind.ai",
+  "repository": "github:codeblind-ai/codeblind.ai.github.io",
+  "homepage": "https://codeblind.ai",
+  "author": "Joseph Barnett",
+  "license": "Apache-2.0",
+  "bugs": "https://github.com/codeblind-ai/codeblind-ai.github.io/issues",
+  "spelling": "cSpell:ignore HTMLTEST precheck postbuild -",
   "scripts": {
-    "serve": "vite",
-    "build": "vite build"
-  },
-  "dependencies": {
-    "@auth0/auth0-vue": "^2.3.0",
-    "@fortawesome/fontawesome-svg-core": "^6.5.0",
-    "@fortawesome/free-solid-svg-icons": "^6.5.0",
-    "@fortawesome/vue-fontawesome": "^3.0.1",
-    "@highlightjs/vue-plugin": "^2.1.0",
-    "express": "^4.18.1",
-    "highlight.js": "^11.9.0",
-    "morgan": "^1.10.0",
-    "vue": "^3.3.4",
-    "vue-router": "^4.2.1"
+    "_build": "npm run _hugo-dev --",
+    "_check:links": "echo IMPLEMENTATION PENDING for check-links; echo",
+    "_hugo": "hugo --cleanDestinationDir",
+    "_hugo-dev": "npm run _hugo -- -e dev -DFE",
+    "_local": "npx cross-env HUGO_MODULE_WORKSPACE=docsy.work",
+    "_serve": "npm run _hugo-dev -- --minify serve",
+    "build:preview": "npm run _hugo-dev -- --minify --baseURL \"${DEPLOY_PRIME_URL:-/}\"",
+    "build:production": "npm run _hugo -- --minify",
+    "build": "npm run _build -- ",
+    "check:links:all": "HTMLTEST_ARGS= npm run _check:links",
+    "check:links": "npm run _check:links",
+    "clean": "rm -Rf public/* resources",
+    "local": "npm run _local -- npm run",
+    "make:public": "git init -b main public",
+    "precheck:links:all": "npm run build",
+    "precheck:links": "npm run build",
+    "postbuild:preview": "npm run _check:links",
+    "postbuild:production": "npm run _check:links",
+    "serve": "npm run _serve",
+    "test": "npm run check:links",
+    "update:pkg:dep": "npm install --save-dev autoprefixer@latest postcss-cli@latest",
+    "update:pkg:hugo": "npm install --save-dev --save-exact hugo-extended@latest"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^1.6.1",
-    "@vue/compiler-sfc": "^3.3.4",
-    "typescript": "^4.9.3",
-    "vite": "^2.9.16"
-  },
-  "prettier": {
-    "singleQuote": false,
-    "semi": true
+    "autoprefixer": "^10.4.19",
+    "cross-env": "^7.0.3",
+    "hugo-extended": "0.124.1",
+    "postcss-cli": "^11.0.0"
   }
 }
