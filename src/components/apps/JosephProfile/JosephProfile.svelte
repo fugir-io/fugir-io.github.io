@@ -19,46 +19,65 @@
 
   <aside class:light={$theme.scheme === 'light'}>
     <nav>
-      <a href="https://www.puruvj.dev/blog" use:external> <BlogIcon /> Blog </a>
-      <a href="https://www.puruvj.dev/works" use:external> <WorksIcon /> Works </a>
-
+      <a href="https://codeblind.ai/blog" use:external> <BlogIcon /> Blog </a>
       <hr />
-
-      <a href="https://www.puruvj.dev/twitter" use:external>
-        <TwitterIcon />
-        Twitter
+      <a href="https://github.com/josephbarnett" use:external> <GithubIcon /> Github </a>
+      <hr />
+      <a
+        href="https://github.com/josephbarnett/cv/releases/download/v0.0.1/resume.pdf"
+        use:external
+      >
+        <GithubIcon /> Professional Resume
       </a>
-      <a href="https://www.puruvj.dev/github" use:external> <GithubIcon /> Github </a>
-      <a href="https://www.puruvj.dev/devto" use:external> <DevToIcon /> Dev.to </a>
     </nav>
   </aside>
 
   <section class="content">
-    <img height="200" width="200" src="/purus-profile/puru.webp" alt="Puru Vijay Profile pic" />
+    <img height="200" width="200" src="/jb-profile/jb.webp" alt="Joseph Barnett" />
 
     <br />
 
-    <h1>Hi, I'm Puru</h1>
+    <h1>Hi, I'm Joseph Barnett</h1>
 
-    <h2>
-      I'm the creator of macOS Web, which you're on right now
-      <img src="/emojis/wink.png" alt="Wink emoji" class="emoji" />
-    </h2>
-
-    <br /><br />
+    <br />
+    <h2>Distinguished Architect and Full Stack Developer</h2>
+    <br />
 
     <p>
-      I am a fullstack web developer, with an infinite amount of love for frontend web development,
-      esp JavaScript, TypeScript, and for frontend frameworks like Svelte, Vue and React
-      <img src="/emojis/star-struck.png" alt="Star Struck face emoji" class="emoji" />
+      I believe in, “Being the change that you want to see in the world!” Whether it a project has
+      with little or no guidance, requiring globally distributed teams, or solutions which require
+      rapid learning or creating new technologies; I enjoy a challenge. I am happiest when I have an
+      opportunity to learn. I love to innovate new technologies which provide great value. These
+      traits drive my passion for technology.
+    </p>
+    <br />
+    <p>
+      Whether it's a project with little or no guidance, requiring globally distributed teams, or
+      solutions which require rapid learning or creating new technologies; I enjoy the challenge. I
+      am happiest when I have an opportunity to learn new technologies, innovate with a team, and
+      push the boundaries of "what is possible".
     </p>
 
     <br /><br />
 
+    <h2>Why Me?</h2>
     <p>
-      However, my love for tech doesn't end there. I enjoy writing backend APIs, scripts, working
-      with databases, and my fav platforms are NodeJS, Deno and Go
+      Firstly, I work great on Teams understanding it is easy to run fast, but more important to run
+      with the tribe. I am a leader with the ability influence technical and business outcomes,
+      delivering innovative technology solutions, while maintaining a fantastic culture. I believe
+      in focusing on our customers first, clean-thoughtful design, and innovating using LEAN-MVP
+      principals to validate our outcomes.
     </p>
+
+    <br /><br />
+    <h3><b>Let me be the change maker you need - check out me resume!</b></h3>
+    <br /><br />
+    <h2><b>Let Go!</b></h2>
+    <br /><br />
+    <br /><br />
+    <br /><br />
+    <br /><br />
+    <br /><br />
   </section>
 </section>
 
@@ -199,6 +218,13 @@
     img {
       border-radius: 50%;
     }
+    // Add styles for scrolling
+    overflow-y: auto; // Enable vertical scrolling
+    max-height: calc(100vh - 3rem); // Set maximum height to fit within viewport, adjust as needed
+  }
+
+  .scrollable-content {
+    padding: 1rem; // Add padding to prevent content from touching the edges
   }
 
   .emoji {
