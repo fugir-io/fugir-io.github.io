@@ -8,7 +8,7 @@ type WallpaperSettings = {
 };
 
 export const wallpaper = writable<WallpaperSettings>('macos:wallpaper-settings:v2', {
-  image: '46',
-  id: 'black-bird-in-a-city',
+  image: 'ventura-2',
+  id: 'ventura',
   canControlTheme: true,
 });

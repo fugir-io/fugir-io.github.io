@@ -2,7 +2,7 @@ const appleMenu = {
   title: 'apple',
   menu: {
     'about-this-mac': {
-      title: 'About This Platform',
+      title: 'About This Mac',
       breakAfter: true,
     },
     'system-preferences': {

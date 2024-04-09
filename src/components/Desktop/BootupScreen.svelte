@@ -5,7 +5,7 @@
   import { elevation } from '🍎/actions';
   import { fadeOut } from '🍎/helpers/fade';
   import { waitFor } from '🍎/helpers/wait-for';
-  import Icon from '~icons/mdi/cloud-lock';
+  import AppleIcon from '~icons/mdi/apple';
 
   let hiddenSplashScreen = false;
   let progressVal = tweened(100, { duration: 3000, easing: quintInOut });
@@ -17,10 +17,9 @@
   });
 </script>
 
-<!-- {#if !(hiddenSplashScreen || import.meta.env.DEV)} -->
-{#if !hiddenSplashScreen}
+{#if !(hiddenSplashScreen || import.meta.env.DEV)}
   <div out:fadeOut={{ duration: 500 }} class="splash-screen" use:elevation={'bootup-screen'}>
-    <Icon />
+    <AppleIcon />
 
     <div
       class="progress"
@@ -36,16 +35,9 @@
 {/if}
 
 <!-- iframe => firefox support: will always make sound available on start or F5 -->
-<!-- {#if import.meta.env.PROD} -->
-<iframe
-  id="audio"
-  src="/sounds/iphone-startup-wave.wav"
-  type="audio/wav"
-  allow="autoplay"
-  title="hello"
-/>
-
-<!-- {/if} -->
+{#if import.meta.env.PROD}
+  <iframe id="audio" src="/sounds/mac-startup-sound.mp3" allow="autoplay" title="hello" />
+{/if}
 
 <style lang="scss">
   .splash-screen {
@@ -95,7 +87,6 @@
 
     transform: translateX(-0%);
   }
-
   #audio {
     position: absolute;
     z-index: -9999;

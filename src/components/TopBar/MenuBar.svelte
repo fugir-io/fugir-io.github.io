@@ -1,14 +1,14 @@
 <script lang="ts">
   import { clickOutside, elevation, focusOutside } from '🍎/actions';
   import { activeMenu, menuBarMenus } from '🍎/stores/menubar.store';
-  import Icon from '~icons/mdi/cloud-lock';
+  import AppleIcon from '~icons/mdi/apple';
   import Menu from './Menu.svelte';
 </script>
 
 <div
   class="container"
-  use:clickOutside={{ callback: () => ($activeMenu = '') }}
-  use:focusOutside={{ callback: () => ($activeMenu = '') }}
+  use:clickOutside={() => ($activeMenu = '')}
+  use:focusOutside={() => ($activeMenu = '')}
 >
   {#each Object.entries($menuBarMenus) as [menuID, menuConfig]}
     <div>
@@ -23,7 +23,7 @@
           on:focus={() => ($activeMenu = menuID)}
         >
           {#if menuID === 'apple'}
-            <Icon />
+            <AppleIcon />
           {:else}
             {menuConfig.title}
           {/if}
