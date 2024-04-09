@@ -5,7 +5,7 @@
   import { elevation } from '🍎/actions';
   import { fadeOut } from '🍎/helpers/fade';
   import { waitFor } from '🍎/helpers/wait-for';
-  import AppleIcon from '~icons/mdi/apple';
+  import AppleIcon from '~icons/mdi/cloud-lock';
 
   let hiddenSplashScreen = false;
   let progressVal = tweened(100, { duration: 3000, easing: quintInOut });
