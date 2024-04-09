@@ -54,7 +54,7 @@ const systemPreferences = createAppConfig({
   resizable: true,
 });
 
-const purusTwitter = createAppConfig({
+const developerProfile = createAppConfig({
   title: `About the Developer`,
   resizable: true,
 
@@ -64,34 +64,13 @@ const purusTwitter = createAppConfig({
   width: 800,
 });
 
-const viewSource = createAppConfig({
-  title: `View Source`,
-  resizable: true,
+// const viewSource = createAppConfig({
+//   title: `View Source`,
+//   resizable: true,
 
-  shouldOpenWindow: false,
-  externalAction: () => window.open('https://github.com/puruvj/macos-web', '_blank'),
-});
-
-const ukraine = createAppConfig({
-  title: `Support Ukraine`,
-  resizable: true,
-
-  shouldOpenWindow: false,
-  externalAction: () => window.open('https://www.stopputin.net/', '_blank'),
-
-  dockBreaksBefore: true,
-});
-
-const vercel = createAppConfig({
-  title: `Powered by Vercel`,
-  resizable: true,
-
-  shouldOpenWindow: false,
-  externalAction: () =>
-    window.open('https://vercel.com/?utm_source=purus-projects&utm_campaign=oss', '_blank'),
-
-  dockBreaksBefore: true,
-});
+//   shouldOpenWindow: false,
+//   externalAction: () => window.open('https://github.com/josephbarnett/', '_blank'),
+// });
 
 const appstore = createAppConfig({
   title: 'App Store',
@@ -107,10 +86,6 @@ export const appsConfig = {
   vscode,
   appstore,
 
-  'purus-twitter': purusTwitter,
-  'view-source': viewSource,
-
-  vercel,
-
-  ukraine,
+  developer: developerProfile,
+  // 'view-source': viewSource,
 };

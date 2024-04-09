@@ -1,10 +1,7 @@
 <script lang="ts">
   import { theme } from '🍎/stores/theme.store';
-  import TwitterIcon from '~icons/mdi/twitter';
   import BlogIcon from '~icons/mdi/grease-pencil';
-  import WorksIcon from '~icons/ic/round-workspaces';
   import GithubIcon from '~icons/mdi/github';
-  import DevToIcon from '~icons/mdi/dev-to';
 
   function external(node: HTMLAnchorElement) {
     node.rel = 'noopener noreferrer';
