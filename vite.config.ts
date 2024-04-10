@@ -94,6 +94,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '🍎': new URL('./src/', import.meta.url).pathname,
+      $app: new URL('./src/', import.meta.url).pathname,
     },
   },
   build: {
