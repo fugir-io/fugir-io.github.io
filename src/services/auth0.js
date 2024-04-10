@@ -1,10 +1,5 @@
 import createAuth0Client from '@auth0/auth0-spa-js';
 import { get, writable } from 'svelte/store';
-import { env } from '$env/dynamic/public';
-
-console.log(env.PUBLIC_AUTH0_DOMAIN);
-console.log(env.PUBLIC_AUTH0_CLIENT_ID);
-console.log(env.PUBLIC_AUTH0_CALLBACK_URL);
 
 const _useAuth0 = () => {
   const auth0Client = writable(null);
@@ -16,9 +11,9 @@ const _useAuth0 = () => {
   const initializeAuth0 = async (config = {}) => {
     auth0Client.set(
       await createAuth0Client({
-        domain: import.meta.env.PUBLIC_AUTH0_DOMAIN,
-        client_id: import.meta.env.PUBLIC_AUTH0_CLIENT_ID,
-        redirect_uri: import.meta.env.PUBLIC_AUTH0_CALLBACK_URL,
+        domain: import.meta.env.VITE_AUTH0_DOMAIN,
+        client_id: import.meta.env.VITE_AUTH0_CLIENT_ID,
+        redirect_uri: import.meta.env.VITE_AUTH0_CALLBACK_URL,
       }),
     );
 

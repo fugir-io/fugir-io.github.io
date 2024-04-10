@@ -42,7 +42,6 @@ declare module '$env/static/private' {
 	export const ZDOTDIR: string;
 	export const ORIGINAL_XDG_CURRENT_DESKTOP: string;
 	export const MallocNanoZone: string;
-	export const npm_package_optional: string;
 	export const COLOR: string;
 	export const npm_config_noproxy: string;
 	export const npm_config_local_prefix: string;
@@ -53,14 +52,12 @@ declare module '$env/static/private' {
 	export const USER: string;
 	export const COMMAND_MODE: string;
 	export const npm_config_globalconfig: string;
-	export const npm_package_peer: string;
 	export const PULUMI_ACCESS_TOKEN: string;
 	export const SSH_AUTH_SOCK: string;
 	export const TF_PLUGIN_CACHE_DIR: string;
 	export const __CF_USER_TEXT_ENCODING: string;
 	export const npm_execpath: string;
 	export const PAGER: string;
-	export const npm_package_integrity: string;
 	export const LSCOLORS: string;
 	export const PATH: string;
 	export const npm_package_json: string;
@@ -81,19 +78,15 @@ declare module '$env/static/private' {
 	export const VSCODE_GIT_ASKPASS_EXTRA_ARGS: string;
 	export const XPC_FLAGS: string;
 	export const ENV_TYPE: string;
-	export const npm_package_engines_node: string;
 	export const npm_config_node_gyp: string;
-	export const npm_package_dev: string;
 	export const npm_package_version: string;
 	export const XPC_SERVICE_NAME: string;
 	export const VSCODE_INJECTION: string;
-	export const npm_package_resolved: string;
 	export const SHLVL: string;
 	export const HOME: string;
 	export const VSCODE_GIT_ASKPASS_MAIN: string;
 	export const npm_config_save_prefix: string;
 	export const HOMEBREW_PREFIX: string;
-	export const npm_package_dev_optional: string;
 	export const GH_PAGER: string;
 	export const npm_config_cache: string;
 	export const LESS: string;
@@ -122,7 +115,9 @@ declare module '$env/static/private' {
  * ```
  */
 declare module '$env/static/public' {
-	
+	export const PUBLIC_AUTH0_DOMAIN: string;
+	export const PUBLIC_AUTH0_CLIENT_ID: string;
+	export const PUBLIC_AUTH0_CALLBACK_URL: string;
 }
 
 /**
@@ -157,7 +152,6 @@ declare module '$env/dynamic/private' {
 		ZDOTDIR: string;
 		ORIGINAL_XDG_CURRENT_DESKTOP: string;
 		MallocNanoZone: string;
-		npm_package_optional: string;
 		COLOR: string;
 		npm_config_noproxy: string;
 		npm_config_local_prefix: string;
@@ -168,14 +162,12 @@ declare module '$env/dynamic/private' {
 		USER: string;
 		COMMAND_MODE: string;
 		npm_config_globalconfig: string;
-		npm_package_peer: string;
 		PULUMI_ACCESS_TOKEN: string;
 		SSH_AUTH_SOCK: string;
 		TF_PLUGIN_CACHE_DIR: string;
 		__CF_USER_TEXT_ENCODING: string;
 		npm_execpath: string;
 		PAGER: string;
-		npm_package_integrity: string;
 		LSCOLORS: string;
 		PATH: string;
 		npm_package_json: string;
@@ -196,19 +188,15 @@ declare module '$env/dynamic/private' {
 		VSCODE_GIT_ASKPASS_EXTRA_ARGS: string;
 		XPC_FLAGS: string;
 		ENV_TYPE: string;
-		npm_package_engines_node: string;
 		npm_config_node_gyp: string;
-		npm_package_dev: string;
 		npm_package_version: string;
 		XPC_SERVICE_NAME: string;
 		VSCODE_INJECTION: string;
-		npm_package_resolved: string;
 		SHLVL: string;
 		HOME: string;
 		VSCODE_GIT_ASKPASS_MAIN: string;
 		npm_config_save_prefix: string;
 		HOMEBREW_PREFIX: string;
-		npm_package_dev_optional: string;
 		GH_PAGER: string;
 		npm_config_cache: string;
 		LESS: string;
@@ -244,6 +232,9 @@ declare module '$env/dynamic/private' {
  */
 declare module '$env/dynamic/public' {
 	export const env: {
+		PUBLIC_AUTH0_DOMAIN: string;
+		PUBLIC_AUTH0_CLIENT_ID: string;
+		PUBLIC_AUTH0_CALLBACK_URL: string;
 		[key: `PUBLIC_${string}`]: string | undefined;
 	}
 }
