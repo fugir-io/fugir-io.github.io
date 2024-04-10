@@ -29,7 +29,7 @@
   import { spring, tweened } from 'svelte/motion';
   import { elevation } from '🍎/actions';
   import { appsConfig } from '🍎/configs/apps/apps-config';
-  import { AppID, isAppBeingDragged } from '🍎/stores/apps.store';
+  import { type AppID, isAppBeingDragged } from '🍎/stores/apps.store';
   import { activeApp, openApps } from '🍎/stores/apps.store';
   import { prefersReducedMotion } from '🍎/stores/prefers-motion.store';
   import { theme } from '🍎/stores/theme.store';
@@ -184,7 +184,9 @@
     padding: 0.5rem 0.75rem;
     border-radius: 0.375rem;
 
-    box-shadow: hsla(0deg, 0%, 0%, 30%) 0px 1px 5px 2px, var(--double-border);
+    box-shadow:
+      hsla(0deg, 0%, 0%, 30%) 0px 1px 5px 2px,
+      var(--double-border);
 
     color: var(--system-color-light-contrast);
     font-family: var(--system-font-family);

@@ -224,13 +224,6 @@
     padding: 1rem; // Add padding to prevent content from touching the edges
   }
 
-  .emoji {
-    height: 1em;
-    width: 1em;
-
-    vertical-align: middle;
-  }
-
   h1 {
     font-size: 2.618rem;
     line-height: 1.618;
