@@ -17,8 +17,7 @@
   });
 </script>
 
-<!-- {#if !(hiddenSplashScreen || import.meta.env.DEV)} -->
-{#if !(hiddenSplashScreen)}
+{#if !(hiddenSplashScreen || import.meta.env.DEV)}
   <div out:fadeOut={{ duration: 500 }} class="splash-screen" use:elevation={'bootup-screen'}>
     <AppleIcon />
 
@@ -36,9 +35,9 @@
 {/if}
 
 <!-- iframe => firefox support: will always make sound available on start or F5 -->
-<!-- {#if import.meta.env.PROD} -->
+{#if import.meta.env.PROD}
   <iframe id="audio" src="/sounds/iphone-startup-wave.wav" allow="autoplay" title="hello" />
-<!-- {/if} -->
+{/if}
 
 <style lang="scss">
   .splash-screen {

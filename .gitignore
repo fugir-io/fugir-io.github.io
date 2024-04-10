@@ -3,3 +3,8 @@
 /.vscode/
 .DS_Store
 .idea/
+
+
+# dotenv environment variables file
+.env
+.env.test

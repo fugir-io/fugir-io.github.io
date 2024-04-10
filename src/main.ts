@@ -1,8 +1,8 @@
-import Desktop from './components/Desktop/Desktop.svelte';
 import './css/global.scss';
+import App from './app.svelte';
 
-const desktop = new Desktop({
+const app = new App({
   target: document.getElementById('root'),
 });
 
-export default desktop;
+export default app;

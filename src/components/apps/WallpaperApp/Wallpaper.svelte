@@ -6,7 +6,7 @@
   import { theme } from '🍎/stores/theme.store';
   import { wallpaper } from '🍎/stores/wallpaper.store';
 
-  let visibleBackgroundImage = wallpapersConfig.ventura.thumbnail;
+  let visibleBackgroundImage = wallpapersConfig['black-bird-in-a-city'].thumbnail;
 
   const interval = createIntervalStore(5 * 1000);
 
