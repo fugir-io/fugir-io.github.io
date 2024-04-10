@@ -1,5 +1,10 @@
-import createAuth0Client from "@auth0/auth0-spa-js";
-import { get, writable } from "svelte/store";
+import createAuth0Client from '@auth0/auth0-spa-js';
+import { get, writable } from 'svelte/store';
+import { env } from '$env/dynamic/public';
+
+console.log(env.PUBLIC_AUTH0_DOMAIN);
+console.log(env.PUBLIC_AUTH0_CLIENT_ID);
+console.log(env.PUBLIC_AUTH0_CALLBACK_URL);
 
 const _useAuth0 = () => {
   const auth0Client = writable(null);
@@ -11,28 +16,21 @@ const _useAuth0 = () => {
   const initializeAuth0 = async (config = {}) => {
     auth0Client.set(
       await createAuth0Client({
-        domain: import.meta.env.VITE_AUTH0_DOMAIN,
-        client_id: import.meta.env.VITE_AUTH0_CLIENT_ID,
-        redirect_uri: import.meta.env.VITE_AUTH0_CALLBACK_URL,
-      })
+        domain: import.meta.env.PUBLIC_AUTH0_DOMAIN,
+        client_id: import.meta.env.PUBLIC_AUTH0_CLIENT_ID,
+        redirect_uri: import.meta.env.PUBLIC_AUTH0_CALLBACK_URL,
+      }),
     );
 
     if (!config.onRedirectCallback) {
       config.onRedirectCallback = () =>
-        window.history.replaceState(
-          {},
-          document.title,
-          window.location.pathname
-        );
+        window.history.replaceState({}, document.title, window.location.pathname);
     }
 
     try {
       const search = window.location.search;
 
-      if (
-        (search.includes("code=") || search.includes("error=")) &&
-        search.includes("state=")
-      ) {
+      if ((search.includes('code=') || search.includes('error=')) && search.includes('state=')) {
         const { appState } = await get(auth0Client).handleRedirectCallback();
 
         config.onRedirectCallback(appState);
