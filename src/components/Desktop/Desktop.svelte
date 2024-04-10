@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+
   import Dock from '🍎/components/Dock/Dock.svelte';
   import TopBar from '🍎/components/TopBar/TopBar.svelte';
   import Wallpaper from '../apps/WallpaperApp/Wallpaper.svelte';
@@ -6,8 +8,10 @@
   import ContextMenu from './ContextMenu.svelte';
   import SystemUpdate from './SystemUpdate.svelte';
   import WindowsArea from './Window/WindowsArea.svelte';
+  import { useAuth0 } from '🍎/services/auth0';
 
   const isMac = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform);
+  const { user, isAuthenticated, error } = useAuth0;
 
   if (!isMac) {
     Promise.all([
@@ -20,6 +24,15 @@
     });
   }
   let mainEl: HTMLElement;
+
+   onMount(() => {
+      console.log('desktop.Component.onMount', $user, $isAuthenticated, $error);
+      const params = new URLSearchParams(window.location.search);
+      for (const [key, value] of params.entries()) {
+        console.log(`desktop.Component.onMount key=> ${key} value=> ${value}`)
+      }
+   });
+
 </script>
 
 <div bind:this={mainEl} class="container">
