@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { WallpaperID, wallpapersConfig } from '🍎/configs/wallpapers/wallpaper.config';
+  import { type WallpaperID, wallpapersConfig } from '🍎/configs/wallpapers/wallpaper.config';
   import { wallpaper } from '🍎/stores/wallpaper.store';
 
   const dynamicWallpapers = Object.entries(wallpapersConfig).filter(

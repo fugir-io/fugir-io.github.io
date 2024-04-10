@@ -10,7 +10,7 @@
   import {
     activeApp,
     activeAppZIndex,
-    AppID,
+    type AppID,
     appsInFullscreen,
     appZIndices,
     isAppBeingDragged,
@@ -110,6 +110,7 @@
   onMount(() => windowEl?.focus());
 </script>
 
+<!-- svelte-ignore a11y-no-static-element-interactions -->
 <section
   class="container"
   class:dark={$theme.scheme === 'dark'}
@@ -169,8 +170,10 @@
       & > :global(section),
       & > :global(div) {
         border-radius: inherit;
-        box-shadow: inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),
-          0 0 0 1px hsla(var(--system-color-light-hsl), 0.5), var(--elevated-shadow);
+        box-shadow:
+          inset 0 0 0 0.9px hsla(var(--system-color-dark-hsl), 0.3),
+          0 0 0 1px hsla(var(--system-color-light-hsl), 0.5),
+          var(--elevated-shadow);
       }
     }
   }
