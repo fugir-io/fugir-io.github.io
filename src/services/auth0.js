@@ -7,6 +7,8 @@ const _useAuth0 = () => {
   const isLoading = writable(true);
   const user = writable(null);
   const error = writable(null);
+  const code = writable(null);
+  const state = writable(null);
 
   const initializeAuth0 = async (config = {}) => {
     auth0Client.set(
@@ -26,8 +28,13 @@ const _useAuth0 = () => {
       const search = window.location.search;
 
       if ((search.includes('code=') || search.includes('error=')) && search.includes('state=')) {
-        const { appState } = await get(auth0Client).handleRedirectCallback();
+        console.log('auth.initializeAuth0');
+        const params = new URLSearchParams(search);
+        for (const [key, value] of params.entries()) {
+          console.log(`auth.initializeAuth0 param: key=> ${key} value=>${value}`);
+        }
 
+        const { appState } = await get(auth0Client).handleRedirectCallback();
         config.onRedirectCallback(appState);
       }
     } catch (err) {
