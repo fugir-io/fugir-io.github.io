@@ -16,7 +16,6 @@
     "target": "esnext",
     "module": "esnext",
     "resolveJsonModule": true,
-    //    "baseUrl": "./src",
     "paths": {
       "🍎/*": ["./src/*"]
     },

@@ -1,6 +1,6 @@
+import { defineConfig } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import UnpluginIcons from 'unplugin-icons/vite';
-import { defineConfig } from 'vite';
 import { imagetools } from 'vite-imagetools';
 import { VitePWA } from 'vite-plugin-pwa';
 
@@ -94,7 +94,6 @@ export default defineConfig({
   resolve: {
     alias: {
       '🍎': new URL('./src/', import.meta.url).pathname,
-      $app: new URL('./src/', import.meta.url).pathname,
     },
   },
   build: {

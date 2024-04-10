@@ -31,6 +31,7 @@
 {#if $isAuthenticated && $user}
 <div style="text-align: center;">
     <!-- Centered user picture -->
+    <!-- svelte-ignore a11y-img-redundant-alt -->
     <img src={$user.picture} alt="User Picture" style="max-width: 100px; max-height: 100px; margin: 0 auto;"/>
     
     <div style="font-size: 24px; margin-top: 10px;">Welcome {$user.name}, one moment while we verify your credentials</div>
@@ -60,4 +61,4 @@
     <hr/>
 </div>
 {/if}
-{goto('/')}
+<!-- {goto('/')} -->
