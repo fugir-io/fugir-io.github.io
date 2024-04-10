@@ -1,3 +1,6 @@
 # Cloud Native Adventure
 
-![](./screenshot.png)
+![](./docs/assets/screenshot.png)
+
+## Building a Cloud Native Adventure 
+

@@ -4,7 +4,7 @@
   import Route from "./components/pager/route.svelte";
   import Router from "./components/pager/router.svelte";
   // import AdminPage from "./pages/admin-page.svelte";
-  // import CallbackPage from "./pages/callback-page.svelte";
+  import CallbackPage from "./pages/callback-page.svelte";
   import HomePage from "./pages/home-page.svelte";
   // import NotFoundPage from "./pages/not-found-page.svelte";
   // import ProfilePage from "./pages/profile-page.svelte";
@@ -67,7 +67,8 @@
       component={AdminPage}
       middleware={[authenticationGuard]}
     />
+    -->
     <Route path="/callback" component={CallbackPage} />
-    <Route path="*" component={NotFoundPage} /> -->
+    <!-- <Route path="*" component={NotFoundPage} />  -->
   </Router>
 {/if}
