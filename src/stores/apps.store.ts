@@ -6,10 +6,10 @@ export type AppID = keyof typeof appsConfig;
 /** Which apps are currently open */
 export const openApps = writable<Record<AppID, boolean>>({
   wallpapers: false,
-  finder: true,
+  finder: false,
   vscode: false,
   calculator: false,
-  safari: true,
+  safari: false,
   appstore: false,
   calendar: false,
   // 'system-preferences': false,

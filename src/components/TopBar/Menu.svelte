@@ -6,7 +6,13 @@
 
 <section class="container" class:dark={$theme.scheme === 'dark'}>
   {#each Object.entries(menu) as [, val]}
-    <button class="menu-item" disabled={val.disabled}>{val.title}</button>
+    <button
+      class="menu-item"
+      disabled={val.disabled}
+      on:click={() => val.click && val.click()}
+    >
+      {val.title}
+    </button>
     {#if val.breakAfter}
       <div class="divider" />
     {/if}
