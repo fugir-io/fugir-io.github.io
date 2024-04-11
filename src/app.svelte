@@ -21,9 +21,8 @@
 
   const onRedirectCallback = (appState) => {
     console.log('app.onRedirectCallback')
-    for (const [key, value] of appState.entries()) {
-      console.log(`app.onRedirectCallback param: key=> ${key} value=>${value}`)
-    }
+    console.log(`app.onRedirectCallback targetURL`, appState.targetUrl)
+    console.log(`app.onRedirectCallback pathName:`, window.location.pathname)
 
     window.history.replaceState(
       {},
@@ -35,13 +34,15 @@
   };
 
   onMount(async () => {
+    await initializeAuth0({ onRedirectCallback });
+
     console.log('app.onMount')
     const params = new URLSearchParams(window.location.search);
     for (const [key, value] of params.entries()) {
       console.log(`app.onMount param: key=> ${key} value=>${value}`)
     }
-
-    await initializeAuth0({ onRedirectCallback });
+    
+    console.log(`app.onMount AUTHENTICATED`, isAuthenticated)
   });
 </script>
 

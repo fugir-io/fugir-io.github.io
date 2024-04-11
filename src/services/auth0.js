@@ -32,8 +32,16 @@ const _useAuth0 = () => {
         const params = new URLSearchParams(search);
         for (const [key, value] of params.entries()) {
           console.log(`auth.initializeAuth0 param: key=> ${key} value=>${value}`);
+          switch (key) {
+            case 'code':
+              code.set(value);
+              break;
+            case 'state':
+              state.set(value);
+            default:
+              break;
+          }
         }
-
         const { appState } = await get(auth0Client).handleRedirectCallback();
         config.onRedirectCallback(appState);
       }
