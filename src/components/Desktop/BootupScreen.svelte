@@ -17,7 +17,8 @@
   });
 </script>
 
-{#if !(hiddenSplashScreen || import.meta.env.DEV)}
+<!-- {#if !(hiddenSplashScreen || import.meta.env.DEV)} -->
+{#if !(hiddenSplashScreen )}
   <div out:fadeOut={{ duration: 500 }} class="splash-screen" use:elevation={'bootup-screen'}>
     <AppleIcon />
 

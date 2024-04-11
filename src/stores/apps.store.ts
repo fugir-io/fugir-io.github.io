@@ -1,3 +1,12 @@
+/**
+ * @fileoverview Application Management Stores
+ * This file contains Svelte stores responsible for managing the state of various aspects of the application,
+ * including open and active apps, z-index management, drag state, and fullscreen mode.
+ *
+ * @requires svelte/store
+ * @requires 🍎/configs/apps/apps-config
+ */
+
 import { writable } from 'svelte/store';
 import type { appsConfig } from '🍎/configs/apps/apps-config';
 
