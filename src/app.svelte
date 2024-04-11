@@ -48,7 +48,6 @@
 
 {#if $isLoading}
   <div class="page-layout">
-    <BootupScreen />
   </div>
 {:else}
   <Router>
