@@ -1,9 +1,19 @@
-import { useAuth0 } from '../services/auth0';
+/**
+ * @fileoverview Helper for Creating Menu Configuration
+ * This file contains a helper function for creating a menu configuration object.
+ * It provides a default Apple menu configuration and allows extending it with additional menus.
+ *
+ * @requires 🍎/services/auth0.ts
+ */
 
-// Really not happy about this, but will need a better way to "addMenuItem" from various
-// places where they action button can be populated based on context.
+import { useAuth0 } from '🍎/services/auth0';
+
+// Importing the logout function from useAuth0
 const { logout } = useAuth0;
 
+/**
+ * Default Apple menu configuration containing standard macOS menu items.
+ */
 const appleMenu = {
   title: 'apple',
   menu: {
@@ -78,6 +88,10 @@ const appleMenu = {
     logout: {
       title: 'Log Out User...',
       sound: 'sounds/switch-off.mp3',
+      /**
+       * Action to log out the user when the 'Log Out User...' menu item is clicked.
+       * It calls the logout function from the useAuth0 service and redirects the user to the application's origin after logout.
+       */
       click: () => {
         logout({
           returnTo: window.location.origin,
@@ -87,4 +101,10 @@ const appleMenu = {
   },
 };
 
+/**
+ * Function to create a menu configuration object by extending the default Apple menu with additional menus.
+ * It takes a generic object as input and merges it with the default Apple menu.
+ * @param {T} et The additional menu configuration object to merge with the default Apple menu.
+ * @returns {Record<string, any>} The complete menu configuration object.
+ */
 export const createMenuConfig = <T extends {}>(et: T) => ({ apple: appleMenu, ...et });

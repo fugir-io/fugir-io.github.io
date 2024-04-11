@@ -1,15 +1,17 @@
 <script>
   import { onMount } from "svelte";
+
   import BootupScreen from '🍎/components/Desktop/BootupScreen.svelte';
   import Route from "🍎/components/pager/route.svelte";
   import Router from "🍎/components/pager/router.svelte";
   import DesktopPage from "🍎/pages/home-page.svelte";
   import NotFoundPage from "🍎/pages/not-found-page.svelte";
   import { useAuth0 } from '🍎/services/auth0';
+  import { isLoading, user, isAuthenticated, error } from '🍎/stores/auth.store';
 
   let authParams;
 
-  let { isLoading, isAuthenticated, login, initializeAuth0, error } = useAuth0;
+  let { login, initializeAuth0 } = useAuth0;
 
   const authenticationGuard = (ctx, next) => {
     if ($isAuthenticated) {

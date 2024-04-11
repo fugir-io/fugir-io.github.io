@@ -1,15 +1,18 @@
-import createAuth0Client from '@auth0/auth0-spa-js';
 import { get, writable } from 'svelte/store';
 
-const _useAuth0 = () => {
-  const auth0Client = writable(null);
-  const isAuthenticated = writable(false);
-  const isLoading = writable(true);
-  const user = writable(null);
-  const error = writable(null);
-  const code = writable(null);
-  const state = writable(null);
+import createAuth0Client from '@auth0/auth0-spa-js';
 
+import {
+  auth0Client,
+  isAuthenticated,
+  isLoading,
+  user,
+  error,
+  code,
+  state,
+} from '🍎/stores/auth.store';
+
+const _useAuth0 = () => {
   const initializeAuth0 = async (config = {}) => {
     auth0Client.set(
       await createAuth0Client({
