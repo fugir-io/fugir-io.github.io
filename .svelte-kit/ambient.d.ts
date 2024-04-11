@@ -65,6 +65,7 @@ declare module '$env/static/private' {
 	export const PATH: string;
 	export const npm_package_json: string;
 	export const _: string;
+	export const VITE_AUTH0_CALLBACK_URL: string;
 	export const npm_config_userconfig: string;
 	export const npm_config_init_module: string;
 	export const USER_ZDOTDIR: string;
@@ -79,6 +80,7 @@ declare module '$env/static/private' {
 	export const AWS_REGION: string;
 	export const npm_config_npm_version: string;
 	export const VSCODE_GIT_ASKPASS_EXTRA_ARGS: string;
+	export const VITE_AUTH0_CLIENT_ID: string;
 	export const XPC_FLAGS: string;
 	export const ENV_TYPE: string;
 	export const npm_package_engines_node: string;
@@ -87,6 +89,7 @@ declare module '$env/static/private' {
 	export const npm_package_version: string;
 	export const XPC_SERVICE_NAME: string;
 	export const VSCODE_INJECTION: string;
+	export const VITE_AUTH0_DOMAIN: string;
 	export const npm_package_resolved: string;
 	export const SHLVL: string;
 	export const HOME: string;
@@ -180,6 +183,7 @@ declare module '$env/dynamic/private' {
 		PATH: string;
 		npm_package_json: string;
 		_: string;
+		VITE_AUTH0_CALLBACK_URL: string;
 		npm_config_userconfig: string;
 		npm_config_init_module: string;
 		USER_ZDOTDIR: string;
@@ -194,6 +198,7 @@ declare module '$env/dynamic/private' {
 		AWS_REGION: string;
 		npm_config_npm_version: string;
 		VSCODE_GIT_ASKPASS_EXTRA_ARGS: string;
+		VITE_AUTH0_CLIENT_ID: string;
 		XPC_FLAGS: string;
 		ENV_TYPE: string;
 		npm_package_engines_node: string;
@@ -202,6 +207,7 @@ declare module '$env/dynamic/private' {
 		npm_package_version: string;
 		XPC_SERVICE_NAME: string;
 		VSCODE_INJECTION: string;
+		VITE_AUTH0_DOMAIN: string;
 		npm_package_resolved: string;
 		SHLVL: string;
 		HOME: string;
