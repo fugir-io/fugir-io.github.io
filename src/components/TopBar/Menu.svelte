@@ -1,18 +1,30 @@
 <script lang="ts">
   import { theme } from '🍎/stores/theme.store';
-
+  import { sound } from "svelte-sound";
+  
   export let menu: any;
 </script>
 
 <section class="container" class:dark={$theme.scheme === 'dark'}>
   {#each Object.entries(menu) as [, val]}
-    <button
-      class="menu-item"
-      disabled={val.disabled}
-      on:click={() => val.click && val.click()}
-    >
+    {#if val.sound}
+      <button
+        class="menu-item"
+        disabled={val.disabled}
+        use:sound={{src: val.sound, events: ["click"]}}
+        on:click={() => val.click && val.click()}
+      >
       {val.title}
-    </button>
+      </button>
+    {:else}
+      <button
+        class="menu-item"
+        disabled={val.disabled}
+        on:click={() => val.click && val.click()}
+      >
+      {val.title}
+      </button>
+    {/if}
     {#if val.breakAfter}
       <div class="divider" />
     {/if}

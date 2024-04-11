@@ -36,7 +36,7 @@
 
 <!-- iframe => firefox support: will always make sound available on start or F5 -->
 {#if import.meta.env.PROD}
-  <iframe id="audio" src="/sounds/iphone-startup-wave.wav" allow="autoplay" title="hello" />
+  <iframe id="audio" src="/sounds/iphone-startup-wave.mp3" type="audio/mp3" allow="autoplay" title="hello" />
 {/if}
 
 <style lang="scss">

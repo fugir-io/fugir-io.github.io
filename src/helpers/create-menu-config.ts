@@ -9,65 +9,75 @@ const appleMenu = {
   menu: {
     'about-this-mac': {
       title: 'About This Mac',
+      sound: 'sounds/fanfare.mp3',
       click: () => {
-        alert('I am an alert box for About This Mac!');
+        console.log('I am an alert box for About This Mac!');
       },
       breakAfter: true,
     },
     'system-preferences': {
       title: 'System Preferences...',
+      sound: 'sounds/bite.mp3',
       click: () => {
-        alert('I am an alert box for System Preferences...!');
+        console.log('I am an alert box for System Preferences...!');
       },
     },
     'app-store': {
       title: 'App Store...',
+      sound: 'sounds/switch-on.mp3',
       click: () => {
-        alert('I am an alert box for App Store...!');
+        console.log('I am an alert box for App Store...!');
       },
       breakAfter: true,
     },
     'recent-items': {
       title: 'Recent Items',
+      sound: 'sounds/switch-on.mp3',
       click: () => {
-        alert('I am an alert box for Recent Items!');
+        console.log('I am an alert box for Recent Items!');
       },
       breakAfter: true,
     },
     'force-quit': {
       title: 'Force Quit...',
+      sound: 'sounds/switch-on.mp3',
       click: () => {
-        alert('I am an alert box for Force Quit...!');
+        console.log('I am an alert box for Force Quit...!');
       },
       breakAfter: true,
     },
     sleep: {
       title: 'Sleep',
+      sound: 'sounds/switch-on.mp3',
       click: () => {
-        alert('I am an alert box for Sleep!');
+        console.log('I am an alert box for Sleep!');
       },
     },
     restart: {
       title: 'Restart...',
+      sound: 'sounds/switch-on.mp3',
       click: () => {
-        alert('I am an alert box for Restart...!');
+        console.log('I am an alert box for Restart...!');
       },
     },
     shutdown: {
       title: 'Shut Down...',
       breakAfter: true,
+      sound: 'sounds/switch-on.mp3',
       click: () => {
-        alert('I am an alert box for Shut Down...!');
+        console.log('I am an alert box for Shut Down...!');
       },
     },
     'lock-screen': {
       title: 'Lock Screen',
+      sound: 'sounds/switch-on.mp3',
       click: () => {
-        alert('I am an alert box for Lock Screen!');
+        console.log('I am an alert box for Lock Screen!');
       },
     },
     logout: {
       title: 'Log Out User...',
+      sound: 'sounds/switch-off.mp3',
       click: () => {
         logout({
           returnTo: window.location.origin,
