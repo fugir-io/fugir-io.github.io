@@ -3,7 +3,7 @@
  * This file contains transition functions for fading elements in and out.
  * The `fadeIn` function fades an element in with a specified duration and delay.
  * The `fadeOut` function fades an element out with a specified duration.
- * 
+ *
  * @requires svelte/easing
  */
 
@@ -41,4 +41,8 @@ export function fadeOut(
   { duration = 150 }: SvelteTransitionConfig = {},
 ): SvelteTransitionReturnType {
   return {
-    duration
+    duration,
+    easing: sineOut,
+    css: (t) => `opacity: ${t}`,
+  };
+}

@@ -3,10 +3,10 @@
  * This file contains a helper function for creating a menu configuration object.
  * It provides a default Apple menu configuration and allows extending it with additional menus.
  *
- * @requires ../services/auth0
+ * @requires 🍎/services/auth0.ts
  */
 
-import { useAuth0 } from '../services/auth0';
+import { useAuth0 } from '🍎/services/auth0';
 
 // Importing the logout function from useAuth0
 const { logout } = useAuth0;
