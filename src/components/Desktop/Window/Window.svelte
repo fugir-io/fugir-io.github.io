@@ -65,7 +65,6 @@
     top = (document.body.clientWidth / 2 + randX) / 2;
     left = (100 + randY) / 2;
   }
-  // Update app properties (used to trigger normal cursor out side if window)
   let defaultPosition = { x: top, y: left };  
   setApp(appID, { ...appData, top, left });
 
@@ -161,24 +160,16 @@
   }
 
   /**
-   * Helper to update window coordinates in app props
-   * to allow cursor normalization in WindowArea
-   */
-  function updateAppCoordinates() {
-    const { left, right, top, bottom } = windowEl.getBoundingClientRect();
-    width = right - left;
-    height = bottom - top;
-    setApp(appID, { ...appData, top, left, width, height });
-    initialWidth = width;
-    initialHeight = height;
-  }
-
-  /**
    * Event handler for app drag end
    */
   function onAppDragEnd() {
     $isAppBeingDragged = false;
-    updateAppCoordinates()
+    // Update app properties in the store
+    const { left, right, top, bottom } = windowEl.getBoundingClientRect();
+    width = right - left
+    height = bottom - top
+    // console.log(`APP[${appID}].drag {${top}, ${left}, ${height}, ${width}}`)
+    setApp(appID, { ...appData, top, left, width, height });
   }
 
   /**
@@ -218,7 +209,13 @@
    */
   function endAppResize() {
     isResizing = false;
-    updateAppCoordinates()
+
+    const { left, right, top, bottom } = windowEl.getBoundingClientRect();
+    width = right - left
+    height = bottom - top
+    // console.log(`APP[${appID}].resize {${top}, ${left}, ${height}, ${width}}`)
+    // Update app properties in the store
+    setApp(appID, { ...appData, top, left, width, height });
   }
 
   /**
@@ -234,8 +231,6 @@
     $cursorY = e.y;
 
     if (e.x >= right - margin && e.y <= top + margin) {
-      // Diagonal resize cursor (up and to the right)
-      // NOTE: Note supported at the moment...
       document.body.style.cursor = 'default'; 
     } else if (e.x >= right - margin && e.y >= bottom - margin) {
       document.body.style.cursor = 'nwse-resize'; // Diagonal resize cursor (down and to the right)
