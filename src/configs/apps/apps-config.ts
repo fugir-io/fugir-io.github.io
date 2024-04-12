@@ -21,7 +21,7 @@ const calculator = createAppConfig(
     height: 300 * 1.414,
     width: 300,
   },
-  'calendar',
+  'calculator',
 );
 
 const calendar = createAppConfig(

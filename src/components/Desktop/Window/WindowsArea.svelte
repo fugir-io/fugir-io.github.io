@@ -1,5 +1,8 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+  
   import { appsConfig } from '🍎/configs/apps/apps-config';
+  import { getApp } from '🍎/stores/app.store';
   import { activeApp, activeAppZIndex, appZIndices, openApps } from '🍎/stores/apps.store';
 
   $: $activeApp, ($activeAppZIndex += 2);
@@ -25,6 +28,29 @@
   }
 
   $: $appZIndices, normalizeAppZIndices();
+
+  // Function to handle mousemove event to change cursor outside the "windows-area" section
+  function handleMouseMoveOutsideWindowArea(event: MouseEvent) {
+    const cursorX = event.clientX;
+    const cursorY = event.clientY;
+    const appData = getApp($activeApp);
+    const { top, left, height, width } = appData;
+    //console.log(`parent.cursor APP[${$activeApp}, {${top}, ${left}, ${height}, ${width}}] => (${cursorX}, ${cursorY})`)
+    if (cursorX < left || cursorX > (left+width) || cursorY < top || cursorY > (top+height)) {
+      // outsize of child app - update cursor
+      document.body.style.cursor = 'default';
+    }
+  }
+
+  onMount(() => {
+    // Attach event listener to the document for mousemove events
+    document.addEventListener('mousemove', handleMouseMoveOutsideWindowArea);
+
+    // Cleanup function to remove event listener when component is destroyed
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMoveOutsideWindowArea);
+    };
+  });
 </script>
 
 <section id="windows-area">

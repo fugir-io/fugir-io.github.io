@@ -6,6 +6,9 @@
  * @property {boolean} [isResizing=false] Whether the application window is resizing
  * @property {boolean} [expandable=false] Whether the application window is expandable.
  * @property {boolean} [isExpanding=false] Whether the application window is expanding
+ * @property {boolean} [draggingEnabled=true] Whether the application window is allowed to be moved
+ * @property {boolean} [isDragging=false] Whether the application window is actively moving
+ * @property {isMaximized} [isMaximized=false] Whether the application window is maximized
  * @property {boolean} [isVisible=false] Whether the application window is currently Visible
  * @property {string|number} [top='10'] The top position of the window
  * @property {string|number} [left='10'] The left position of the window
@@ -21,6 +24,9 @@ export type AppConfig = {
   isResizing?: boolean;
   expandable?: boolean;
   isExpanding?: boolean;
+  draggingEnabled?: boolean;
+  isDragging?: boolean;
+  isMaximized?: boolean;
   isVisible?: boolean;
   top?: string | number;
   left?: string | number;

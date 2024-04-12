@@ -11,17 +11,22 @@ import { type AppConfig } from '🍎/stores/app.type';
 export const createAppConfig = (et: AppConfig, appName: string) => {
   // Create the complete application configuration with default values
   const appConfig = {
-    shouldOpenWindow: true,
-    dockBreaksBefore: false,
+    title: '',
     resizable: true,
     isResizing: false,
     expandable: false,
     isExpanding: false,
-    isVisible: false,
+    draggingEnabled: true,
+    isDragging: false,
+    isMaximized: false,
+    isVisible: true,
     top: 10,
     left: 10,
     width: 600,
     height: 500,
+    shouldOpenWindow: true,
+    dockBreaksBefore: false,
+    // apply overrides
     ...et,
   };
 
