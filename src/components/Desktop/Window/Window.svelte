@@ -5,6 +5,9 @@
 
   import { elevation } from '🍎/actions';
   import { appsConfig } from '🍎/configs/apps/apps-config';
+  
+  import { setApp, getApp } from '🍎/stores/app.store';
+
   import { randint } from '🍎/helpers/random';
   import { waitFor } from '🍎/helpers/wait-for';
   import {
@@ -31,7 +34,12 @@
 
   let windowEl: HTMLElement;
 
-  const { height, width } = appsConfig[appID];
+  // Retrieve app data from the store using the getApp function
+  console.log(`app.ID`, appID);
+  const appData = getApp(appID); // Retrieve app data from the store
+  console.log(`THERE app.data`, appData)
+  let { top, left, height, width } = appData;
+
 
   const remModifier = +height * 1.2 >= window.innerHeight ? 24 : 16;
 
