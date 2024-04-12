@@ -1,68 +1,91 @@
 import { createAppConfig } from '🍎/helpers/create-app-config';
 
-const wallpapers = createAppConfig({
-  title: 'Wallpapers',
-  resizable: true,
+const wallpapers = createAppConfig(
+  {
+    title: 'Wallpapers',
+    resizable: true,
 
-  height: 600,
-  width: 800,
+    height: 600,
+    width: 800,
 
-  dockBreaksBefore: true,
-});
+    dockBreaksBefore: true,
+  },
+  'wallpapers',
+);
 
-const calculator = createAppConfig({
-  title: 'Calculator',
+const calculator = createAppConfig(
+  {
+    title: 'Calculator',
+    expandable: true,
 
-  expandable: true,
-  resizable: false,
+    height: 300 * 1.414,
+    width: 300,
+  },
+  'calculator',
+);
 
-  height: 300 * 1.414,
-  width: 300,
-});
+const calendar = createAppConfig(
+  {
+    title: 'Calendar',
+    expandable: false,
+    resizable: true,
+  },
+  'calendar',
+);
 
-const calendar = createAppConfig({
-  title: 'Calendar',
-  resizable: true,
-});
+const vscode = createAppConfig(
+  {
+    title: 'VSCode',
+    resizable: true,
 
-const vscode = createAppConfig({
-  title: 'VSCode',
-  resizable: true,
+    height: 600,
+    width: 800,
+  },
+  'vscode',
+);
 
-  height: 600,
-  width: 800,
-});
+const finder = createAppConfig(
+  {
+    title: 'Finder',
+    resizable: true,
 
-const finder = createAppConfig({
-  title: 'Finder',
-  resizable: true,
+    // dockBreaksBefore: true,
+    shouldOpenWindow: false,
+  },
+  'finder',
+);
 
-  // dockBreaksBefore: true,
-  shouldOpenWindow: false,
-});
+const safari = createAppConfig(
+  {
+    title: 'Safari',
+    resizable: true,
 
-const safari = createAppConfig({
-  title: 'Safari',
-  resizable: true,
+    width: 800,
+    height: 600,
+  },
+  'safari',
+);
 
-  width: 800,
-  height: 600,
-});
+const systemPreferences = createAppConfig(
+  {
+    title: 'System Preferences',
+    resizable: true,
+  },
+  'system-preferences',
+);
 
-const systemPreferences = createAppConfig({
-  title: 'System Preferences',
-  resizable: true,
-});
+const developerProfile = createAppConfig(
+  {
+    title: `About the Developer`,
+    resizable: true,
 
-const developerProfile = createAppConfig({
-  title: `About the Developer`,
-  resizable: true,
+    dockBreaksBefore: true,
 
-  dockBreaksBefore: true,
-
-  height: 600,
-  width: 800,
-});
+    height: 600,
+    width: 800,
+  },
+  'developer',
+);
 
 // const viewSource = createAppConfig({
 //   title: `View Source`,
@@ -72,10 +95,13 @@ const developerProfile = createAppConfig({
 //   externalAction: () => window.open('https://github.com/josephbarnett/', '_blank'),
 // });
 
-const appstore = createAppConfig({
-  title: 'App Store',
-  resizable: true,
-});
+const appstore = createAppConfig(
+  {
+    title: 'App Store',
+    resizable: true,
+  },
+  'appstore',
+);
 
 export const appsConfig = {
   finder,

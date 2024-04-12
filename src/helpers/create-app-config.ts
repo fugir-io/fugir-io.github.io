@@ -1,37 +1,39 @@
-/**
- * @fileoverview Helpers for Creating Application Configuration
- * This file contains helper functions for creating application configurations.
- * It defines the AppConfig type representing the configuration options for an application.
- * Additionally, it provides the createAppConfig function to create a complete application configuration.
- */
-
-/**
- * Type representing the configuration options for an application.
- * @typedef {object} AppConfig
- * @property {string} title The title of the application.
- * @property {boolean} [resizable=true] Whether the application window is resizable.
- * @property {boolean} [expandable=false] Whether the application window is expandable.
- * @property {string|number} [height='500'] The height of the application window.
- * @property {string|number} [width='600'] The width of the application window.
- * @property {boolean} [shouldOpenWindow=true] Whether the application window should open by default.
- * @property {(e: unknown) => void} [externalAction] The action to perform when the dock button is clicked.
- * @property {boolean} [dockBreaksBefore=false] Whether there should be a break in the dock before this app.
- */
+import { setApp } from '🍎/stores/app.store';
+import { type AppConfig } from '🍎/stores/app.type';
 
 /**
  * Function to create a complete application configuration with default values.
  * It takes an AppConfig object as input and merges it with default configuration values.
  * @param {AppConfig} et The partial application configuration.
+ * @param {string} appName The name of the app.
  * @returns {AppConfig} The complete application configuration.
  */
-export const createAppConfig = (et: AppConfig) => ({
-  shouldOpenWindow: true,
-  dockBreaksBefore: false,
+export const createAppConfig = (et: AppConfig, appName: string) => {
+  // Create the complete application configuration with default values
+  const appConfig = {
+    title: '',
+    resizable: true,
+    isResizing: false,
+    expandable: false,
+    isExpanding: false,
+    draggingEnabled: true,
+    isDragging: false,
+    isMaximized: false,
+    isVisible: true,
+    top: 10,
+    left: 10,
+    width: 600,
+    height: 500,
+    shouldOpenWindow: true,
+    dockBreaksBefore: false,
+    // apply overrides
+    ...et,
+  };
 
-  resizable: true,
-  expandable: false,
+  // Set the app properties in the store
+  console.log(`SETTING ${appName} app.data`, appConfig);
+  setApp(appName, appConfig);
 
-  width: 600,
-  height: 500,
-  ...et,
-});
+  // Return the complete application configuration
+  return appConfig;
+};
