@@ -166,9 +166,11 @@
    */
   function updateAppCoordinates() {
     const { left, right, top, bottom } = windowEl.getBoundingClientRect();
-    width = right - left
-    height = bottom - top
+    width = right - left;
+    height = bottom - top;
     setApp(appID, { ...appData, top, left, width, height });
+    initialWidth = width;
+    initialHeight = height;
   }
 
   /**
