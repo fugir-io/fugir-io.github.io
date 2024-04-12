@@ -2,5 +2,4 @@
 
 ![](./docs/assets/screenshot.png)
 
-## Building a Cloud Native Adventure 
-
+## Building a Cloud Native Adventure
