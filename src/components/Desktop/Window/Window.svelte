@@ -63,8 +63,6 @@
   }
   let defaultPosition = { x: top, y: left };
   setApp(appID, { ...appData, top, left });
-  isResizing = false;
-  $isAppBeingDragged = false;
 
   /**
    * Update z-index when the active app changes
@@ -117,7 +115,6 @@
       draggingEnabled = true;
 
       console.log(`minimizing: top/left(${top}, ${left}) h/w(${height}, ${width})`);
-
       // Restore the original position and size of the window
       windowEl.style.transform = `translate(${top}px, ${left}px)`;
       windowEl.style.width = width + 'px';
@@ -178,16 +175,19 @@
    */
   function beginWindowResizing(e: MouseEvent) {
     if (isResizing || !draggingEnabled || $isAppBeingDragged) return;
-    isResizing = true;
 
-    let { top: t, bottom: b, left: l, right: r } = windowEl.getBoundingClientRect();
-    const w = Math.abs(r - l);
-    const h = Math.abs(b - t);
-
-    width = w;
-    height = h;
-
-    console.log(`begin resize: top/left(${t}, ${l}), bottom/right(${b}, ${r}) H/W(${h}/${w})`);
+    const { top, bottom, left, right } = windowEl.getBoundingClientRect();
+    const margin = 10;
+    // Check if the mouse is within the margin from the edge of the window
+    if (
+      e.clientX <= left + margin ||
+      e.clientX >= right - margin ||
+      e.clientY <= top + margin ||
+      e.clientY >= bottom - margin
+    ) {
+      isResizing = true;
+      console.log(`begin resize: top/left(${top}, ${left}), bottom/right(${bottom}, ${right})`);
+    }
   }
 
   let resizeEvents = 0;
@@ -199,22 +199,12 @@
 
     resizeEvents++;
 
-    const {
-      top: cTop,
-      bottom: cBottom,
-      left: cLeft,
-      right: cRight,
-    } = windowEl.getBoundingClientRect();
-    const deltaX = cRight - e.clientX;
-    const deltaY = cBottom - e.clientX;
-    const w = Math.abs(cRight + e.movementX) - cLeft;
-    const h = Math.abs(cBottom + e.movementY) - cTop;
+    const { top: t, bottom: b, left: l, right: r } = windowEl.getBoundingClientRect();
 
-    console.log(`resize: event:`, e);
-
-    console.log(
-      `resize: top/left(${cTop}, ${cLeft}), bottom/right(${cBottom}, ${cRight}) offset X/Y(${e.offsetX}/${e.offsetY}) H/W(${h}/${w})`,
-    );
+    const deltaX = r - e.clientX;
+    const deltaY = b - e.clientY;
+    const w = Math.abs(r + e.movementX - l);
+    const h = Math.abs(b + e.movementY - t);
 
     windowEl.style.width = w + 'px';
     windowEl.style.height = h + 'px';
@@ -229,32 +219,22 @@
 
     isResizing = false;
 
-    if (resizeEvents == 0) return;
+    // don't adjust anything if we've seen no actual events
+    if (resizeEvents <= 0) return;
 
-    console.log(
-      `end resize: isMaximized=${isMaximized} isResizing(${isResizing}), draggingEnabled(${draggingEnabled}) isAppBeingDragged(${$isAppBeingDragged})`,
-    );
+    // get the current window boundary
+    const { left: l, right: r, top: t, bottom: b } = windowEl.getBoundingClientRect();
 
-    const {
-      left: clientLeft,
-      right: clientRight,
-      top: clientTop,
-      bottom: clientBottom,
-    } = windowEl.getBoundingClientRect();
-
-    const w = Math.abs(clientRight - clientLeft);
-    const h = Math.abs(clientBottom - clientTop);
-
-    width = w;
-    height = h;
+    const w = r - l;
+    const h = b - t;
     resizeEvents = 0;
 
     console.log(
-      `end resize: top/left(${clientTop}, ${clientLeft}), bottom/right(${clientBottom}, ${clientRight}) H/W(${height}/${width})`,
+      `end resize: top/left(${t}, ${l}), bottom/right(${b}, ${r}) H/W(${height}/${width})`,
     );
 
     // Update app properties in the store
-    setApp(appID, { ...appData, width, height });
+    setApp(appID, { ...appData, width: w, height: h, top: t, left: l });
   }
 
   /**
@@ -263,7 +243,7 @@
    * in the current window.
    */
   function updateCursorHandler(e: MouseEvent) {
-    const { left, right, top, bottom } = windowEl.getBoundingClientRect();
+    const { right, top, bottom } = windowEl.getBoundingClientRect();
     const margin = 10;
 
     if (e.x >= right - margin && e.y <= top + margin) {
@@ -283,14 +263,18 @@
    * On mount, set up event listeners for resize and drag
    */
   onMount(() => {
+    window.addEventListener('mousedown', beginWindowResizing);
     window.addEventListener('mousemove', resizeHandler);
     window.addEventListener('mouseup', endAppResize);
+    window.addEventListener('keydown', () => {});
 
     windowEl?.focus();
 
     return () => {
+      window.removeEventListener('mousedown', beginWindowResizing);
       window.removeEventListener('mousemove', resizeHandler);
       window.removeEventListener('mouseup', endAppResize);
+      window.removeEventListener('keydown', () => {});
     };
   });
 </script>
