@@ -32,7 +32,7 @@ export const activeApp = writable<AppID>('finder');
 
 /**
  * Maximum zIndex for the active app
- * Initialize with -2, so that it becomes 0 when initialised
+ * Initialize with -2, so that it becomes 0 when initialized
  */
 export const activeAppZIndex = writable(-2);
 

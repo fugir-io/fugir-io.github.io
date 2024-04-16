@@ -149,7 +149,6 @@
     if (isResizing || !draggingEnabled) return;
     $isAppBeingDragged = true;
     focusApp();
-    console.log('begin drag');
   }
 
   /**
@@ -164,7 +163,7 @@
     top = t;
     left = l;
 
-    console.log(`end drag: top/left(${top}, ${left})`);
+    // console.log(`end drag: top/left(${top}, ${left})`);
 
     setApp(appID, { ...appData, top, left });
     $isAppBeingDragged = false;
@@ -263,18 +262,20 @@
    * On mount, set up event listeners for resize and drag
    */
   onMount(() => {
-    window.addEventListener('mousedown', beginWindowResizing);
-    window.addEventListener('mousemove', resizeHandler);
-    window.addEventListener('mouseup', endAppResize);
-    window.addEventListener('keydown', () => {});
+    if ($activeApp !== appID) return; // Don't set up event listeners if the window is not active
+
+    windowEl.addEventListener('mousedown', beginWindowResizing);
+    windowEl.addEventListener('mousemove', resizeHandler);
+    windowEl.addEventListener('mouseup', endAppResize);
+    windowEl.addEventListener('keydown', () => {});
 
     windowEl?.focus();
 
     return () => {
-      window.removeEventListener('mousedown', beginWindowResizing);
-      window.removeEventListener('mousemove', resizeHandler);
-      window.removeEventListener('mouseup', endAppResize);
-      window.removeEventListener('keydown', () => {});
+      windowEl.removeEventListener('mousedown', beginWindowResizing);
+      windowEl.removeEventListener('mousemove', resizeHandler);
+      windowEl.removeEventListener('mouseup', endAppResize);
+      windowEl.removeEventListener('keydown', () => {});
     };
   });
 </script>
