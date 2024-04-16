@@ -10,9 +10,7 @@
    * Import actions, configs, stores, components, and helpers
    */
   import { elevation } from '🍎/actions';
-  import { appsConfig } from '🍎/configs/apps/apps-config';
   import { setApp, getApp } from '🍎/stores/app.store';
-  import { cursorX, cursorY } from '🍎/stores/cursor.store';
   import {
     activeApp,
     activeAppZIndex,
@@ -41,15 +39,11 @@
   let windowEl: HTMLElement;
 
   /**
-   * Retrieve initial app data from the store 
+   * Retrieve initial app data from the store
    * ad set the initial values
    */
   const appData = getApp(appID);
   let { draggingEnabled, isResizing, isMaximized, top, left, height, width } = appData;
-  let initialX = 0;
-  let initialY = 0;
-  let initialWidth = width;
-  let initialHeight = height;
 
   /**
    * Calculate REM modifier
@@ -59,13 +53,15 @@
   /**
    * Set default window position if this is a new window
    */
-  if (top == 10 && left == 10)  {
+  if (top == 10 && left == 10) {
     const randX = randint(-600, 600);
     const randY = randint(-100, 100);
     top = (document.body.clientWidth / 2 + randX) / 2;
     left = (100 + randY) / 2;
+
+    console.log(`set initial: top/left(${top}, ${left})`);
   }
-  let defaultPosition = { x: top, y: left };  
+  let defaultPosition = { x: top, y: left };
   setApp(appID, { ...appData, top, left });
 
   /**
@@ -100,34 +96,29 @@
    * Function to maximize the app window
    */
   async function maximizeApp() {
+    // Ensure isResizing is reset
+    $isAppBeingDragged = false;
+    isResizing = false;
+    console.log(`begin maximize`);
     if (!$prefersReducedMotion) {
       windowEl.style.transition = 'height 0.3s ease, width 0.3s ease, transform 0.3s ease';
     }
 
-    // Ensure isResizing is reset
-    isResizing = false;
-    $isAppBeingDragged = false;
-
     if (!isMaximized) {
       // Store the original position and size of the window
-      initialWidth = width;
-      initialHeight = height;
-      initialX = windowEl.getBoundingClientRect().left;
-      initialY = windowEl.getBoundingClientRect().top;
-
       draggingEnabled = false;
-      
+
       windowEl.style.transform = `translate(0px, 0px)`;
       windowEl.style.width = `100%`;
       windowEl.style.height = 'calc(100vh - 1.7rem)';
-
     } else {
       draggingEnabled = true;
 
+      console.log(`minimizing: top/left(${top}, ${left}) h/w(${height}, ${width})`);
       // Restore the original position and size of the window
-      windowEl.style.transform = `translate(${initialX}px, ${initialY}px)`;
-      windowEl.style.width = `${initialWidth / remModifier}rem`;
-      windowEl.style.height = `${initialHeight / remModifier}rem`;
+      windowEl.style.transform = `translate(${top}px, ${left}px)`;
+      windowEl.style.width = width + 'px';
+      windowEl.style.height = height + 'px';
     }
 
     isMaximized = !isMaximized;
@@ -140,8 +131,8 @@
 
     // Update isMaximized property only in the store after the transition completes
     setApp(appID, { ...appData, isMaximized });
+    console.log(`end maximize`);
   }
-
 
   /**
    * Function to close the app window
@@ -155,83 +146,108 @@
    * Event handler for app drag start
    */
   function onAppDragStart() {
-    focusApp();
+    if (isResizing || !draggingEnabled) return;
     $isAppBeingDragged = true;
+    focusApp();
+    console.log('begin drag');
   }
 
   /**
    * Event handler for app drag end
    */
   function onAppDragEnd() {
-    $isAppBeingDragged = false;
+    if (isResizing || !isAppBeingDragged || !draggingEnabled) return;
+
     // Update app properties in the store
-    const { left, right, top, bottom } = windowEl.getBoundingClientRect();
-    width = right - left
-    height = bottom - top
-    // console.log(`APP[${appID}].drag {${top}, ${left}, ${height}, ${width}}`)
-    setApp(appID, { ...appData, top, left, width, height });
+    const { left: l, top: t } = windowEl.getBoundingClientRect();
+
+    top = t;
+    left = l;
+
+    console.log(`end drag: top/left(${top}, ${left})`);
+
+    setApp(appID, { ...appData, top, left });
+    $isAppBeingDragged = false;
   }
 
   /**
    * Event handler for app resize start
    */
   function beginWindowResizing(e: MouseEvent) {
-    if ($isAppBeingDragged) return
+    if (isResizing || !draggingEnabled || $isAppBeingDragged) return;
 
-    initialX = e.x;
-    initialY = e.y;
-    width = parseInt(getComputedStyle(windowEl).width);
-    height = parseInt(getComputedStyle(windowEl).height);
-    
-    const { left, right, top, bottom } = windowEl.getBoundingClientRect();
+    const { top, bottom, left, right } = windowEl.getBoundingClientRect();
     const margin = 10;
-    isResizing = e.x >= right - margin || e.x <= left + margin || e.y >= bottom - margin || e.y <= top + margin;
+    // Check if the mouse is within the margin from the edge of the window
+    if (
+      e.clientX <= left + margin ||
+      e.clientX >= right - margin ||
+      e.clientY <= top + margin ||
+      e.clientY >= bottom - margin
+    ) {
+      isResizing = true;
+      console.log(`begin resize: top/left(${top}, ${left}), bottom/right(${bottom}, ${right})`);
+    }
   }
 
+  let resizeEvents = 0;
   /**
    * Event handler for app resize
    */
   function resizeHandler(e: MouseEvent) {
-    if (!isResizing || $isAppBeingDragged) return;
-    
-    const deltaX = e.clientX - initialX;
-    const deltaY = e.clientY - initialY;
+    if (!isResizing || !draggingEnabled || $isAppBeingDragged) return;
 
-    width = initialWidth + deltaX;
-    height = initialHeight + deltaY;
+    resizeEvents++;
 
-    windowEl.style.width = width + 'px';
-    windowEl.style.height = height + 'px';
+    const { top: t, bottom: b, left: l, right: r } = windowEl.getBoundingClientRect();
+
+    const deltaX = r - e.clientX;
+    const deltaY = b - e.clientY;
+    const w = Math.abs(r + e.movementX - l);
+    const h = Math.abs(b + e.movementY - t);
+
+    windowEl.style.width = w + 'px';
+    windowEl.style.height = h + 'px';
   }
 
   /**
    * Event handler for app resize end
    */
   function endAppResize() {
+    // can get this event when resizing due to click location
+    if (isMaximized || !isResizing || !draggingEnabled || $isAppBeingDragged) return;
+
     isResizing = false;
 
-    const { left, right, top, bottom } = windowEl.getBoundingClientRect();
-    width = right - left
-    height = bottom - top
-    // console.log(`APP[${appID}].resize {${top}, ${left}, ${height}, ${width}}`)
+    // don't adjust anything if we've seen no actual events
+    if (resizeEvents <= 0) return;
+
+    // get the current window boundary
+    const { left: l, right: r, top: t, bottom: b } = windowEl.getBoundingClientRect();
+
+    const w = r - l;
+    const h = b - t;
+    resizeEvents = 0;
+
+    console.log(
+      `end resize: top/left(${t}, ${l}), bottom/right(${b}, ${r}) H/W(${height}/${width})`,
+    );
+
     // Update app properties in the store
-    setApp(appID, { ...appData, top, left, width, height });
+    setApp(appID, { ...appData, width: w, height: h, top: t, left: l });
   }
 
   /**
    * Event handler for window resizing
-   * which changes the cursor icon based on position in the 
+   * which changes the cursor icon based on position in the
    * in the current window.
    */
   function updateCursorHandler(e: MouseEvent) {
-    const { left, right, top, bottom } = windowEl.getBoundingClientRect();
+    const { right, top, bottom } = windowEl.getBoundingClientRect();
     const margin = 10;
 
-    $cursorX = e.x;
-    $cursorY = e.y;
-
     if (e.x >= right - margin && e.y <= top + margin) {
-      document.body.style.cursor = 'default'; 
+      document.body.style.cursor = 'default';
     } else if (e.x >= right - margin && e.y >= bottom - margin) {
       document.body.style.cursor = 'nwse-resize'; // Diagonal resize cursor (down and to the right)
     } else if (e.x >= right - margin) {
@@ -247,14 +263,18 @@
    * On mount, set up event listeners for resize and drag
    */
   onMount(() => {
+    window.addEventListener('mousedown', beginWindowResizing);
     window.addEventListener('mousemove', resizeHandler);
     window.addEventListener('mouseup', endAppResize);
+    window.addEventListener('keydown', () => {});
 
     windowEl?.focus();
 
     return () => {
+      window.removeEventListener('mousedown', beginWindowResizing);
       window.removeEventListener('mousemove', resizeHandler);
       window.removeEventListener('mouseup', endAppResize);
+      window.removeEventListener('keydown', () => {});
     };
   });
 </script>
