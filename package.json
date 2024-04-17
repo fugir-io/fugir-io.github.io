@@ -43,7 +43,7 @@
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.22.0",
     "@fontsource/inter": "^5.0.17",
-    "@neodrag/svelte": "2.0.4",
+    "@neodrag/svelte": "2.0.5",
     "axios": "1.6.8",
     "date-fns": "^3.6.0",
     "page": "^1.11.6",
