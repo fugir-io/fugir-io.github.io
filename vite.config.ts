@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
-import { svelte } from '@sveltejs/vite-plugin-svelte';
+import react from '@vitejs/plugin-react';
 import UnpluginIcons from 'unplugin-icons/vite';
 import { imagetools } from 'vite-imagetools';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -8,10 +8,10 @@ import { prefetch } from './prefetch-plugin';
 
 export default defineConfig({
   plugins: [
-    svelte(),
+    react(),
     prefetch(),
 
-    UnpluginIcons({ autoInstall: true, compiler: 'svelte' }),
+    UnpluginIcons({ autoInstall: true, compiler: 'jsx', jsx: 'react' }),
     VitePWA({
       includeAssets: [
         'robots.txt',
@@ -23,10 +23,10 @@ export default defineConfig({
         'assets/*.webp',
       ],
       manifest: {
-        name: 'Mac OS Monterey Svelte Web',
-        short_name: 'macOS Svelte',
+        name: 'Mac OS Monterey React Web',
+        short_name: 'macOS React',
         theme_color: '#ffffff',
-        description: 'Mac OS Monterey Web written in Svelte',
+        description: 'Mac OS Monterey Web written in React',
         icons: [
           {
             src: 'app-icons/finder/128.png',

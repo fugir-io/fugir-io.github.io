@@ -1,34 +1,38 @@
 {
-  "extends": "./.svelte-kit/tsconfig.json",
   "compilerOptions": {
-    "moduleResolution": "node",
-    /**
-      To have warnings/errors of the Svelte compiler at the correct position,
-      enable source maps by default.
-     */
-    "sourceMap": true,
-    "lib": ["ESNext", "DOM"],
-    "strict": false,
-    "esModuleInterop": true,
-    "noEmit": true,
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "target": "esnext",
-    "module": "esnext",
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* Additional options */
+    "allowJs": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "sourceMap": true,
+
+    /* Path mapping */
+    "baseUrl": ".",
     "paths": {
       "🍎/*": ["./src/*"]
     },
-    "types": ["vite-plugin-pwa/client"],
-    /**
-     * Typecheck JS in `.svelte` and `.js` files by default.
-     * Disable checkJs if you'd like to use dynamic types in JS.
-     * Note that setting allowJs false does not prevent the use
-     * of JS in `.svelte` files.
-     */
-    "allowJs": true,
-    "checkJs": true
+    "types": ["vite-plugin-pwa/client"]
   },
-  "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte", "./*.ts"],
-  "exclude": ["node_modules/**/*"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
