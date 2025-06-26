@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useAppsStore } from '🚀/stores/useAppsStore';
+import { useAppsStore } from '@/stores/useAppsStore';
 
 interface TerminalEntry {
   type: 'input' | 'output' | 'error';

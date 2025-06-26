@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppID } from '🚀/stores/useAppsStore';
+import { AppID } from '@/stores/useAppsStore';
 
 // Import app components (we'll create placeholders for now)
 const Calculator = React.lazy(() => import('./Calculator/Calculator'));

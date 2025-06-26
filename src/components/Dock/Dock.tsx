@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useAppsStore, AppID } from '🚀/stores/useAppsStore';
-import { appsConfig } from '🚀/configs/apps/appsConfig';
+import { useAppsStore, AppID } from '@/stores/useAppsStore';
+import { appsConfig } from '@/configs/apps/appsConfig';
 
 const Dock: React.FC = () => {
   const [hoveredApp, setHoveredApp] = useState<AppID | null>(null);

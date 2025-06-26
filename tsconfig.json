@@ -29,7 +29,7 @@
     /* Path mapping */
     "baseUrl": ".",
     "paths": {
-      "🍎/*": ["./src/*"]
+      "@/*": ["./src/*"]
     },
     "types": ["vite-plugin-pwa/client"]
   },

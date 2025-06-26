@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useAppsStore, AppID } from '🚀/stores/useAppsStore';
-import { useAppStore } from '🚀/stores/useAppStore';
+import { useAppsStore, AppID } from '@/stores/useAppsStore';
+import { useAppStore } from '@/stores/useAppStore';
 
 interface TrafficLightsProps {
   appID: AppID;

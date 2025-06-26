@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useAppsStore } from '🚀/stores/useAppsStore';
-import { useAppStore } from '🚀/stores/useAppStore';
+import { useAppsStore } from '@/stores/useAppsStore';
+import { useAppStore } from '@/stores/useAppStore';
 import { useAuth0 } from '../../contexts/Auth0Context';
-import { getMenuConfigForApp, MenuItem } from '🚀/configs/menu/topbar.menu.config';
+import { getMenuConfigForApp, MenuItem } from '@/configs/menu/topbar.menu.config';
 
 const TopBar: React.FC = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
