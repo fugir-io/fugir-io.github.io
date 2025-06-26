@@ -74,7 +74,7 @@ const createWallpaperList = (): Wallpaper[] => {
     // Artistic Wallpapers
     { id: 'solar-grad', name: 'Solar Gradients', type: 'dynamic', thumbnail: 'solar-grad-11.jpg', url: 'solar-grad-1.jpg', category: 'artistic' },
     { id: 'iridescence', name: 'Iridescence', type: 'dynamic', thumbnail: 'iridescence-2.jpg', url: 'iridescence-1.jpg', category: 'artistic' },
-    { id: 'favorite-46', name: 'Favorite 46', type: 'standalone', thumbnail: '46.jpg', url: '46.jpg', category: 'artistic' },
+    { id: 'favorite-46', name: 'Defiance', type: 'standalone', thumbnail: '46.jpg', url: '46.jpg', category: 'artistic' },
     { id: 'kryptonian-demise', name: 'Kryptonian Demise', type: 'standalone', thumbnail: '38.jpg', url: '38.jpg', category: 'artistic' },
     { id: 'nahargarh-sunset', name: 'Nahargarh Sunset', type: 'standalone', thumbnail: '39.jpg', url: '39.jpg', category: 'artistic' },
     { id: 'somber-forest', name: 'Somber Forest', type: 'standalone', thumbnail: '40.jpg', url: '40.jpg', category: 'artistic' },

@@ -60,7 +60,7 @@ const LoadingScreen: React.FC = () => {
           margin: '0 0 10px 0',
           letterSpacing: '1px',
         }}>
-          Loading macOS
+          Loading Fugir
         </h2>
 
         <p style={{
@@ -69,7 +69,7 @@ const LoadingScreen: React.FC = () => {
           margin: '0',
           fontWeight: '300',
         }}>
-          Preparing your desktop environment...
+          Preparing your workspace...
         </p>
 
         {/* Progress Dots */}
