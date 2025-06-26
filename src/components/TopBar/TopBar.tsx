@@ -131,10 +131,10 @@ const TopBar: React.FC = () => {
               background: activeMenu === menuName ? 'rgba(0, 122, 255, 0.15)' : 'transparent',
               transition: 'all 0.2s ease',
             }}
-            onClick={(e) => handleMenuClick(menuName, e)}
+            onClick={(e) => handleMenuClick(String(menuName), e)}
             onMouseEnter={(e) => {
               if (activeMenu && activeMenu !== menuName) {
-                handleMenuClick(menuName, e);
+                handleMenuClick(String(menuName), e);
               }
             }}
           >

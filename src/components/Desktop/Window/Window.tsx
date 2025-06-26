@@ -83,7 +83,7 @@ const Window: React.FC<WindowProps> = ({ appID }) => {
     e.preventDefault();
     setIsDragging(true);
     setDragStart({ x: e.clientX, y: e.clientY });
-    setWindowStart({ x: appConfig.left || 0, y: appConfig.top || 0 });
+    setWindowStart({ x: Number(appConfig.left || 0), y: Number(appConfig.top || 0) });
     setActiveApp(appID);
     
     console.log('Started dragging window:', appID);
@@ -142,8 +142,8 @@ const Window: React.FC<WindowProps> = ({ appID }) => {
     setResizeStart({
       x: e.clientX,
       y: e.clientY,
-      width: appConfig.width || 600,
-      height: appConfig.height || 500,
+      width: Number(appConfig.width || 600),
+      height: Number(appConfig.height || 500),
     });
     
     console.log('Started resizing:', direction);
@@ -157,13 +157,13 @@ const Window: React.FC<WindowProps> = ({ appID }) => {
     
     let newWidth = resizeStart.width;
     let newHeight = resizeStart.height;
-    let newLeft = appConfig.left || 0;
-    let newTop = appConfig.top || 0;
+    let newLeft = Number(appConfig.left || 0);
+    let newTop = Number(appConfig.top || 0);
     
     if (resizeDirection.includes('e')) newWidth += deltaX;
-    if (resizeDirection.includes('w')) { newWidth -= deltaX; newLeft += deltaX; }
+    if (resizeDirection.includes('w')) { newWidth -= deltaX; newLeft = Number(newLeft) + deltaX; }
     if (resizeDirection.includes('s')) newHeight += deltaY;
-    if (resizeDirection.includes('n')) { newHeight -= deltaY; newTop += deltaY; }
+    if (resizeDirection.includes('n')) { newHeight -= deltaY; newTop = Number(newTop) + deltaY; }
     
     // Apply constraints
     newWidth = Math.max(200, newWidth);

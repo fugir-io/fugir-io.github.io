@@ -86,6 +86,7 @@ const Calculator: React.FC = () => {
                         className.includes('clear') ? '#a6a6a6' : '#333',
         color: className.includes('clear') ? '#000' : '#fff',
         outline: 'none',
+        gridColumn: className.includes('zero') ? 'span 2' : undefined,
       }}
       onMouseDown={(e) => {
         e.currentTarget.style.transform = 'scale(0.95)';
@@ -162,7 +163,7 @@ const Calculator: React.FC = () => {
         <Button onClick={() => inputNumber('3')}>3</Button>
         <Button onClick={() => inputOperation('+')} className="operator">+</Button>
 
-        <Button onClick={() => inputNumber('0')} style={{ gridColumn: 'span 2' }}>0</Button>
+        <Button onClick={() => inputNumber('0')} className="zero">0</Button>
         <Button onClick={() => inputNumber('.')}>.</Button>
         <Button onClick={performCalculation} className="operator">=</Button>
       </div>

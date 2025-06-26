@@ -45,7 +45,7 @@ export const useThemeStore = create<ThemeStore>()(
       toggleScheme: () => {
         const { theme } = get();
         const newScheme = theme.scheme === 'light' ? 'dark' : 'light';
-        const newTheme = { ...theme, scheme: newScheme };
+        const newTheme: Theme = { ...theme, scheme: newScheme };
         set({ theme: newTheme });
         applyThemeToDOM(newTheme);
       },
