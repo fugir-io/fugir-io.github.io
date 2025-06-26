@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { Theme } from '🍎/types/app.types';
+import { Theme } from '🚀/types/app.types';
 
 interface ThemeStore {
   // State

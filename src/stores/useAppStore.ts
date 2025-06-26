@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { AppConfig, AppProperties } from '🍎/types/app.types';
+import { AppConfig, AppProperties } from '🚀/types/app.types';
 
 interface AppStore {
   // State

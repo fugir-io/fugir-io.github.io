@@ -38,7 +38,7 @@ const LoadingScreen: React.FC = () => {
           animation: 'float 3s ease-in-out infinite',
           filter: 'drop-shadow(0 10px 30px rgba(255,255,255,0.3))',
         }}>
-          🍎
+          🚀
         </div> */}
 
         {/* Loading Spinner */}

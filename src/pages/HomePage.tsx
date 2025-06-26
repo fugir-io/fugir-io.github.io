@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Desktop from '🍎/components/Desktop/Desktop';
+import Desktop from '🚀/components/Desktop/Desktop';
 
 /**
  * Page File for Desktop View

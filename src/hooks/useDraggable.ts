@@ -1,5 +1,5 @@
 import { useCallback, useRef } from 'react';
-import { useAppsStore } from '🍎/stores/useAppsStore';
+import { useAppsStore } from '🚀/stores/useAppsStore';
 
 export interface DragOptions {
   handle?: string;

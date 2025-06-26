@@ -1,5 +1,5 @@
-import { createAppConfig } from '🍎/helpers/createAppConfig';
-// import { AppID } from '🍎/stores/useAppsStore'; // Removed unused import
+import { createAppConfig } from '🚀/helpers/createAppConfig';
+// import { AppID } from '🚀/stores/useAppsStore'; // Removed unused import
 
 const wallpapers = createAppConfig(
   {

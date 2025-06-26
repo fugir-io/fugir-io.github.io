@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useThemeStore } from '🍎/stores/useThemeStore';
-import { useSystemStore } from '🍎/stores/useSystemStore';
-import { useAppsStore, AppID } from '🍎/stores/useAppsStore';
-import { useAppStore } from '🍎/stores/useAppStore';
-import { useWallpaperStore } from '🍎/stores/useWallpaperStore';
-import { appsConfig } from '🍎/configs/apps/appsConfig';
+import { useThemeStore } from '🚀/stores/useThemeStore';
+import { useSystemStore } from '🚀/stores/useSystemStore';
+import { useAppsStore, AppID } from '🚀/stores/useAppsStore';
+import { useAppStore } from '🚀/stores/useAppStore';
+import { useWallpaperStore } from '🚀/stores/useWallpaperStore';
+import { appsConfig } from '🚀/configs/apps/appsConfig';
 import Window from './Window/Window';
-import Dock from '🍎/components/Dock/Dock';
-import TopBar from '🍎/components/TopBar/TopBar';
+import Dock from '🚀/components/Dock/Dock';
+import TopBar from '🚀/components/TopBar/TopBar';
 
 const Desktop: React.FC = () => {
   console.log('Desktop component rendering');

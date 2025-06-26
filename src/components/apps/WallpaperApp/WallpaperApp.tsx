@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useWallpaperStore, Wallpaper } from '🍎/stores/useWallpaperStore';
+import { useWallpaperStore, Wallpaper } from '🚀/stores/useWallpaperStore';
 
 const WallpaperApp: React.FC = () => {
   const {

@@ -1,5 +1,5 @@
-import { AppConfig } from '🍎/types/app.types';
-import { useAppStore } from '🍎/stores/useAppStore';
+import { AppConfig } from '🚀/types/app.types';
+import { useAppStore } from '🚀/stores/useAppStore';
 
 /**
  * Function to create a complete application configuration with default values.

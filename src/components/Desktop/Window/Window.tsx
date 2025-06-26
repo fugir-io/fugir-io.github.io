@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useAppStore } from '🍎/stores/useAppStore';
-import { useAppsStore, AppID } from '🍎/stores/useAppsStore';
-import { useSystemStore } from '🍎/stores/useSystemStore';
-import { AppConfig } from '🍎/types/app.types';
+import { useAppStore } from '🚀/stores/useAppStore';
+import { useAppsStore, AppID } from '🚀/stores/useAppsStore';
+import { useSystemStore } from '🚀/stores/useSystemStore';
+import { AppConfig } from '🚀/types/app.types';
 import TrafficLights from './TrafficLights';
-import AppNexus from '🍎/components/apps/AppNexus';
+import AppNexus from '🚀/components/apps/AppNexus';
 
 interface WindowProps {
   appID: AppID;

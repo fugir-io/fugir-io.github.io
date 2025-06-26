@@ -1,4 +1,4 @@
-import { AppID } from '🍎/stores/useAppsStore';
+import { AppID } from '🚀/stores/useAppsStore';
 
 export interface MenuAction {
   action: string;

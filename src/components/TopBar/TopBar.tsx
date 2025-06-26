@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useAppsStore } from '🍎/stores/useAppsStore';
-import { useAppStore } from '🍎/stores/useAppStore';
+import { useAppsStore } from '🚀/stores/useAppsStore';
+import { useAppStore } from '🚀/stores/useAppStore';
 import { useAuth0 } from '../../contexts/Auth0Context';
-import { getMenuConfigForApp, MenuItem } from '🍎/configs/menu/topbar.menu.config';
+import { getMenuConfigForApp, MenuItem } from '🚀/configs/menu/topbar.menu.config';
 
 const TopBar: React.FC = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -24,7 +24,7 @@ const TopBar: React.FC = () => {
 
   // Log when active app changes to show dynamic menu behavior
   useEffect(() => {
-    console.log(`🍎 Active app changed to: ${activeApp} (${currentAppName})`);
+    console.log(`🚀 Active app changed to: ${activeApp} (${currentAppName})`);
     console.log(`📋 Available menus:`, menuNames);
   }, [activeApp, currentAppName, menuNames]);
 
@@ -109,7 +109,7 @@ const TopBar: React.FC = () => {
     >
       {/* Left side - Apple logo and app name */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }} ref={menuRef}>
-        <div style={{ fontSize: '14px' }}>🍎</div>
+        <div style={{ fontSize: '14px' }}>🚀</div>
         <span style={{ 
           fontWeight: '600',
           color: '#1d1d1f',

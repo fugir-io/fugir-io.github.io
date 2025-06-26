@@ -1,5 +1,5 @@
 import { useCallback, useRef } from 'react';
-import { useAppStore } from '🍎/stores/useAppStore';
+import { useAppStore } from '🚀/stores/useAppStore';
 
 export interface ResizeOptions {
   minWidth?: number;
