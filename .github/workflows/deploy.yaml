@@ -1,10 +1,13 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+# Deploy to GitHub Pages after CI passes
+name: Deploy to Pages
 
 on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches: ['main']
+  # Runs on pushes targeting the default branch after CI passes
+  workflow_run:
+    workflows: ["Continuous Integration"]
+    types:
+      - completed
+    branches: ["main"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -17,12 +20,14 @@ permissions:
 
 # Allow one concurrent deployment
 concurrency:
-  group: 'pages'
+  group: "pages"
   cancel-in-progress: true
 
 jobs:
   # Single deploy job since we're just deploying
   deploy:
+    # Only run if CI workflow succeeded
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -34,13 +39,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: 'npm'
+          cache: "npm"
       - name: Setup pnpm
         uses: pnpm/action-setup@v3 # docs https://pnpm.io/continuous-integration#github-actions
         with:
           version: 8 # Optional: specify a pnpm version
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+      - name: Run tests before deploy
+        run: npm run test:run
       - name: Make envfile
         uses: SpicyPizza/create-envfile@v2.0
         with:
@@ -58,7 +65,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload dist repository
-          path: './dist'
+          path: "./dist"
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

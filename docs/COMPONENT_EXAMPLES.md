@@ -36,7 +36,7 @@ const LoadingScreen: React.FC = () => {
                          radial-gradient(circle at 70% 70%, rgba(255,255,255,0.1) 0%, transparent 50%)`,
         animation: 'breathe 4s ease-in-out infinite',
       }} />
-      
+
       {/* Loading Content */}
       <div style={{
         textAlign: 'center',
@@ -113,33 +113,33 @@ const LoadingScreen: React.FC = () => {
           0% { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
         }
-        
+
         @keyframes float {
-          0%, 100% { 
+          0%, 100% {
             transform: translateY(0px);
           }
-          50% { 
+          50% {
             transform: translateY(-10px);
           }
         }
-        
+
         @keyframes breathe {
-          0%, 100% { 
+          0%, 100% {
             opacity: 1;
             transform: scale(1);
           }
-          50% { 
+          50% {
             opacity: 0.8;
             transform: scale(1.02);
           }
         }
-        
+
         @keyframes pulse {
-          0%, 100% { 
+          0%, 100% {
             opacity: 0.4;
             transform: scale(0.8);
           }
-          50% { 
+          50% {
             opacity: 1;
             transform: scale(1.2);
           }
@@ -207,10 +207,10 @@ const CustomLoadingScreen: React.FC<LoadingScreenProps> = ({
       <div style={{ fontSize: '120px' }}>
         {logo}
       </div>
-      
+
       <h2>{title}</h2>
       <p>{subtitle}</p>
-      
+
       {/* Custom spinner with your app color */}
       <div style={{
         borderTop: `4px solid ${color}`,
@@ -226,8 +226,8 @@ const CustomLoadingScreen: React.FC<LoadingScreenProps> = ({
 For apps that connect to APIs, you can show loading states:
 
 ```typescript
-const APILoadingScreen: React.FC<{ message?: string }> = ({ 
-  message = "Connecting to API..." 
+const APILoadingScreen: React.FC<{ message?: string }> = ({
+  message = "Connecting to API..."
 }) => (
   <div style={{
     display: 'flex',
@@ -240,7 +240,7 @@ const APILoadingScreen: React.FC<{ message?: string }> = ({
     <div style={{ fontSize: '60px', marginBottom: '20px' }}>
       🔄
     </div>
-    
+
     <div style={{
       width: '32px',
       height: '32px',
@@ -250,7 +250,7 @@ const APILoadingScreen: React.FC<{ message?: string }> = ({
       animation: 'spin 1s linear infinite',
       marginBottom: '16px',
     }} />
-    
+
     <p style={{
       color: '#6e6e73',
       fontSize: '14px',
@@ -278,7 +278,7 @@ const MyAPIApp: React.FC = () => {
         setIsConnecting(false);
       }
     };
-    
+
     connect();
   }, []);
 
@@ -298,4 +298,4 @@ const MyAPIApp: React.FC = () => {
 
 ---
 
-*The LoadingScreen component demonstrates the macOS design principles used throughout the platform.* ✨
+_The LoadingScreen component demonstrates the macOS design principles used throughout the platform._ ✨

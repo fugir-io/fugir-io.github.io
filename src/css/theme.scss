@@ -1,5 +1,5 @@
 body,
-body[data-theme='light'] {
+body[data-theme="light"] {
   /* // Primary */
   --system-color-primary: hsl(211, 100%, 50%);
   --system-color-primary-hsl: 211, 100%, 50%;
@@ -23,8 +23,8 @@ body[data-theme='light'] {
   --system-color-light-shade-contrast: hsl(0, 0%, 11%);
   --system-color-light-shade-contrast-hsl: 0, 0%, 11%;
 
-  --system-font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Helvetica Neue', 'Helvetica',
-    'Arial', sans-serif;
+  --system-font-family: -apple-system, BlinkMacSystemFont, "Inter",
+    "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 
   --system-focus-outline: 0 0 0 3px hsla(var(--system-color-primary-hsl), 0.5);
 
@@ -71,15 +71,15 @@ body[data-theme='light'] {
   --system-color-grey-A700-hsl: 0, 0%, 38%;
 
   // Cursors
-  --system-cursor-default: url('/cursors/normal-select.svg');
-  --system-cursor-pointer: url('/cursors/link-select.svg');
-  --system-cursor-text-select: url('/cursors/text-select.svg');
-  --system-cursor-help-select: url('/cursors/help-select.svg');
+  --system-cursor-default: url("/cursors/normal-select.svg");
+  --system-cursor-pointer: url("/cursors/link-select.svg");
+  --system-cursor-text-select: url("/cursors/text-select.svg");
+  --system-cursor-help-select: url("/cursors/help-select.svg");
 
   // the following two cursors are animated, but will be rendered as a static
   // image by the browser
-  --system-cursor-busy: url('/cursors/busy.webp');
-  --system-cursor-working-in-bg: url('/cursors/working-in-background.webp');
+  --system-cursor-busy: url("/cursors/busy.webp");
+  --system-cursor-working-in-bg: url("/cursors/working-in-background.webp");
 }
 
 body.dark {

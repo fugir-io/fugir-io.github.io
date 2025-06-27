@@ -1,5 +1,9 @@
-import { getDay, getMonth, getYear, startOfMonth } from 'date-fns';
-import { DAYS, DAYS_LEAP, NUMBER_OF_CELLS_IN_CALENDAR } from './calendar-constants';
+import { getDay, getMonth, getYear, startOfMonth } from "date-fns";
+import {
+  DAYS,
+  DAYS_LEAP,
+  NUMBER_OF_CELLS_IN_CALENDAR,
+} from "./calendar-constants";
 
 /**
  * Check if the year is a leap year
@@ -41,7 +45,10 @@ export function getDisplayDays(selectedDate: Date) {
   const daysToShowInNextMonth =
     NUMBER_OF_CELLS_IN_CALENDAR - days[thisMonth] - daysToShowInPrevMonth;
 
-  const daysInPrevMonth = getRangeArray(days[prevMonth] - daysToShowInPrevMonth, days[prevMonth]);
+  const daysInPrevMonth = getRangeArray(
+    days[prevMonth] - daysToShowInPrevMonth,
+    days[prevMonth],
+  );
   const daysInThisMonth = getRangeArray(0, days[thisMonth]);
   const daysInNextMonth = getRangeArray(0, daysToShowInNextMonth);
 

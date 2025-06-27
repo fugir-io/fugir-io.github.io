@@ -1,58 +1,58 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import UnpluginIcons from 'unplugin-icons/vite';
-import { imagetools } from 'vite-imagetools';
-import { VitePWA } from 'vite-plugin-pwa';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import UnpluginIcons from "unplugin-icons/vite";
+import { imagetools } from "vite-imagetools";
+import { VitePWA } from "vite-plugin-pwa";
 
-import { prefetch } from './prefetch-plugin';
+import { prefetch } from "./prefetch-plugin";
 
 export default defineConfig({
   plugins: [
     react(),
     prefetch(),
 
-    UnpluginIcons({ autoInstall: true, compiler: 'jsx', jsx: 'react' }),
+    UnpluginIcons({ autoInstall: true, compiler: "jsx", jsx: "react" }),
     VitePWA({
       includeAssets: [
-        'robots.txt',
-        'app-icons/finder/32.png',
-        'cover-image.png',
-        'cursors/(normal|link|text|help)-select.svg',
-        '**/*.mp3',
-        '**/*.webp',
-        'assets/*.webp',
+        "robots.txt",
+        "app-icons/finder/32.png",
+        "cover-image.png",
+        "cursors/(normal|link|text|help)-select.svg",
+        "**/*.mp3",
+        "**/*.webp",
+        "assets/*.webp",
       ],
       manifest: {
-        name: 'Mac OS Monterey React Web',
-        short_name: 'macOS React',
-        theme_color: '#ffffff',
-        description: 'Mac OS Monterey Web written in React',
+        name: "Mac OS Monterey React Web",
+        short_name: "macOS React",
+        theme_color: "#ffffff",
+        description: "Mac OS Monterey Web written in React",
         icons: [
           {
-            src: 'app-icons/finder/128.png',
-            sizes: '128x128',
-            type: 'image/png',
+            src: "app-icons/finder/128.png",
+            sizes: "128x128",
+            type: "image/png",
           },
           {
-            src: 'app-icons/finder/192.png',
-            sizes: '192x192',
-            type: 'image/png',
+            src: "app-icons/finder/192.png",
+            sizes: "192x192",
+            type: "image/png",
           },
           {
-            src: 'app-icons/finder/256.png',
-            sizes: '256x256',
-            type: 'image/png',
+            src: "app-icons/finder/256.png",
+            sizes: "256x256",
+            type: "image/png",
           },
           {
-            src: 'app-icons/finder/512.png',
-            sizes: '512x512',
-            type: 'image/png',
+            src: "app-icons/finder/512.png",
+            sizes: "512x512",
+            type: "image/png",
           },
           {
-            src: 'app-icons/finder/512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any maskable',
+            src: "app-icons/finder/512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "any maskable",
           },
         ],
       },
@@ -60,9 +60,9 @@ export default defineConfig({
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
-            handler: 'CacheFirst',
+            handler: "CacheFirst",
             options: {
-              cacheName: 'google-fonts-cache',
+              cacheName: "google-fonts-cache",
               expiration: {
                 maxEntries: 10,
                 maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
@@ -74,9 +74,9 @@ export default defineConfig({
           },
           {
             urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
-            handler: 'CacheFirst',
+            handler: "CacheFirst",
             options: {
-              cacheName: 'gstatic-fonts-cache',
+              cacheName: "gstatic-fonts-cache",
               expiration: {
                 maxEntries: 10,
                 maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
@@ -93,10 +93,10 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': new URL('./src/', import.meta.url).pathname,
+      "@": new URL("./src/", import.meta.url).pathname,
     },
   },
   build: {
-    minify: 'terser',
+    minify: "terser",
   },
 });

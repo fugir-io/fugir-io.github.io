@@ -21,11 +21,13 @@ This guide helps developers create frontend applications that connect to backend
 ## Quick Start
 
 ### Prerequisites
+
 - Node.js 18+ installed
 - Basic TypeScript/React knowledge
 - Understanding of REST APIs
 
 ### Development Setup
+
 ```bash
 # Clone the repository
 git clone <repository-url>
@@ -45,6 +47,7 @@ npm run dev
 ## App Architecture
 
 ### Core Directory Structure
+
 ```
 src/
 ├── components/
@@ -62,6 +65,7 @@ src/
 ```
 
 ### App Registration Flow
+
 1. **Create App Component** → `src/components/apps/YourApp/`
 2. **Configure App** → `src/configs/apps/apps-config.ts`
 3. **Add Menu Items** → `src/configs/menu/topbar.menu.config.ts`
@@ -76,12 +80,14 @@ src/
 The platform provides a powerful WebService system for connecting to backend APIs:
 
 #### Key Components
+
 - **`webservice-connector.ts`** - HTTP client with auth & streaming
 - **`webservice.store.ts`** - Per-app connection management
 - **`use-webservice.ts`** - React hook for easy integration
 - **`WebServiceConfig.svelte`** - Visual configuration UI
 
 #### Basic Usage Pattern
+
 ```typescript
 import { useWebService } from '🍎/helpers/use-webservice';
 
@@ -92,9 +98,9 @@ const MyAPIApp: React.FC = () => {
   useEffect(() => {
     webservice.connect({
       baseURL: 'https://api.yourservice.com',
-      auth: { 
-        type: 'bearer', 
-        token: 'your-auth-token' 
+      auth: {
+        type: 'bearer',
+        token: 'your-auth-token'
       }
     });
   }, []);
@@ -120,28 +126,31 @@ const MyAPIApp: React.FC = () => {
 ### Supported Authentication Methods
 
 #### 1. Bearer Token Authentication
+
 ```typescript
 const authConfig = {
-  type: 'bearer' as const,
-  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+  type: "bearer" as const,
+  token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
 };
 ```
 
 #### 2. Basic Authentication
+
 ```typescript
 const authConfig = {
-  type: 'basic' as const,
-  username: 'user@example.com',
-  password: 'your-password'
+  type: "basic" as const,
+  username: "user@example.com",
+  password: "your-password",
 };
 ```
 
 #### 3. API Key Authentication
+
 ```typescript
 const authConfig = {
-  type: 'apikey' as const,
-  key: 'your-api-key',
-  headerName: 'X-API-Key' // Optional, defaults to 'Authorization'
+  type: "apikey" as const,
+  key: "your-api-key",
+  headerName: "X-API-Key", // Optional, defaults to 'Authorization'
 };
 ```
 
@@ -149,26 +158,26 @@ const authConfig = {
 
 ```typescript
 // GET request
-const users = await webservice.get('/users');
+const users = await webservice.get("/users");
 
 // POST request with data
-const newUser = await webservice.post('/users', {
-  name: 'John Doe',
-  email: 'john@example.com'
+const newUser = await webservice.post("/users", {
+  name: "John Doe",
+  email: "john@example.com",
 });
 
 // PUT request
-const updatedUser = await webservice.put('/users/123', userData);
+const updatedUser = await webservice.put("/users/123", userData);
 
 // DELETE request
-await webservice.delete('/users/123');
+await webservice.delete("/users/123");
 
 // Custom request with full options
 const response = await webservice.request({
-  method: 'PATCH',
-  url: '/users/123',
-  data: { status: 'active' },
-  headers: { 'Content-Type': 'application/json' }
+  method: "PATCH",
+  url: "/users/123",
+  data: { status: "active" },
+  headers: { "Content-Type": "application/json" },
 });
 ```
 
@@ -194,7 +203,7 @@ const MyAPIApp: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  
+
   // Initialize WebService connection
   const webservice = useWebService('my-api-app');
 
@@ -221,7 +230,7 @@ const MyAPIApp: React.FC = () => {
   const fetchUsers = async () => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const response = await webservice.get('/users');
       setUsers(response.data || response); // Handle different response formats
@@ -241,7 +250,7 @@ const MyAPIApp: React.FC = () => {
         name: 'New User',
         email: 'new@example.com'
       });
-      
+
       setUsers(prev => [...prev, newUser.data || newUser]);
       console.log('✅ User created:', newUser);
     } catch (err) {
@@ -288,7 +297,7 @@ const MyAPIApp: React.FC = () => {
         >
           {loading ? 'Loading...' : 'Fetch Users'}
         </button>
-        
+
         <button
           onClick={createUser}
           style={{
@@ -372,12 +381,12 @@ export default MyAPIApp;
 Add to `src/configs/apps/apps-config.ts`:
 
 ```typescript
-import MyAPIApp from '🍎/components/apps/MyAPIApp/MyAPIApp';
+import MyAPIApp from "🍎/components/apps/MyAPIApp/MyAPIApp";
 
 export const appsConfig = {
   // ... existing apps
-  'my-api-app': createAppConfig({
-    title: 'My API App',
+  "my-api-app": createAppConfig({
+    title: "My API App",
     resizable: true,
     expandable: true,
     width: 800,
@@ -394,17 +403,17 @@ export const appsConfig = {
 Update `src/stores/useAppsStore.ts`:
 
 ```typescript
-export type AppID = 
-  | 'wallpapers'
-  | 'finder'
-  | 'vscode'
-  | 'calculator'
-  | 'safari'
-  | 'appstore'
-  | 'calendar'
-  | 'developer'
-  | 'terminal'
-  | 'my-api-app'; // Add your app ID
+export type AppID =
+  | "wallpapers"
+  | "finder"
+  | "vscode"
+  | "calculator"
+  | "safari"
+  | "appstore"
+  | "calendar"
+  | "developer"
+  | "terminal"
+  | "my-api-app"; // Add your app ID
 ```
 
 ### Step 4: Add Menu Configuration
@@ -414,55 +423,55 @@ Add to `src/configs/menu/topbar.menu.config.ts`:
 ```typescript
 export const topbarMenuConfig = {
   // ... existing configs
-  'my-api-app': {
+  "my-api-app": {
     File: [
       {
-        title: 'Refresh Data',
-        shortcut: '⌘R',
-        action: { action: 'refresh-data' },
+        title: "Refresh Data",
+        shortcut: "⌘R",
+        action: { action: "refresh-data" },
       },
       {
-        title: 'Export Data',
-        shortcut: '⌘E',
-        action: { action: 'export-data' },
+        title: "Export Data",
+        shortcut: "⌘E",
+        action: { action: "export-data" },
         breakAfter: true,
       },
       {
-        title: 'Close',
-        shortcut: '⌘W',
-        action: { action: 'close-window' },
+        title: "Close",
+        shortcut: "⌘W",
+        action: { action: "close-window" },
       },
     ],
     Edit: [
       {
-        title: 'Add New Item',
-        shortcut: '⌘N',
-        action: { action: 'add-item' },
+        title: "Add New Item",
+        shortcut: "⌘N",
+        action: { action: "add-item" },
       },
       {
-        title: 'Delete Selected',
-        shortcut: '⌫',
-        action: { action: 'delete-selected' },
+        title: "Delete Selected",
+        shortcut: "⌫",
+        action: { action: "delete-selected" },
       },
     ],
     View: [
       {
-        title: 'List View',
-        action: { action: 'view-list' },
+        title: "List View",
+        action: { action: "view-list" },
       },
       {
-        title: 'Grid View',
-        action: { action: 'view-grid' },
+        title: "Grid View",
+        action: { action: "view-grid" },
       },
     ],
     Help: [
       {
-        title: 'API Documentation',
-        action: { action: 'show-api-docs' },
+        title: "API Documentation",
+        action: { action: "show-api-docs" },
       },
       {
-        title: 'About My API App',
-        action: { action: 'about-app' },
+        title: "About My API App",
+        action: { action: "about-app" },
       },
     ],
   },
@@ -478,7 +487,7 @@ export const topbarMenuConfig = {
 ```typescript
 const iconMap: Record<AppID, string> = {
   // ... existing icons
-  'my-api-app': '/app-icons/my-api-app/256.png',
+  "my-api-app": "/app-icons/my-api-app/256.png",
 };
 ```
 
@@ -498,16 +507,16 @@ const APIApp: React.FC = () => {
     try {
       const response = await webservice.post('/auth/login', credentials);
       const { token } = response.data;
-      
+
       setToken(token);
       localStorage.setItem('api-token', token);
-      
+
       // Update webservice with new token
       await webservice.connect({
         baseURL: 'https://api.example.com',
         auth: { type: 'bearer', token }
       });
-      
+
     } catch (error) {
       console.error('Login failed:', error);
     }
@@ -544,7 +553,7 @@ const OAuthApp: React.FC = () => {
     const clientId = 'your-client-id';
     const redirectUri = encodeURIComponent(window.location.origin + '/oauth/callback');
     const oauthUrl = `https://oauth-provider.com/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code`;
-    
+
     window.location.href = oauthUrl;
   };
 
@@ -552,7 +561,7 @@ const OAuthApp: React.FC = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
-    
+
     if (code) {
       exchangeCodeForToken(code);
     }
@@ -564,15 +573,15 @@ const OAuthApp: React.FC = () => {
         code,
         grant_type: 'authorization_code'
       });
-      
+
       const { access_token } = response.data;
-      
+
       // Update connection with OAuth token
       await webservice.connect({
         baseURL: 'https://api.example.com',
         auth: { type: 'bearer', token: access_token }
       });
-      
+
     } catch (error) {
       console.error('OAuth exchange failed:', error);
     }
@@ -638,7 +647,7 @@ const MyAPIApp: React.FC = () => {
   const fetchUsers = async () => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const response = await webservice.get('/users');
       setUsers(response.data);
@@ -666,11 +675,12 @@ const MyAPIApp: React.FC = () => {
 The platform follows macOS design patterns. Here are reusable component patterns:
 
 #### Button Styles
+
 ```typescript
-const MacOSButton: React.FC<{ children: React.ReactNode; onClick: () => void; variant?: 'primary' | 'secondary' }> = ({ 
-  children, 
-  onClick, 
-  variant = 'primary' 
+const MacOSButton: React.FC<{ children: React.ReactNode; onClick: () => void; variant?: 'primary' | 'secondary' }> = ({
+  children,
+  onClick,
+  variant = 'primary'
 }) => (
   <button
     onClick={onClick}
@@ -699,6 +709,7 @@ const MacOSButton: React.FC<{ children: React.ReactNode; onClick: () => void; va
 ```
 
 #### Card Layout
+
 ```typescript
 const MacOSCard: React.FC<{ children: React.ReactNode; title?: string }> = ({ children, title }) => (
   <div style={{
@@ -726,6 +737,7 @@ const MacOSCard: React.FC<{ children: React.ReactNode; title?: string }> = ({ ch
 ```
 
 #### Loading States
+
 ```typescript
 const LoadingSpinner: React.FC = () => (
   <div style={{
@@ -775,7 +787,7 @@ const RealtimeAPIApp: React.FC = () => {
   useEffect(() => {
     // Initialize WebSocket connection
     const ws = new WebSocket('wss://api.example.com/ws');
-    
+
     ws.onmessage = (event) => {
       const message = JSON.parse(event.data);
       setMessages(prev => [...prev, message]);
@@ -808,7 +820,7 @@ const RealtimeAPIApp: React.FC = () => {
           </div>
         ))}
       </div>
-      
+
       {/* Message input */}
       <MessageInput onSend={sendMessage} />
     </div>
@@ -832,7 +844,7 @@ const FileUploadApp: React.FC = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      
+
       console.log('File uploaded:', response.data);
     } catch (error) {
       console.error('Upload failed:', error);
@@ -868,7 +880,7 @@ const CachedDataApp: React.FC = () => {
 
   const fetchWithCache = async (endpoint: string, cacheTime = 5 * 60 * 1000) => {
     const cached = cache.get(endpoint);
-    
+
     if (cached && Date.now() - cached.timestamp < cacheTime) {
       return cached.data;
     }
@@ -876,12 +888,12 @@ const CachedDataApp: React.FC = () => {
     try {
       const response = await webservice.get(endpoint);
       const data = response.data;
-      
+
       setCache(prev => new Map(prev.set(endpoint, {
         data,
         timestamp: Date.now()
       })));
-      
+
       return data;
     } catch (error) {
       console.error('Fetch failed:', error);
@@ -909,17 +921,17 @@ Create environment-specific configurations:
 // src/config/environment.ts
 const config = {
   development: {
-    apiBaseURL: 'http://localhost:3000/api',
-    wsURL: 'ws://localhost:3000/ws',
+    apiBaseURL: "http://localhost:3000/api",
+    wsURL: "ws://localhost:3000/ws",
   },
   production: {
-    apiBaseURL: 'https://api.yourservice.com',
-    wsURL: 'wss://api.yourservice.com/ws',
+    apiBaseURL: "https://api.yourservice.com",
+    wsURL: "wss://api.yourservice.com/ws",
   },
 };
 
 export const getConfig = () => {
-  const env = process.env.NODE_ENV || 'development';
+  const env = process.env.NODE_ENV || "development";
   return config[env as keyof typeof config];
 };
 ```
@@ -943,9 +955,9 @@ jest.mock('🍎/helpers/use-webservice', () => ({
 describe('MyAPIApp', () => {
   test('fetches and displays users', async () => {
     render(<MyAPIApp />);
-    
+
     fireEvent.click(screen.getByText('Fetch Users'));
-    
+
     await waitFor(() => {
       expect(screen.getByText('Test User')).toBeInTheDocument();
     });
@@ -987,29 +999,34 @@ const OptimizedAPIApp: React.FC = () => {
 ## Best Practices
 
 ### 1. Error Handling
+
 - Always wrap API calls in try-catch blocks
 - Provide user-friendly error messages
 - Implement retry mechanisms for failed requests
 - Log errors for debugging
 
 ### 2. Loading States
+
 - Show loading indicators for API operations
 - Disable buttons during operations to prevent duplicate requests
 - Provide progress feedback for long operations
 
 ### 3. Security
+
 - Never store sensitive data in localStorage
 - Validate API responses before using
 - Implement proper CORS handling
 - Use HTTPS in production
 
 ### 4. Performance
+
 - Implement data caching where appropriate
 - Use pagination for large datasets
 - Debounce search inputs
 - Memoize expensive computations
 
 ### 5. User Experience
+
 - Provide clear feedback for all user actions
 - Implement optimistic updates where possible
 - Handle offline scenarios gracefully
@@ -1020,18 +1037,21 @@ const OptimizedAPIApp: React.FC = () => {
 ## Example Apps
 
 ### 1. REST API Client
+
 - Full CRUD operations
 - Authentication flow
 - Error handling
 - Data caching
 
 ### 2. Real-time Dashboard
+
 - WebSocket connections
 - Live data updates
 - Chart visualization
 - Alert notifications
 
 ### 3. File Manager
+
 - File upload/download
 - Progress tracking
 - Thumbnail generation
@@ -1044,43 +1064,48 @@ const OptimizedAPIApp: React.FC = () => {
 ### Common Issues
 
 #### CORS Errors
+
 ```typescript
 // Add to your backend
-app.use(cors({
-  origin: ['http://localhost:4040', 'https://your-domain.com'],
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: ["http://localhost:4040", "https://your-domain.com"],
+    credentials: true,
+  }),
+);
 ```
 
 #### Authentication Token Expiry
+
 ```typescript
 // Implement token refresh
 const refreshToken = async () => {
   try {
-    const response = await webservice.post('/auth/refresh');
+    const response = await webservice.post("/auth/refresh");
     const { token } = response.data;
-    
-    localStorage.setItem('api-token', token);
-    
+
+    localStorage.setItem("api-token", token);
+
     // Update webservice connection
     await webservice.connect({
       baseURL: config.apiBaseURL,
-      auth: { type: 'bearer', token }
+      auth: { type: "bearer", token },
     });
   } catch (error) {
     // Redirect to login
-    localStorage.removeItem('api-token');
-    window.location.href = '/login';
+    localStorage.removeItem("api-token");
+    window.location.href = "/login";
   }
 };
 ```
 
 #### Memory Leaks
+
 ```typescript
 // Always cleanup subscriptions
 useEffect(() => {
   const subscription = setupSubscription();
-  
+
   return () => {
     subscription.unsubscribe();
   };
@@ -1110,4 +1135,4 @@ When contributing new API apps:
 
 ---
 
-*Happy coding! 🚀*
+_Happy coding! 🚀_

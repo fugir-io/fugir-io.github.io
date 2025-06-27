@@ -1,11 +1,11 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import { AppConfig, AppProperties } from '@/types/app.types';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import { AppConfig, AppProperties } from "@/types/app.types";
 
 interface AppStore {
   // State
   appProperties: AppProperties;
-  
+
   // Actions
   getApp: (appName: string) => AppConfig | undefined;
   setApp: (appName: string, config: AppConfig) => void;
@@ -46,8 +46,8 @@ export const useAppStore = create<AppStore>()(
       },
     }),
     {
-      name: 'macos:app-properties',
+      name: "macos:app-properties",
       partialize: (state) => ({ appProperties: state.appProperties }),
-    }
-  )
+    },
+  ),
 );

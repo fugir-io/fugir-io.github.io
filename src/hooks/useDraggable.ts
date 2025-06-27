@@ -1,10 +1,13 @@
-import { useCallback, useRef } from 'react';
-import { useAppsStore } from '@/stores/useAppsStore';
+import { useCallback, useRef } from "react";
+import { useAppsStore } from "@/stores/useAppsStore";
 
 export interface DragOptions {
   handle?: string;
-  bounds?: 'parent' | HTMLElement | { top?: number; left?: number; right?: number; bottom?: number };
-  axis?: 'x' | 'y' | 'both';
+  bounds?:
+    | "parent"
+    | HTMLElement
+    | { top?: number; left?: number; right?: number; bottom?: number };
+  axis?: "x" | "y" | "both";
   disabled?: boolean;
   onDragStart?: (e: MouseEvent) => void;
   onDrag?: (e: MouseEvent, position: { x: number; y: number }) => void;
@@ -16,125 +19,130 @@ export interface DragInstance {
   destroy: () => void;
 }
 
-export const useDraggable = (options: DragOptions = {}): [(element: HTMLElement) => DragInstance] => {
+export const useDraggable = (
+  options: DragOptions = {},
+): [(element: HTMLElement) => DragInstance] => {
   const { setAppBeingDragged } = useAppsStore((state) => ({
     setAppBeingDragged: state.setAppBeingDragged,
   }));
 
   const activeInstanceRef = useRef<DragInstance | null>(null);
 
-  const createDragInstance = useCallback((element: HTMLElement): DragInstance => {
-    if (options.disabled) {
-      return { element, destroy: () => {} };
-    }
+  const createDragInstance = useCallback(
+    (element: HTMLElement): DragInstance => {
+      if (options.disabled) {
+        return { element, destroy: () => {} };
+      }
 
-    let isDragging = false;
-    let startPosition = { x: 0, y: 0 };
-    let elementStartPosition = { x: 0, y: 0 };
+      let isDragging = false;
+      let startPosition = { x: 0, y: 0 };
+      let elementStartPosition = { x: 0, y: 0 };
 
-    const handleMouseDown = (e: MouseEvent) => {
-      // Check if we should handle this drag (handle selector)
-      if (options.handle) {
-        const handle = element.querySelector(options.handle);
-        if (!handle || !handle.contains(e.target as Node)) {
-          return;
+      const handleMouseDown = (e: MouseEvent) => {
+        // Check if we should handle this drag (handle selector)
+        if (options.handle) {
+          const handle = element.querySelector(options.handle);
+          if (!handle || !handle.contains(e.target as Node)) {
+            return;
+          }
         }
-      }
 
-      isDragging = true;
-      startPosition = { x: e.clientX, y: e.clientY };
-      
-      const rect = element.getBoundingClientRect();
-      elementStartPosition = { x: rect.left, y: rect.top };
+        isDragging = true;
+        startPosition = { x: e.clientX, y: e.clientY };
 
-      setAppBeingDragged(true);
-      options.onDragStart?.(e);
+        const rect = element.getBoundingClientRect();
+        elementStartPosition = { x: rect.left, y: rect.top };
 
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
-      
-      e.preventDefault();
-    };
+        setAppBeingDragged(true);
+        options.onDragStart?.(e);
 
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!isDragging) return;
+        document.addEventListener("mousemove", handleMouseMove);
+        document.addEventListener("mouseup", handleMouseUp);
 
-      const deltaX = e.clientX - startPosition.x;
-      const deltaY = e.clientY - startPosition.y;
+        e.preventDefault();
+      };
 
-      let newX = elementStartPosition.x + deltaX;
-      let newY = elementStartPosition.y + deltaY;
+      const handleMouseMove = (e: MouseEvent) => {
+        if (!isDragging) return;
 
-      // Apply axis constraints
-      if (options.axis === 'x') {
-        newY = elementStartPosition.y;
-      } else if (options.axis === 'y') {
-        newX = elementStartPosition.x;
-      }
+        const deltaX = e.clientX - startPosition.x;
+        const deltaY = e.clientY - startPosition.y;
 
-      // Apply bounds constraints
-      if (options.bounds) {
-        const bounds = getBounds(options.bounds, element);
-        if (bounds) {
-          newX = Math.max(bounds.left, Math.min(newX, bounds.right));
-          newY = Math.max(bounds.top, Math.min(newY, bounds.bottom));
+        let newX = elementStartPosition.x + deltaX;
+        let newY = elementStartPosition.y + deltaY;
+
+        // Apply axis constraints
+        if (options.axis === "x") {
+          newY = elementStartPosition.y;
+        } else if (options.axis === "y") {
+          newX = elementStartPosition.x;
         }
-      }
 
-      element.style.left = `${newX}px`;
-      element.style.top = `${newY}px`;
+        // Apply bounds constraints
+        if (options.bounds) {
+          const bounds = getBounds(options.bounds, element);
+          if (bounds) {
+            newX = Math.max(bounds.left, Math.min(newX, bounds.right));
+            newY = Math.max(bounds.top, Math.min(newY, bounds.bottom));
+          }
+        }
 
-      options.onDrag?.(e, { x: newX, y: newY });
-    };
+        element.style.left = `${newX}px`;
+        element.style.top = `${newY}px`;
 
-    const handleMouseUp = (e: MouseEvent) => {
-      if (!isDragging) return;
+        options.onDrag?.(e, { x: newX, y: newY });
+      };
 
-      isDragging = false;
-      setAppBeingDragged(false);
+      const handleMouseUp = (e: MouseEvent) => {
+        if (!isDragging) return;
 
-      const rect = element.getBoundingClientRect();
-      options.onDragEnd?.(e, { x: rect.left, y: rect.top });
+        isDragging = false;
+        setAppBeingDragged(false);
 
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-    };
+        const rect = element.getBoundingClientRect();
+        options.onDragEnd?.(e, { x: rect.left, y: rect.top });
 
-    // Add event listener
-    element.addEventListener('mousedown', handleMouseDown);
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+      };
 
-    // Cleanup function
-    const cleanup = () => {
-      element.removeEventListener('mousedown', handleMouseDown);
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-    };
+      // Add event listener
+      element.addEventListener("mousedown", handleMouseDown);
 
-    const instance: DragInstance = {
-      element,
-      destroy: cleanup,
-    };
+      // Cleanup function
+      const cleanup = () => {
+        element.removeEventListener("mousedown", handleMouseDown);
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+      };
 
-    activeInstanceRef.current = instance;
-    return instance;
-  }, [options, setAppBeingDragged]);
+      const instance: DragInstance = {
+        element,
+        destroy: cleanup,
+      };
+
+      activeInstanceRef.current = instance;
+      return instance;
+    },
+    [options, setAppBeingDragged],
+  );
 
   return [createDragInstance];
 };
 
 function getBounds(
-  bounds: DragOptions['bounds'],
-  element: HTMLElement
+  bounds: DragOptions["bounds"],
+  element: HTMLElement,
 ): { top: number; left: number; right: number; bottom: number } | null {
   if (!bounds) return null;
 
-  if (bounds === 'parent') {
+  if (bounds === "parent") {
     const parent = element.parentElement;
     if (!parent) return null;
-    
+
     const parentRect = parent.getBoundingClientRect();
     const elementRect = element.getBoundingClientRect();
-    
+
     return {
       top: 0,
       left: 0,
@@ -146,7 +154,7 @@ function getBounds(
   if (bounds instanceof HTMLElement) {
     const boundsRect = bounds.getBoundingClientRect();
     const elementRect = element.getBoundingClientRect();
-    
+
     return {
       top: boundsRect.top,
       left: boundsRect.left,

@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import Desktop from '@/components/Desktop/Desktop';
+import React, { useEffect } from "react";
+import Desktop from "@/components/Desktop/Desktop";
 
 /**
  * Page File for Desktop View
@@ -11,7 +11,7 @@ const HomePage: React.FC = () => {
     // DEBUG: Extract parameters from the URL query string
     // Iterate through the parameters and log each key-value pair to the console
     const params = new URLSearchParams(window.location.search);
-    
+
     for (const [key, value] of params.entries()) {
       console.log(`desktop.Page key=> ${key} value=> ${value}`);
     }
