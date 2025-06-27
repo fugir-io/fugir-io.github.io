@@ -1,5 +1,5 @@
-import { AppConfig } from '@/types/app.types';
-import { useAppStore } from '@/stores/useAppStore';
+import { AppConfig } from "@/types/app.types";
+import { useAppStore } from "@/stores/useAppStore";
 
 /**
  * Function to create a complete application configuration with default values.
@@ -8,10 +8,13 @@ import { useAppStore } from '@/stores/useAppStore';
  * @param appName The name of the app.
  * @returns The complete application configuration.
  */
-export const createAppConfig = (config: Partial<AppConfig>, appName: string): AppConfig => {
+export const createAppConfig = (
+  config: Partial<AppConfig>,
+  appName: string,
+): AppConfig => {
   // Create the complete application configuration with default values
   const appConfig: AppConfig = {
-    title: '',
+    title: "",
     resizable: true,
     isResizing: false,
     expandable: false,
@@ -32,7 +35,7 @@ export const createAppConfig = (config: Partial<AppConfig>, appName: string): Ap
 
   // Set the app properties in the store (this will be called during initialization)
   console.log(`SETTING ${appName} app.data`, appConfig);
-  
+
   // Return the complete application configuration
   return appConfig;
 };
@@ -42,7 +45,7 @@ export const createAppConfig = (config: Partial<AppConfig>, appName: string): Ap
  */
 export const useInitializeAppConfig = () => {
   const setApp = useAppStore((state) => state.setApp);
-  
+
   return (appName: string, config: AppConfig) => {
     setApp(appName, config);
   };

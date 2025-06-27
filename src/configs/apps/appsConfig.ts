@@ -1,63 +1,63 @@
-import { createAppConfig } from '@/helpers/createAppConfig';
+import { createAppConfig } from "@/helpers/createAppConfig";
 // import { AppID } from '@/stores/useAppsStore'; // Removed unused import
 
 const wallpapers = createAppConfig(
   {
-    title: 'Wallpapers',
+    title: "Wallpapers",
     resizable: true,
     height: 600,
     width: 800,
     dockBreaksBefore: true,
   },
-  'wallpapers',
+  "wallpapers",
 );
 
 const calculator = createAppConfig(
   {
-    title: 'Calculator',
+    title: "Calculator",
     expandable: true,
     height: 300 * 1.414,
     width: 300,
   },
-  'calculator',
+  "calculator",
 );
 
 const calendar = createAppConfig(
   {
-    title: 'Calendar',
+    title: "Calendar",
     expandable: false,
     resizable: true,
   },
-  'calendar',
+  "calendar",
 );
 
 const vscode = createAppConfig(
   {
-    title: 'VSCode',
+    title: "VSCode",
     resizable: true,
     height: 600,
     width: 800,
   },
-  'vscode',
+  "vscode",
 );
 
 const finder = createAppConfig(
   {
-    title: 'Finder',
+    title: "Finder",
     resizable: true,
     shouldOpenWindow: false,
   },
-  'finder',
+  "finder",
 );
 
 const safari = createAppConfig(
   {
-    title: 'Safari',
+    title: "Safari",
     resizable: true,
     width: 800,
     height: 600,
   },
-  'safari',
+  "safari",
 );
 
 const developerProfile = createAppConfig(
@@ -68,25 +68,25 @@ const developerProfile = createAppConfig(
     height: 600,
     width: 800,
   },
-  'developer',
+  "developer",
 );
 
 const appstore = createAppConfig(
   {
-    title: 'App Store',
+    title: "App Store",
     resizable: true,
   },
-  'appstore',
+  "appstore",
 );
 
 const terminal = createAppConfig(
   {
-    title: 'Terminal',
+    title: "Terminal",
     resizable: true,
     height: 500,
     width: 800,
   },
-  'terminal',
+  "terminal",
 );
 
 export const appsConfig = {

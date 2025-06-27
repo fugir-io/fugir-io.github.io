@@ -29,14 +29,18 @@ export type AppProperties = Record<string, AppConfig>;
  * Theme configuration
  */
 export interface Theme {
-  scheme: 'light' | 'dark';
+  scheme: "light" | "dark";
   primaryColor: string;
 }
 
 /**
  * WebService connection status
  */
-export type ConnectionStatus = 'disconnected' | 'connecting' | 'connected' | 'error';
+export type ConnectionStatus =
+  | "disconnected"
+  | "connecting"
+  | "connected"
+  | "error";
 
 /**
  * WebService configuration
@@ -46,7 +50,7 @@ export interface WebServiceConfig {
   timeout?: number;
   headers?: Record<string, string>;
   auth?: {
-    type: 'bearer' | 'basic' | 'api-key';
+    type: "bearer" | "basic" | "api-key";
     token?: string;
     username?: string;
     password?: string;

@@ -1,15 +1,15 @@
-import React from 'react';
-import { AppID } from '@/stores/useAppsStore';
+import React from "react";
+import { AppID } from "@/stores/useAppsStore";
 
 // Import app components (we'll create placeholders for now)
-const Calculator = React.lazy(() => import('./Calculator/Calculator'));
-const Calendar = React.lazy(() => import('./Calendar/Calendar'));
-const VSCode = React.lazy(() => import('./VSCode/VSCode'));
-const Safari = React.lazy(() => import('./Safari/Safari'));
-const WallpaperApp = React.lazy(() => import('./WallpaperApp/WallpaperApp'));
-const AppStore = React.lazy(() => import('./AppStore/AppStore'));
-const Terminal = React.lazy(() => import('./Terminal/Terminal'));
-const JosephProfile = React.lazy(() => import('./JosephProfile/JosephProfile'));
+const Calculator = React.lazy(() => import("./Calculator/Calculator"));
+const Calendar = React.lazy(() => import("./Calendar/Calendar"));
+const VSCode = React.lazy(() => import("./VSCode/VSCode"));
+const Safari = React.lazy(() => import("./Safari/Safari"));
+const WallpaperApp = React.lazy(() => import("./WallpaperApp/WallpaperApp"));
+const AppStore = React.lazy(() => import("./AppStore/AppStore"));
+const Terminal = React.lazy(() => import("./Terminal/Terminal"));
+const JosephProfile = React.lazy(() => import("./JosephProfile/JosephProfile"));
 
 interface AppNexusProps {
   appID: AppID;
@@ -18,38 +18,42 @@ interface AppNexusProps {
 const AppNexus: React.FC<AppNexusProps> = ({ appID }) => {
   const renderApp = () => {
     switch (appID) {
-      case 'calculator':
+      case "calculator":
         return <Calculator />;
-      case 'calendar':
+      case "calendar":
         return <Calendar />;
-      case 'vscode':
+      case "vscode":
         return <VSCode />;
-      case 'safari':
+      case "safari":
         return <Safari />;
-      case 'wallpapers':
+      case "wallpapers":
         return <WallpaperApp />;
-      case 'appstore':
+      case "appstore":
         return <AppStore />;
-      case 'terminal':
+      case "terminal":
         return <Terminal />;
-      case 'developer':
+      case "developer":
         return <JosephProfile />;
-      case 'finder':
-        return <div style={{ padding: '20px', textAlign: 'center' }}>
-          <h2>Finder</h2>
-          <p>File browser coming soon...</p>
-        </div>;
+      case "finder":
+        return (
+          <div style={{ padding: "20px", textAlign: "center" }}>
+            <h2>Finder</h2>
+            <p>File browser coming soon...</p>
+          </div>
+        );
       default:
         return (
-          <div style={{ 
-            padding: '20px', 
-            textAlign: 'center',
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
+          <div
+            style={{
+              padding: "20px",
+              textAlign: "center",
+              height: "100%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <h2>App: {appID}</h2>
             <p>This application is not yet implemented.</p>
           </div>
@@ -58,23 +62,29 @@ const AppNexus: React.FC<AppNexusProps> = ({ appID }) => {
   };
 
   return (
-    <div style={{ 
-      width: '100%', 
-      height: '100%',
-      overflow: 'hidden',
-    }}>
-      <React.Suspense fallback={
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'center', 
-          alignItems: 'center', 
-          height: '100%',
-          fontSize: '14px',
-          color: '#666',
-        }}>
-          Loading {appID}...
-        </div>
-      }>
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        overflow: "hidden",
+      }}
+    >
+      <React.Suspense
+        fallback={
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100%",
+              fontSize: "14px",
+              color: "#666",
+            }}
+          >
+            Loading {appID}...
+          </div>
+        }
+      >
         {renderApp()}
       </React.Suspense>
     </div>

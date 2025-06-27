@@ -1,5 +1,5 @@
-import { useCallback, useRef } from 'react';
-import { useAppStore } from '@/stores/useAppStore';
+import { useCallback, useRef } from "react";
+import { useAppStore } from "@/stores/useAppStore";
 
 export interface ResizeOptions {
   minWidth?: number;
@@ -19,7 +19,7 @@ export interface ResizeInstance {
 
 export const useWindowResize = (
   appId: string,
-  options: ResizeOptions = {}
+  options: ResizeOptions = {},
 ): [(element: HTMLElement) => ResizeInstance] => {
   const { updateApp } = useAppStore((state) => ({
     updateApp: state.updateApp,
@@ -27,185 +27,188 @@ export const useWindowResize = (
 
   const activeInstanceRef = useRef<ResizeInstance | null>(null);
 
-  const createResizeInstance = useCallback((element: HTMLElement): ResizeInstance => {
-    if (options.disabled) {
-      return { element, destroy: () => {} };
-    }
+  const createResizeInstance = useCallback(
+    (element: HTMLElement): ResizeInstance => {
+      if (options.disabled) {
+        return { element, destroy: () => {} };
+      }
 
-    let isResizing = false;
-    let resizeDirection = '';
-    let startMousePos = { x: 0, y: 0 };
-    let startElementRect = { width: 0, height: 0, left: 0, top: 0 };
+      let isResizing = false;
+      let resizeDirection = "";
+      let startMousePos = { x: 0, y: 0 };
+      let startElementRect = { width: 0, height: 0, left: 0, top: 0 };
 
-    const RESIZE_MARGIN = 10; // pixels from edge to activate resize
+      const RESIZE_MARGIN = 10; // pixels from edge to activate resize
 
-    const getResizeDirection = (e: MouseEvent, rect: DOMRect): string => {
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      let direction = '';
-      
-      if (y <= RESIZE_MARGIN) direction += 'n';
-      if (y >= rect.height - RESIZE_MARGIN) direction += 's';
-      if (x <= RESIZE_MARGIN) direction += 'w';
-      if (x >= rect.width - RESIZE_MARGIN) direction += 'e';
-      
-      return direction;
-    };
+      const getResizeDirection = (e: MouseEvent, rect: DOMRect): string => {
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
 
-    const getCursor = (direction: string): string => {
-      const cursors: Record<string, string> = {
-        'n': 'ns-resize',
-        's': 'ns-resize', 
-        'e': 'ew-resize',
-        'w': 'ew-resize',
-        'ne': 'nesw-resize',
-        'nw': 'nwse-resize',
-        'se': 'nwse-resize',
-        'sw': 'nesw-resize',
-      };
-      return cursors[direction] || 'default';
-    };
+        let direction = "";
 
-    const handleMouseMove = (e: MouseEvent) => {
-      if (isResizing) return;
-      
-      const rect = element.getBoundingClientRect();
-      const direction = getResizeDirection(e, rect);
-      element.style.cursor = getCursor(direction);
-    };
+        if (y <= RESIZE_MARGIN) direction += "n";
+        if (y >= rect.height - RESIZE_MARGIN) direction += "s";
+        if (x <= RESIZE_MARGIN) direction += "w";
+        if (x >= rect.width - RESIZE_MARGIN) direction += "e";
 
-    const handleMouseDown = (e: MouseEvent) => {
-      const rect = element.getBoundingClientRect();
-      const direction = getResizeDirection(e, rect);
-      
-      if (!direction) return;
-
-      e.preventDefault();
-      e.stopPropagation();
-
-      isResizing = true;
-      resizeDirection = direction;
-      startMousePos = { x: e.clientX, y: e.clientY };
-      startElementRect = {
-        width: rect.width,
-        height: rect.height,
-        left: rect.left,
-        top: rect.top,
+        return direction;
       };
 
-      updateApp(appId, { isResizing: true });
-      options.onResizeStart?.();
+      const getCursor = (direction: string): string => {
+        const cursors: Record<string, string> = {
+          n: "ns-resize",
+          s: "ns-resize",
+          e: "ew-resize",
+          w: "ew-resize",
+          ne: "nesw-resize",
+          nw: "nwse-resize",
+          se: "nwse-resize",
+          sw: "nesw-resize",
+        };
+        return cursors[direction] || "default";
+      };
 
-      document.addEventListener('mousemove', handleDocumentMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
-      
-      document.body.style.cursor = getCursor(direction);
-      document.body.style.userSelect = 'none';
-    };
+      const handleMouseMove = (e: MouseEvent) => {
+        if (isResizing) return;
 
-    const handleDocumentMouseMove = (e: MouseEvent) => {
-      if (!isResizing) return;
+        const rect = element.getBoundingClientRect();
+        const direction = getResizeDirection(e, rect);
+        element.style.cursor = getCursor(direction);
+      };
 
-      const deltaX = e.clientX - startMousePos.x;
-      const deltaY = e.clientY - startMousePos.y;
+      const handleMouseDown = (e: MouseEvent) => {
+        const rect = element.getBoundingClientRect();
+        const direction = getResizeDirection(e, rect);
 
-      let newWidth = startElementRect.width;
-      let newHeight = startElementRect.height;
-      let newLeft = startElementRect.left;
-      let newTop = startElementRect.top;
+        if (!direction) return;
 
-      // Handle horizontal resize
-      if (resizeDirection.includes('e')) {
-        newWidth = startElementRect.width + deltaX;
-      } else if (resizeDirection.includes('w')) {
-        newWidth = startElementRect.width - deltaX;
-        newLeft = startElementRect.left + deltaX;
-      }
+        e.preventDefault();
+        e.stopPropagation();
 
-      // Handle vertical resize
-      if (resizeDirection.includes('s')) {
-        newHeight = startElementRect.height + deltaY;
-      } else if (resizeDirection.includes('n')) {
-        newHeight = startElementRect.height - deltaY;
-        newTop = startElementRect.top + deltaY;
-      }
+        isResizing = true;
+        resizeDirection = direction;
+        startMousePos = { x: e.clientX, y: e.clientY };
+        startElementRect = {
+          width: rect.width,
+          height: rect.height,
+          left: rect.left,
+          top: rect.top,
+        };
 
-      // Apply constraints
-      const minWidth = options.minWidth ?? 200;
-      const minHeight = options.minHeight ?? 100;
-      const maxWidth = options.maxWidth ?? window.innerWidth;
-      const maxHeight = options.maxHeight ?? window.innerHeight;
+        updateApp(appId, { isResizing: true });
+        options.onResizeStart?.();
 
-      newWidth = Math.max(minWidth, Math.min(newWidth, maxWidth));
-      newHeight = Math.max(minHeight, Math.min(newHeight, maxHeight));
+        document.addEventListener("mousemove", handleDocumentMouseMove);
+        document.addEventListener("mouseup", handleMouseUp);
 
-      // Apply new dimensions
-      element.style.width = `${newWidth}px`;
-      element.style.height = `${newHeight}px`;
-      
-      if (resizeDirection.includes('w')) {
-        element.style.left = `${newLeft}px`;
-      }
-      if (resizeDirection.includes('n')) {
-        element.style.top = `${newTop}px`;
-      }
+        document.body.style.cursor = getCursor(direction);
+        document.body.style.userSelect = "none";
+      };
 
-      // Update app store
-      updateApp(appId, {
-        width: newWidth,
-        height: newHeight,
-        left: resizeDirection.includes('w') ? newLeft : undefined,
-        top: resizeDirection.includes('n') ? newTop : undefined,
-      });
+      const handleDocumentMouseMove = (e: MouseEvent) => {
+        if (!isResizing) return;
 
-      options.onResize?.({ width: newWidth, height: newHeight });
-    };
+        const deltaX = e.clientX - startMousePos.x;
+        const deltaY = e.clientY - startMousePos.y;
 
-    const handleMouseUp = () => {
-      if (!isResizing) return;
+        let newWidth = startElementRect.width;
+        let newHeight = startElementRect.height;
+        let newLeft = startElementRect.left;
+        let newTop = startElementRect.top;
 
-      isResizing = false;
-      resizeDirection = '';
+        // Handle horizontal resize
+        if (resizeDirection.includes("e")) {
+          newWidth = startElementRect.width + deltaX;
+        } else if (resizeDirection.includes("w")) {
+          newWidth = startElementRect.width - deltaX;
+          newLeft = startElementRect.left + deltaX;
+        }
 
-      updateApp(appId, { isResizing: false });
-      
-      const rect = element.getBoundingClientRect();
-      options.onResizeEnd?.({ width: rect.width, height: rect.height });
+        // Handle vertical resize
+        if (resizeDirection.includes("s")) {
+          newHeight = startElementRect.height + deltaY;
+        } else if (resizeDirection.includes("n")) {
+          newHeight = startElementRect.height - deltaY;
+          newTop = startElementRect.top + deltaY;
+        }
 
-      document.removeEventListener('mousemove', handleDocumentMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-      
-      document.body.style.cursor = '';
-      document.body.style.userSelect = '';
-      element.style.cursor = '';
-    };
+        // Apply constraints
+        const minWidth = options.minWidth ?? 200;
+        const minHeight = options.minHeight ?? 100;
+        const maxWidth = options.maxWidth ?? window.innerWidth;
+        const maxHeight = options.maxHeight ?? window.innerHeight;
 
-    // Add event listeners
-    element.addEventListener('mousemove', handleMouseMove);
-    element.addEventListener('mousedown', handleMouseDown);
+        newWidth = Math.max(minWidth, Math.min(newWidth, maxWidth));
+        newHeight = Math.max(minHeight, Math.min(newHeight, maxHeight));
 
-    // Cleanup function
-    const cleanup = () => {
-      element.removeEventListener('mousemove', handleMouseMove);
-      element.removeEventListener('mousedown', handleMouseDown);
-      document.removeEventListener('mousemove', handleDocumentMouseMove);  
-      document.removeEventListener('mouseup', handleMouseUp);
-      
-      if (document.body.style.cursor) {
-        document.body.style.cursor = '';
-        document.body.style.userSelect = '';
-      }
-    };
+        // Apply new dimensions
+        element.style.width = `${newWidth}px`;
+        element.style.height = `${newHeight}px`;
 
-    const instance: ResizeInstance = {
-      element,
-      destroy: cleanup,
-    };
+        if (resizeDirection.includes("w")) {
+          element.style.left = `${newLeft}px`;
+        }
+        if (resizeDirection.includes("n")) {
+          element.style.top = `${newTop}px`;
+        }
 
-    activeInstanceRef.current = instance;
-    return instance;
-  }, [appId, options, updateApp]);
+        // Update app store
+        updateApp(appId, {
+          width: newWidth,
+          height: newHeight,
+          left: resizeDirection.includes("w") ? newLeft : undefined,
+          top: resizeDirection.includes("n") ? newTop : undefined,
+        });
+
+        options.onResize?.({ width: newWidth, height: newHeight });
+      };
+
+      const handleMouseUp = () => {
+        if (!isResizing) return;
+
+        isResizing = false;
+        resizeDirection = "";
+
+        updateApp(appId, { isResizing: false });
+
+        const rect = element.getBoundingClientRect();
+        options.onResizeEnd?.({ width: rect.width, height: rect.height });
+
+        document.removeEventListener("mousemove", handleDocumentMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+
+        document.body.style.cursor = "";
+        document.body.style.userSelect = "";
+        element.style.cursor = "";
+      };
+
+      // Add event listeners
+      element.addEventListener("mousemove", handleMouseMove);
+      element.addEventListener("mousedown", handleMouseDown);
+
+      // Cleanup function
+      const cleanup = () => {
+        element.removeEventListener("mousemove", handleMouseMove);
+        element.removeEventListener("mousedown", handleMouseDown);
+        document.removeEventListener("mousemove", handleDocumentMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+
+        if (document.body.style.cursor) {
+          document.body.style.cursor = "";
+          document.body.style.userSelect = "";
+        }
+      };
+
+      const instance: ResizeInstance = {
+        element,
+        destroy: cleanup,
+      };
+
+      activeInstanceRef.current = instance;
+      return instance;
+    },
+    [appId, options, updateApp],
+  );
 
   return [createResizeInstance];
 };

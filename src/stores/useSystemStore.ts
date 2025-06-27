@@ -1,13 +1,13 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface SystemStore {
   // State
   wallpaper: string;
   cursorType: string;
   isDockVisible: boolean;
-  dockPosition: 'bottom' | 'left' | 'right';
-  dockSize: 'small' | 'medium' | 'large';
+  dockPosition: "bottom" | "left" | "right";
+  dockSize: "small" | "medium" | "large";
   menuBarVisible: boolean;
   prefersReducedMotion: boolean;
   bootComplete: boolean;
@@ -17,8 +17,8 @@ interface SystemStore {
   setWallpaper: (wallpaper: string) => void;
   setCursorType: (cursorType: string) => void;
   setDockVisible: (visible: boolean) => void;
-  setDockPosition: (position: 'bottom' | 'left' | 'right') => void;
-  setDockSize: (size: 'small' | 'medium' | 'large') => void;
+  setDockPosition: (position: "bottom" | "left" | "right") => void;
+  setDockSize: (size: "small" | "medium" | "large") => void;
   setMenuBarVisible: (visible: boolean) => void;
   setPrefersReducedMotion: (prefers: boolean) => void;
   setBootComplete: (complete: boolean) => void;
@@ -30,13 +30,14 @@ export const useSystemStore = create<SystemStore>()(
   persist(
     (set) => ({
       // Initial state
-      wallpaper: 'default',
-      cursorType: 'default',
+      wallpaper: "default",
+      cursorType: "default",
       isDockVisible: true,
-      dockPosition: 'bottom',
-      dockSize: 'medium',
+      dockPosition: "bottom",
+      dockSize: "medium",
       menuBarVisible: true,
-      prefersReducedMotion: matchMedia('(prefers-reduced-motion: reduce)').matches,
+      prefersReducedMotion: matchMedia("(prefers-reduced-motion: reduce)")
+        .matches,
       bootComplete: false,
       showBootScreen: true,
 
@@ -53,11 +54,11 @@ export const useSystemStore = create<SystemStore>()(
         set({ isDockVisible: visible });
       },
 
-      setDockPosition: (position: 'bottom' | 'left' | 'right') => {
+      setDockPosition: (position: "bottom" | "left" | "right") => {
         set({ dockPosition: position });
       },
 
-      setDockSize: (size: 'small' | 'medium' | 'large') => {
+      setDockSize: (size: "small" | "medium" | "large") => {
         set({ dockSize: size });
       },
 
@@ -79,11 +80,11 @@ export const useSystemStore = create<SystemStore>()(
 
       resetSystemSettings: () => {
         set({
-          wallpaper: 'default',
-          cursorType: 'default',
+          wallpaper: "default",
+          cursorType: "default",
           isDockVisible: true,
-          dockPosition: 'bottom',
-          dockSize: 'medium',
+          dockPosition: "bottom",
+          dockSize: "medium",
           menuBarVisible: true,
           bootComplete: false,
           showBootScreen: true,
@@ -91,7 +92,7 @@ export const useSystemStore = create<SystemStore>()(
       },
     }),
     {
-      name: 'macos:system-settings',
+      name: "macos:system-settings",
       partialize: (state) => ({
         wallpaper: state.wallpaper,
         cursorType: state.cursorType,
@@ -101,6 +102,6 @@ export const useSystemStore = create<SystemStore>()(
         menuBarVisible: state.menuBarVisible,
         prefersReducedMotion: state.prefersReducedMotion,
       }),
-    }
-  )
+    },
+  ),
 );

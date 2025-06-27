@@ -5,6 +5,7 @@
 ## 5-Minute Setup
 
 ### 1. Create App Component
+
 Create `src/components/apps/YourApp/YourApp.tsx`:
 
 ```typescript
@@ -42,13 +43,13 @@ const YourApp: React.FC = () => {
       <button onClick={fetchData} disabled={loading}>
         {loading ? 'Loading...' : 'Fetch Data'}
       </button>
-      
+
       <div style={{ marginTop: '20px' }}>
         {data.map((item, index) => (
-          <div key={index} style={{ 
-            padding: '10px', 
-            border: '1px solid #ccc', 
-            margin: '5px 0' 
+          <div key={index} style={{
+            padding: '10px',
+            border: '1px solid #ccc',
+            margin: '5px 0'
           }}>
             {JSON.stringify(item)}
           </div>
@@ -62,15 +63,16 @@ export default YourApp;
 ```
 
 ### 2. Register App
+
 Add to `src/configs/apps/apps-config.ts`:
 
 ```typescript
-import YourApp from '🍎/components/apps/YourApp/YourApp';
+import YourApp from "🍎/components/apps/YourApp/YourApp";
 
 export const appsConfig = {
   // ... existing apps
-  'your-app-id': createAppConfig({
-    title: 'Your App',
+  "your-app-id": createAppConfig({
+    title: "Your App",
     resizable: true,
     expandable: true,
     width: 800,
@@ -81,29 +83,39 @@ export const appsConfig = {
 ```
 
 ### 3. Add App ID Type
+
 Update `src/stores/useAppsStore.ts`:
 
 ```typescript
-export type AppID = 
-  | 'wallpapers' | 'finder' | 'vscode' | 'calculator' 
-  | 'safari' | 'appstore' | 'calendar' | 'developer' 
-  | 'terminal' | 'your-app-id'; // Add here
+export type AppID =
+  | "wallpapers"
+  | "finder"
+  | "vscode"
+  | "calculator"
+  | "safari"
+  | "appstore"
+  | "calendar"
+  | "developer"
+  | "terminal"
+  | "your-app-id"; // Add here
 ```
 
 ### 4. Add Icon
+
 1. Create `public/app-icons/your-app-id/256.png`
 2. Update `src/components/Dock/Dock.tsx`:
 
 ```typescript
 const iconMap: Record<AppID, string> = {
   // ... existing icons
-  'your-app-id': '/app-icons/your-app-id/256.png',
+  "your-app-id": "/app-icons/your-app-id/256.png",
 };
 ```
 
 ## API Patterns
 
 ### Authentication
+
 ```typescript
 // Bearer Token
 auth: { type: 'bearer', token: 'your-jwt-token' }
@@ -116,27 +128,29 @@ auth: { type: 'apikey', key: 'your-key', headerName: 'X-API-Key' }
 ```
 
 ### HTTP Methods
+
 ```typescript
 // GET
-const users = await webservice.get('/users');
+const users = await webservice.get("/users");
 
 // POST
-const newUser = await webservice.post('/users', { name: 'John' });
+const newUser = await webservice.post("/users", { name: "John" });
 
 // PUT
-const updated = await webservice.put('/users/1', { name: 'Jane' });
+const updated = await webservice.put("/users/1", { name: "Jane" });
 
 // DELETE
-await webservice.delete('/users/1');
+await webservice.delete("/users/1");
 ```
 
 ### Error Handling
+
 ```typescript
 try {
-  const response = await webservice.get('/data');
+  const response = await webservice.get("/data");
   setData(response.data);
 } catch (error) {
-  console.error('Failed:', error);
+  console.error("Failed:", error);
   setError(error.message);
 }
 ```
@@ -144,6 +158,7 @@ try {
 ## Styling
 
 ### macOS Button
+
 ```typescript
 <button style={{
   padding: '8px 16px',
@@ -159,6 +174,7 @@ try {
 ```
 
 ### Card Layout
+
 ```typescript
 <div style={{
   background: 'white',
@@ -174,6 +190,7 @@ try {
 ## Testing
 
 Start dev server and test your app:
+
 ```bash
 npm run dev
 # Open http://localhost:4040
@@ -183,6 +200,7 @@ npm run dev
 ## Next Steps
 
 For advanced features, see the [Full Development Guide](./FRONTEND_APP_DEVELOPMENT.md):
+
 - Real-time WebSocket connections
 - File upload/download
 - Advanced authentication

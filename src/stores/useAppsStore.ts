@@ -1,17 +1,17 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 // Define the available app IDs based on the original configuration
-export type AppID = 
-  | 'wallpapers'
-  | 'finder'
-  | 'vscode'
-  | 'calculator'
-  | 'safari'
-  | 'appstore'
-  | 'calendar'
-  | 'developer'
-  | 'terminal';
+export type AppID =
+  | "wallpapers"
+  | "finder"
+  | "vscode"
+  | "calculator"
+  | "safari"
+  | "appstore"
+  | "calendar"
+  | "developer"
+  | "terminal";
 
 interface AppsStore {
   // State
@@ -73,7 +73,7 @@ export const useAppsStore = create<AppsStore>()(
     (set, get) => ({
       // Initial state
       openApps: initialOpenApps,
-      activeApp: 'finder' as AppID,
+      activeApp: "finder" as AppID,
       activeAppZIndex: -2,
       appZIndices: initialAppZIndices,
       isAppBeingDragged: false,
@@ -154,11 +154,11 @@ export const useAppsStore = create<AppsStore>()(
       },
     }),
     {
-      name: 'macos:apps-state',
+      name: "macos:apps-state",
       partialize: (state) => ({
         openApps: state.openApps,
         appsInFullscreen: state.appsInFullscreen,
       }),
-    }
-  )
+    },
+  ),
 );
