@@ -58,7 +58,7 @@
     "vite-imagetools": "7.0.1",
     "vite-plugin-pwa": "^0.19.8",
     "vitest": "^3.2.4",
-    "workbox-window": "^7.0.0"
+    "workbox-window": "^7.3.0"
   },
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.22.0",
