@@ -8,6 +8,7 @@ import { appsConfig } from "@/configs/apps/appsConfig";
 import Window from "./Window/Window";
 import Dock from "@/components/Dock/Dock";
 import TopBar from "@/components/TopBar/TopBar";
+import { VoiceControl } from "@/components/VoiceControl/VoiceControl";
 
 const Desktop: React.FC = () => {
   console.log("Desktop component rendering");
@@ -89,6 +90,18 @@ const Desktop: React.FC = () => {
     >
       {/* TopBar */}
       <TopBar />
+
+      {/* Voice Control */}
+      <div
+        style={{
+          position: "absolute",
+          top: "32px",
+          right: "20px",
+          zIndex: 1000,
+        }}
+      >
+        <VoiceControl />
+      </div>
 
       {/* Desktop Content Area */}
       <div
