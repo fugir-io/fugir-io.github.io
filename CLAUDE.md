@@ -22,6 +22,35 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run test:coverage` - Generate test coverage report
 - `npm run ci` - Run complete CI pipeline locally
 
+### Makefile Commands (Preferred for Development)
+
+**Development:**
+
+- `make dev` - Start development server
+- `make build` - Build for production
+- `make test` - Run tests
+- `make lint` - Run linting
+- `make format` - Format code
+- `make ci` - Run full CI pipeline locally
+
+**Version Management:**
+
+- `make version-patch` - Bump patch version (bug fixes)
+- `make version-minor` - Bump minor version (new features)
+- `make version-major` - Bump major version (breaking changes)
+
+**Release Management:**
+
+- `make changelog` - Generate changelog for current version
+- `make release` - Trigger GitHub release workflow
+- `make status` - Show current project status
+
+**Maintenance:**
+
+- `make audit` - Run security audit
+- `make update-deps` - Update dependencies
+- `make help` - Show all available commands
+
 ### Testing Framework
 
 - Uses **Vitest** with React Testing Library
@@ -162,3 +191,47 @@ VITE_AUTH0_CALLBACK_URL=http://localhost:4040/callback
 ### Development Port
 
 The application runs on **port 4040** by default to avoid conflicts with common development ports.
+
+## Release Management
+
+### Automated Release Workflow
+
+This project uses an automated release system with:
+
+- **Semantic Versioning** (major.minor.patch)
+- **Automated Changelog Generation** from commit history
+- **GitHub Actions** for release automation
+- **Makefile** for development workflow
+
+### Creating Releases
+
+1. **Patch Release (bug fixes):** `make version-patch`
+2. **Minor Release (new features):** `make version-minor`
+3. **Major Release (breaking changes):** `make version-major`
+4. **Trigger Release:** `make release`
+
+### Changelog Categories
+
+The changelog system automatically categorizes commits:
+
+- 🔒 Security Updates
+- ✨ Feature Updates
+- ⚡ Performance Updates
+- 🐛 Bug Fixes
+- 📦 Dependencies
+- 🔨 Refactoring
+- 📚 Documentation
+- 🧪 Testing
+- 🚀 CI/CD
+- ⚙️ Configuration
+
+### Release Workflow
+
+1. Version bump updates `package.json` and generates changelog
+2. Git commit and tag creation
+3. GitHub Actions workflow triggers on tag push
+4. Automated testing, security scanning, and deployment
+5. GitHub release creation with artifacts
+6. Automatic deployment to GitHub Pages
+
+See [docs/RELEASE_WORKFLOW.md](docs/RELEASE_WORKFLOW.md) for detailed documentation.
