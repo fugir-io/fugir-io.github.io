@@ -42,40 +42,44 @@ export const useVoiceRecognition = (): VoiceRecognitionHook => {
   const { openApp } = useAppsStore();
 
   // Check if Speech Recognition is supported
-  const isSupported = typeof window !== "undefined" && 
+  const isSupported =
+    typeof window !== "undefined" &&
     ("SpeechRecognition" in window || "webkitSpeechRecognition" in window);
 
-  const processVoiceCommand = useCallback((text: string) => {
-    const lowerText = text.toLowerCase().trim();
-    
-    // Check for "open [app name]" pattern
-    const openMatch = lowerText.match(/^open\s+(.+)$/);
-    if (openMatch) {
-      const appName = openMatch[1].trim();
-      const appId = APP_NAME_MAP[appName];
-      
-      if (appId) {
-        openApp(appId);
-        return true;
+  const processVoiceCommand = useCallback(
+    (text: string) => {
+      const lowerText = text.toLowerCase().trim();
+
+      // Check for "open [app name]" pattern
+      const openMatch = lowerText.match(/^open\s+(.+)$/);
+      if (openMatch) {
+        const appName = openMatch[1].trim();
+        const appId = APP_NAME_MAP[appName];
+
+        if (appId) {
+          openApp(appId);
+          return true;
+        }
       }
-    }
-    
-    return false;
-  }, [openApp]);
+
+      return false;
+    },
+    [openApp],
+  );
 
   const startListening = useCallback(() => {
     if (!isSupported || recognitionRef.current) return;
 
     try {
-      const SpeechRecognition = 
+      const SpeechRecognition =
         window.SpeechRecognition || window.webkitSpeechRecognition;
-      
+
       const recognition = new SpeechRecognition();
       recognition.continuous = false; // Changed to false for better reliability
       recognition.interimResults = true;
       recognition.lang = "en-US";
       recognition.maxAlternatives = 1;
-      
+
       // Add timeout to prevent hanging
       setTimeout(() => {
         if (recognitionRef.current) {
@@ -97,7 +101,7 @@ export const useVoiceRecognition = (): VoiceRecognitionHook => {
           if (result.isFinal) {
             finalTranscript += result[0].transcript;
             setConfidence(result[0].confidence);
-            
+
             // Process the command
             if (processVoiceCommand(finalTranscript)) {
               // Stop listening after successful command
@@ -113,11 +117,11 @@ export const useVoiceRecognition = (): VoiceRecognitionHook => {
 
       recognition.onerror = (event) => {
         console.log("Speech recognition error:", event.error);
-        if (event.error === 'network') {
+        if (event.error === "network") {
           setError("Network error - check internet connection");
-        } else if (event.error === 'not-allowed') {
+        } else if (event.error === "not-allowed") {
           setError("Microphone access denied");
-        } else if (event.error === 'no-speech') {
+        } else if (event.error === "no-speech") {
           setError("No speech detected - try again");
         } else {
           setError(`Error: ${event.error}`);

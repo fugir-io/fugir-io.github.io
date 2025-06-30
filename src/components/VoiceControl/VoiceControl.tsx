@@ -8,9 +8,11 @@ interface VoiceControlProps {
   className?: string;
 }
 
-export const VoiceControl: React.FC<VoiceControlProps> = ({ className = "" }) => {
+export const VoiceControl: React.FC<VoiceControlProps> = ({
+  className = "",
+}) => {
   console.log("VoiceControl component rendering");
-  
+
   const {
     isListening,
     isSupported,
@@ -25,16 +27,18 @@ export const VoiceControl: React.FC<VoiceControlProps> = ({ className = "" }) =>
   if (!isSupported) {
     console.log("Speech Recognition not supported, rendering fallback");
     return (
-      <div style={{ 
-        position: "absolute", 
-        top: "10px", 
-        right: "10px", 
-        background: "red", 
-        color: "white", 
-        padding: "5px",
-        fontSize: "12px",
-        borderRadius: "4px"
-      }}>
+      <div
+        style={{
+          position: "absolute",
+          top: "10px",
+          right: "10px",
+          background: "red",
+          color: "white",
+          padding: "5px",
+          fontSize: "12px",
+          borderRadius: "4px",
+        }}
+      >
         Voice not supported
       </div>
     );
@@ -45,7 +49,9 @@ export const VoiceControl: React.FC<VoiceControlProps> = ({ className = "" }) =>
       <button
         onClick={isListening ? stopListening : startListening}
         className={`${styles.voiceButton} ${isListening ? styles.listening : ""}`}
-        title={isListening ? "Stop voice recognition" : "Start voice recognition"}
+        title={
+          isListening ? "Stop voice recognition" : "Start voice recognition"
+        }
         type="button"
       >
         {isListening ? (

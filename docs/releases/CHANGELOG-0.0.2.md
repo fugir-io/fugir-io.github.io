@@ -25,7 +25,7 @@ Voice-enabled desktop experience update introducing comprehensive voice command 
 ### User Interface Improvements
 
 - **Voice Control Interface**: Elegant microphone button integrated in desktop environment
-- **Visual State Indicators**: 
+- **Visual State Indicators**:
   - Microphone icon for idle state
   - Animated listening indicator with pulsing dot
   - Recording circle icon during active listening
@@ -76,18 +76,21 @@ Voice-enabled desktop experience update introducing comprehensive voice command 
 ---
 
 **Browser Compatibility:**
+
 - ✅ Chrome/Chromium browsers (full support)
 - ✅ Safari (webkit implementation)
 - ✅ Microsoft Edge (Chromium-based)
 - ⚠️ Firefox (limited support, working on WebRTC implementation)
 
 **Security & Privacy:**
+
 - Voice processing happens entirely in the browser (no data sent to servers)
 - Microphone permission required and clearly requested
 - Speech recognition respects browser privacy settings
 - No voice data storage or transmission
 
 **Performance Impact:**
+
 - Minimal memory footprint (~5MB additional for voice processing)
 - No impact on desktop performance when not actively listening
 - Efficient resource cleanup prevents memory leaks
