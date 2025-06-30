@@ -36,7 +36,7 @@ jobs:
 
       - name: Update package.json version
         run: |
-          VERSION="${{ needs.validate.outputs.version }}"
+          VERSION="${{ github.event.inputs.version }}"
           echo "Updating package.json version to $VERSION"
           
           # Update package.json version
@@ -51,7 +51,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add package.json package-lock.json
-          git commit -m "chore: bump version to ${{ needs.validate.outputs.version }} [skip ci]"
+          git commit -m "chore: bump version to ${{ github.event.inputs.version }} [skip ci]"
           git push origin main
 
   test:
@@ -93,7 +93,7 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: build-artifacts-${{ needs.validate.outputs.version }}
+          name: build-artifacts-${{ github.event.inputs.version }}
           path: dist/
           retention-days: 30
 
@@ -161,9 +161,9 @@ jobs:
       - name: Create release archive
         run: |
           cd dist
-          tar -czf ../fugir-io-${{ needs.validate.outputs.version }}.tar.gz .
+          tar -czf ../fugir-io-${{ github.event.inputs.version }}.tar.gz .
           cd ..
-          zip -r fugir-io-${{ needs.validate.outputs.version }}.zip dist/
+          zip -r fugir-io-${{ github.event.inputs.version }}.zip dist/
 
       - name: Extract changelog for release
         id: changelog
@@ -192,8 +192,8 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ needs.validate.outputs.tag }}
-          name: Release ${{ needs.validate.outputs.tag }}
+          tag_name: ${{ github.event.inputs.version }}
+          name: Release ${{ github.event.inputs.version }}
           body_path: release-notes.md
           draft: false
           prerelease: false
