@@ -26,10 +26,26 @@ jobs:
       - name: Extract and validate version
         id: extract-version
         run: |
+          echo "🔍 Debug information:"
+          echo "Event name: ${{ github.event_name }}"
+          echo "GitHub ref: $GITHUB_REF"
+          echo "Workflow input version: '${{ github.event.inputs.version }}'"
+          
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             TAG_VERSION="${{ github.event.inputs.version }}"
+            echo "Using manual dispatch version: '$TAG_VERSION'"
           else
             TAG_VERSION="${GITHUB_REF#refs/tags/}"
+            echo "Using tag version: '$TAG_VERSION'"
+          fi
+
+          # Check if TAG_VERSION is empty
+          if [ -z "$TAG_VERSION" ]; then
+            echo "❌ Error: No version found!"
+            echo "Event: ${{ github.event_name }}"
+            echo "Ref: $GITHUB_REF"
+            echo "Input: '${{ github.event.inputs.version }}'"
+            exit 1
           fi
 
           # Validate version format (allows both vX.X.X and X.X.X)
@@ -38,7 +54,7 @@ jobs:
             VERSION=${TAG_VERSION#v}
             TAG_NAME="v$VERSION"
           else
-            echo "Error: Invalid version format: $TAG_VERSION"
+            echo "❌ Error: Invalid version format: '$TAG_VERSION'"
             echo "Expected format: 1.2.3 or v1.2.3"
             exit 1
           fi
