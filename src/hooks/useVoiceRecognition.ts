@@ -42,9 +42,29 @@ export const useVoiceRecognition = (): VoiceRecognitionHook => {
   const { openApp } = useAppsStore();
 
   // Check if Speech Recognition is supported
-  const isSupported =
-    typeof window !== "undefined" &&
-    ("SpeechRecognition" in window || "webkitSpeechRecognition" in window);
+  const isSupported = (() => {
+    if (typeof window === "undefined") {
+      console.log("Voice Recognition: Window is undefined (SSR)");
+      return false;
+    }
+
+    const hasAPI =
+      "SpeechRecognition" in window || "webkitSpeechRecognition" in window;
+    const isSecureContext =
+      window.isSecureContext ||
+      window.location.protocol === "https:" ||
+      window.location.hostname === "localhost";
+
+    console.log("Voice Recognition Support Check:", {
+      hasAPI,
+      isSecureContext,
+      protocol: window.location.protocol,
+      hostname: window.location.hostname,
+      isSupported: hasAPI && isSecureContext,
+    });
+
+    return hasAPI && isSecureContext;
+  })();
 
   const processVoiceCommand = useCallback(
     (text: string) => {

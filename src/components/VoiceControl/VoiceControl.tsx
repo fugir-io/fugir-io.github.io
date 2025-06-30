@@ -24,20 +24,31 @@ export const VoiceControl: React.FC<VoiceControlProps> = ({
 
   if (!isSupported) {
     console.log("Speech Recognition not supported, rendering fallback");
+    const isHTTPS =
+      typeof window !== "undefined" &&
+      (window.location.protocol === "https:" ||
+        window.location.hostname === "localhost");
+    const hasAPI =
+      typeof window !== "undefined" &&
+      ("SpeechRecognition" in window || "webkitSpeechRecognition" in window);
+
     return (
       <div
         style={{
           position: "absolute",
           top: "10px",
           right: "10px",
-          background: "red",
+          background: "rgba(255, 59, 48, 0.9)",
           color: "white",
-          padding: "5px",
-          fontSize: "12px",
-          borderRadius: "4px",
+          padding: "8px 12px",
+          fontSize: "11px",
+          borderRadius: "6px",
+          boxShadow: "0 2px 10px rgba(0,0,0,0.3)",
+          maxWidth: "200px",
         }}
+        title={`Voice API: ${hasAPI ? "Available" : "Missing"}, HTTPS: ${isHTTPS ? "Yes" : "No"}`}
       >
-        Voice not supported
+        🎤 Voice requires HTTPS
       </div>
     );
   }
