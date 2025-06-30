@@ -92,7 +92,6 @@ The project uses GitHub Actions for continuous integration:
 ### Workflows
 
 1. **Continuous Integration** (`.github/workflows/ci.yml`)
-
    - Runs on every push/PR
    - Type checking, linting, testing, building
    - Security audit

@@ -23,8 +23,9 @@ body[data-theme="light"] {
   --system-color-light-shade-contrast: hsl(0, 0%, 11%);
   --system-color-light-shade-contrast-hsl: 0, 0%, 11%;
 
-  --system-font-family: -apple-system, BlinkMacSystemFont, "Inter",
-    "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  --system-font-family:
+    -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", "Helvetica",
+    "Arial", sans-serif;
 
   --system-focus-outline: 0 0 0 3px hsla(var(--system-color-primary-hsl), 0.5);
 
