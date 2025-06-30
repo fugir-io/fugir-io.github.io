@@ -216,25 +216,38 @@ jobs:
         id: changelog
         run: |
           VERSION="${{ needs.validate.outputs.version }}"
+          CHANGELOG_FILE="docs/releases/CHANGELOG-$VERSION.md"
 
-          if [ -f "CHANGELOG.md" ]; then
-            # Extract changelog entry for this version
-            awk "/^## \[$VERSION\]/{flag=1; next} /^## \[/{flag=0} flag" CHANGELOG.md > release-notes.md
+          echo "Looking for changelog file: $CHANGELOG_FILE"
+
+          if [ -f "$CHANGELOG_FILE" ]; then
+            echo "Found changelog file: $CHANGELOG_FILE"
+            # Use the entire changelog file content as release notes
+            cp "$CHANGELOG_FILE" release-notes.md
             
-            # If no specific version entry found, create a simple one
-            if [ ! -s release-notes.md ]; then
-              echo "Release v$VERSION" > release-notes.md
-              echo "" >> release-notes.md
-              echo "See commit history for detailed changes." >> release-notes.md
-            fi
+            echo "✅ Using changelog from $CHANGELOG_FILE"
           else
-            echo "Release v$VERSION" > release-notes.md
+            echo "⚠️ Changelog file not found: $CHANGELOG_FILE"
+            echo "Creating default release notes..."
+            
+            echo "# Release v$VERSION" > release-notes.md
             echo "" >> release-notes.md
-            echo "See commit history for detailed changes." >> release-notes.md
+            echo "## What's New" >> release-notes.md
+            echo "" >> release-notes.md
+            echo "This release includes various improvements and bug fixes." >> release-notes.md
+            echo "" >> release-notes.md
+            echo "See the commit history for detailed changes:" >> release-notes.md
+            echo "https://github.com/fugir-io/fugir-io.github.io/compare/v$VERSION...main" >> release-notes.md
+            echo "" >> release-notes.md
+            echo "**Note:** Detailed changelog not available for this version." >> release-notes.md
+            echo "" >> release-notes.md
+            echo "🚀 Experience the Fugir Environment at [fugir.io](https://fugir.io)" >> release-notes.md
           fi
 
-          echo "Release notes:"
+          echo "📋 Release notes content:"
+          echo "=========================="
           cat release-notes.md
+          echo "=========================="
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
