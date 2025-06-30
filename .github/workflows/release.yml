@@ -57,7 +57,7 @@ jobs:
   test:
     name: Run Tests
     runs-on: ubuntu-latest
-    needs: [validate, update-version]
+    needs: [update-version]
 
     steps:
       - name: Checkout code
@@ -140,7 +140,7 @@ jobs:
   create-release:
     name: Create GitHub Release
     runs-on: ubuntu-latest
-    needs: [validate, test, security-scan]
+    needs: [test, security-scan]
     permissions:
       contents: write
       pull-requests: read
@@ -206,7 +206,7 @@ jobs:
   notify:
     name: Notify Release
     runs-on: ubuntu-latest
-    needs: [validate, create-release]
+    needs: [create-release]
     if: always()
 
     steps:
