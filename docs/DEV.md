@@ -4,7 +4,7 @@ This file provides guidance to developers when working with code in this reposit
 
 ## Overview
 
-This is a macOS desktop simulator built with React, TypeScript, and Vite. It recreates the macOS Monterey/Big Sur desktop experience in a web browser, complete with a dock, windows, applications, and system UI elements. The project uses Auth0 for authentication and includes a PWA manifest.
+This is a Fugir Environment built with React, TypeScript, and Vite. It recreates the Fugir Monterey/Big Sur desktop experience in a web browser, complete with a dock, windows, applications, and system UI elements. The project uses Auth0 for authentication and includes a PWA manifest.
 
 ## Development Commands
 
@@ -66,7 +66,7 @@ npm run clean
 
 - Global styles in `src/css/global.scss`
 - Uses Sass for preprocessing
-- macOS-style design system with proper shadows, blur effects, and animations
+- Fugir-style design system with proper shadows, blur effects, and animations
 
 ### Assets Structure
 
@@ -144,7 +144,7 @@ For comprehensive guides on building frontend applications that connect to backe
 - WebService integration with authentication
 - Real-time WebSocket support
 - File upload/download capabilities
-- macOS-style UI components
+- Fugir-style UI components
 - State management patterns
 - Error handling and loading states
 - Performance optimization techniques

@@ -1,7 +1,12 @@
 # Fugir.io Makefile
 # Development and release automation
 
-.PHONY: help install dev build test lint format clean release changelog version-major version-minor version-patch check-git status
+# Colors for output
+ERROR_COLOR := \033[31m
+INFO_COLOR := \033[36m
+NO_COLOR := \033[0m
+
+.PHONY: help install dev build test lint format clean changelog status
 
 # Default target
 help: ## Show this help message
@@ -53,62 +58,14 @@ MAJOR := $(shell echo $(CURRENT_VERSION) | cut -d. -f1)
 MINOR := $(shell echo $(CURRENT_VERSION) | cut -d. -f2)
 PATCH := $(shell echo $(CURRENT_VERSION) | cut -d. -f3)
 
-version-major: check-git ## Bump major version (breaking changes)
-	$(eval NEW_VERSION := $(shell echo $$(($(MAJOR) + 1)).0.0))
-	@echo "Bumping version from $(CURRENT_VERSION) to $(NEW_VERSION)"
-	@npm version --no-git-tag-version $(NEW_VERSION)
-	@$(MAKE) changelog VERSION=$(NEW_VERSION) TYPE="major"
-	@git add package.json package-lock.json CHANGELOG.md
-	@git commit -m "chore: bump version to $(NEW_VERSION)"
-	@git tag -a v$(NEW_VERSION) -m "Release v$(NEW_VERSION)"
-	@echo "Version bumped to $(NEW_VERSION). Run 'make release' to publish."
 
-version-minor: check-git ## Bump minor version (new features)
-	$(eval NEW_VERSION := $(MAJOR).$(shell echo $$(($(MINOR) + 1))).0)
-	@echo "Bumping version from $(CURRENT_VERSION) to $(NEW_VERSION)"
-	@npm version --no-git-tag-version $(NEW_VERSION)
-	@$(MAKE) changelog VERSION=$(NEW_VERSION) TYPE="minor"
-	@git add package.json package-lock.json CHANGELOG.md
-	@git commit -m "chore: bump version to $(NEW_VERSION)"
-	@git tag -a v$(NEW_VERSION) -m "Release v$(NEW_VERSION)"
-	@echo "Version bumped to $(NEW_VERSION). Run 'make release' to publish."
-
-version-patch: check-git ## Bump patch version (bug fixes)
-	$(eval NEW_VERSION := $(MAJOR).$(MINOR).$(shell echo $$(($(PATCH) + 1))))
-	@echo "Bumping version from $(CURRENT_VERSION) to $(NEW_VERSION)"
-	@npm version --no-git-tag-version $(NEW_VERSION)
-	@$(MAKE) changelog VERSION=$(NEW_VERSION) TYPE="patch"
-	@git add package.json package-lock.json CHANGELOG.md
-	@git commit -m "chore: bump version to $(NEW_VERSION)"
-	@git tag -a v$(NEW_VERSION) -m "Release v$(NEW_VERSION)"
-	@echo "Version bumped to $(NEW_VERSION). Run 'make release' to publish."
-
-# Changelog generation
-changelog: ## Generate changelog for current version
-	@echo "Generating changelog for version $(VERSION)..."
-	@./scripts/generate-changelog.sh $(VERSION) $(TYPE)
-
-# Release management
-release: check-git ## Trigger GitHub release workflow
-	@echo "Triggering release workflow for version $(CURRENT_VERSION)..."
-	@git push origin main
-	@git push origin v$(CURRENT_VERSION)
-	@echo "Release workflow triggered. Check GitHub Actions for progress."
-
-# Git checks
-check-git: ## Check git status before operations
-	@if [ -n "$$(git status --porcelain)" ]; then \
-		echo "Error: Working directory is not clean. Please commit or stash changes."; \
+changelog: ## Generate or update changelog for specified version (TAG_VERSION=1.2.3 make generate-changelog)
+	@if [ -z "$(TAG_VERSION)" ]; then \
+		echo "$(ERROR_COLOR)Error: TAG_VERSION is required. Usage: TAG_VERSION=1.2.3 make generate-changelog$(NO_COLOR)"; \
 		exit 1; \
 	fi
-	@if [ "$$(git rev-parse --abbrev-ref HEAD)" != "main" ]; then \
-		echo "Warning: Not on main branch. Current branch: $$(git rev-parse --abbrev-ref HEAD)"; \
-		read -p "Continue anyway? [y/N] " -n 1 -r; \
-		echo; \
-		if [[ ! $$REPLY =~ ^[Yy]$$ ]]; then \
-			exit 1; \
-		fi; \
-	fi
+	echo "$(INFO_COLOR)Generating changelog for version$(NO_COLOR)"; \
+	claude -p --dangerously-skip-permissions "CRITICAL: Update or create the changelog for version $(TAG_VERSION). Analyze BOTH git commits AND code structure to understand changes:\n\nCODE ANALYSIS REQUIRED:\n1. EXAMINE src/components/ directory for new desktop applications\n2. IDENTIFY UI/UX improvements in Desktop/, Dock/, TopBar/ components\n3. UNDERSTAND app system changes in src/configs/apps/\n4. REVIEW state management updates in Zustand stores\n5. CHECK for wallpaper, theme, and visual enhancements\n\nCONTENT CLASSIFICATION:\n1. **New Applications & Features** → New desktop apps, system features, major UI additions\n2. **User Interface Improvements** → Visual enhancements, animations, wallpapers, themes\n3. **Performance & Technical Improvements** → React optimizations, bundle size, rendering improvements\n4. **Bug Fixes & Stability** → Component fixes, window management, authentication issues\n5. **Developer Experience** → Build system, testing, development workflow improvements\n\nSPECIFIC FOCUS for $(TAG_VERSION):\n- Focus on authentic Fugir desktop experience recreation\n- Highlight user-facing visual and interactive improvements\n- Emphasize new desktop applications and system features\n- Document window management and desktop environment enhancements\n- Include performance metrics for rendering and load times when available\n\nKEY MESSAGING:\n- Authentic Fugir experience in the browser\n- New desktop applications and system capabilities\n- Enhanced window management and user interactions\n- Visual fidelity and animation improvements\n- Cross-browser compatibility and mobile responsiveness\n\nWrite user-focused descriptions emphasizing the desktop simulation experience. Reference CLAUDE.md changelog guidelines. Only modify CHANGELOG-X.X.md files in docs/releases."
 
 status: ## Show current project status
 	@echo "Project: fugir-io"

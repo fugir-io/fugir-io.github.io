@@ -1,10 +1,10 @@
 # Component Examples
 
-> **Code examples for common macOS desktop simulator components**
+> **Code examples for common Fugir Environment components**
 
 ## LoadingScreen Component
 
-The LoadingScreen component provides a beautiful macOS-style loading interface with animations and the Apple logo (🍎).
+The LoadingScreen component provides a beautiful Fugir-style loading interface with animations and the Apple logo (🍎).
 
 ### Component Code
 
@@ -72,7 +72,7 @@ const LoadingScreen: React.FC = () => {
           margin: '0 0 10px 0',
           letterSpacing: '1px',
         }}>
-          Loading macOS
+          Loading Fugir
         </h2>
 
         <p style={{
@@ -155,10 +155,10 @@ export default LoadingScreen;
 ### Key Features
 
 1. **Apple Logo 🍎**: Large animated Apple emoji with floating animation
-2. **Gradient Background**: macOS-style blue gradient background
+2. **Gradient Background**: Fugir-style blue gradient background
 3. **Loading Spinner**: Circular spinner with smooth rotation
 4. **Progress Dots**: Three animated dots showing loading progress
-5. **Typography**: macOS system fonts with proper styling
+5. **Typography**: Fugir system fonts with proper styling
 6. **Animations**: Multiple CSS animations for smooth, professional feel
 
 ### Usage in App
@@ -195,7 +195,7 @@ interface LoadingScreenProps {
 }
 
 const CustomLoadingScreen: React.FC<LoadingScreenProps> = ({
-  title = "Loading macOS",
+  title = "Loading Fugir",
   subtitle = "Preparing your desktop environment...",
   logo = "🍎",
   color = "#007aff"
@@ -298,4 +298,4 @@ const MyAPIApp: React.FC = () => {
 
 ---
 
-_The LoadingScreen component demonstrates the macOS design principles used throughout the platform._ ✨
+_The LoadingScreen component demonstrates the Fugir design principles used throughout the platform._ ✨

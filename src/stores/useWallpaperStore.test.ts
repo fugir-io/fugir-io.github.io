@@ -78,8 +78,8 @@ describe("useWallpaperStore", () => {
   it("has wallpapers organized by categories", () => {
     const state = useWallpaperStore.getState();
 
-    const macosWallpapers = state.availableWallpapers.filter(
-      (w) => w.category === "macos",
+    const FugirWallpapers = state.availableWallpapers.filter(
+      (w) => w.category === "Fugir",
     );
     const artisticWallpapers = state.availableWallpapers.filter(
       (w) => w.category === "artistic",
@@ -88,7 +88,7 @@ describe("useWallpaperStore", () => {
       (w) => w.category === "nature",
     );
 
-    expect(macosWallpapers.length).toBeGreaterThan(0);
+    expect(FugirWallpapers.length).toBeGreaterThan(0);
     expect(artisticWallpapers.length).toBeGreaterThan(0);
     expect(natureWallpapers.length).toBeGreaterThan(0);
   });

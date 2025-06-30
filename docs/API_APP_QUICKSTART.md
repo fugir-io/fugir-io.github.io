@@ -157,7 +157,7 @@ try {
 
 ## Styling
 
-### macOS Button
+### Fugir Button
 
 ```typescript
 <button style={{

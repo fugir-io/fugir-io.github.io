@@ -2,7 +2,7 @@
 
 ![](./docs/assets/screenshot.png)
 
-A modern macOS-inspired web desktop built with React, TypeScript, and Vite.
+A modern Fugir-inspired web desktop built with React, TypeScript, and Vite.
 
 ## Quick Start
 
@@ -125,7 +125,7 @@ fugir-io.github.io-react/
 
 ## Key Features
 
-- 🖥️ **macOS-like Interface** - Authentic desktop experience
+- 🖥️ **Fugir-like Interface** - Authentic desktop experience
 - 🚀 **Modern Tech Stack** - React 18, TypeScript, Vite
 - 🧪 **Comprehensive Testing** - Vitest + React Testing Library
 - 🔒 **Auth0 Integration** - Secure authentication

@@ -152,7 +152,7 @@ export const topbarMenuConfig: Partial<Record<AppID, AppMenuConfig>> & {
     ],
     Help: [
       {
-        title: "macOS Help",
+        title: "Fugir Help",
         action: { action: "show-help" },
         breakAfter: true,
       },

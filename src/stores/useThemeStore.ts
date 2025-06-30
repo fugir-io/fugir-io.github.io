@@ -53,7 +53,7 @@ export const useThemeStore = create<ThemeStore>()(
       },
     }),
     {
-      name: "macos:theme-settings",
+      name: "Fugir:theme-settings",
       onRehydrateStorage: () => (state) => {
         if (state?.theme) {
           applyThemeToDOM(state.theme);

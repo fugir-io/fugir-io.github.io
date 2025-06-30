@@ -46,7 +46,7 @@ export const useAppStore = create<AppStore>()(
       },
     }),
     {
-      name: "macos:app-properties",
+      name: "Fugir:app-properties",
       partialize: (state) => ({ appProperties: state.appProperties }),
     },
   ),

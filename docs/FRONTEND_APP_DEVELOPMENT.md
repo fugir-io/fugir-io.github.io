@@ -1,8 +1,8 @@
 # Frontend App Development Guide
 
-> **Building Apps for Backend Web APIs in the macOS Desktop Simulator**
+> **Building Apps for Backend Web APIs in the Fugir Environment**
 
-This guide helps developers create frontend applications that connect to backend web APIs within the macOS desktop simulator environment.
+This guide helps developers create frontend applications that connect to backend web APIs within the Fugir Environment environment.
 
 ## Table of Contents
 
@@ -670,14 +670,14 @@ const MyAPIApp: React.FC = () => {
 
 ## UI Components & Styling
 
-### macOS-Style Components
+### Fugir-Style Components
 
-The platform follows macOS design patterns. Here are reusable component patterns:
+The platform follows Fugir design patterns. Here are reusable component patterns:
 
 #### Button Styles
 
 ```typescript
-const MacOSButton: React.FC<{ children: React.ReactNode; onClick: () => void; variant?: 'primary' | 'secondary' }> = ({
+const FugirButton: React.FC<{ children: React.ReactNode; onClick: () => void; variant?: 'primary' | 'secondary' }> = ({
   children,
   onClick,
   variant = 'primary'
@@ -711,7 +711,7 @@ const MacOSButton: React.FC<{ children: React.ReactNode; onClick: () => void; va
 #### Card Layout
 
 ```typescript
-const MacOSCard: React.FC<{ children: React.ReactNode; title?: string }> = ({ children, title }) => (
+const FugirCard: React.FC<{ children: React.ReactNode; title?: string }> = ({ children, title }) => (
   <div style={{
     background: 'white',
     borderRadius: '12px',
@@ -1030,7 +1030,7 @@ const OptimizedAPIApp: React.FC = () => {
 - Provide clear feedback for all user actions
 - Implement optimistic updates where possible
 - Handle offline scenarios gracefully
-- Follow macOS design patterns
+- Follow Fugir design patterns
 
 ---
 

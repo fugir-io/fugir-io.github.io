@@ -154,7 +154,7 @@ export const useAppsStore = create<AppsStore>()(
       },
     }),
     {
-      name: "macos:apps-state",
+      name: "Fugir:apps-state",
       partialize: (state) => ({
         openApps: state.openApps,
         appsInFullscreen: state.appsInFullscreen,

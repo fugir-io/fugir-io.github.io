@@ -11,7 +11,7 @@ const WallpaperApp: React.FC = () => {
   } = useWallpaperStore();
 
   const [selectedCategory, setSelectedCategory] = useState<
-    "all" | "macos" | "nature" | "artistic"
+    "all" | "Fugir" | "nature" | "artistic"
   >("all");
   const [imageErrors, setImageErrors] = useState<Set<string>>(new Set());
 
@@ -94,7 +94,7 @@ const WallpaperApp: React.FC = () => {
         }}
       >
         <div style={{ display: "flex", gap: "8px" }}>
-          {(["all", "macos", "nature", "artistic"] as const).map((category) => (
+          {(["all", "Fugir", "nature", "artistic"] as const).map((category) => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
@@ -113,8 +113,8 @@ const WallpaperApp: React.FC = () => {
             >
               {category === "all"
                 ? "All"
-                : category === "macos"
-                  ? "macOS"
+                : category === "Fugir"
+                  ? "Fugir"
                   : category === "nature"
                     ? "Nature"
                     : "Artistic"}
@@ -178,7 +178,7 @@ const WallpaperApp: React.FC = () => {
                     width: "100%",
                     height: "100%",
                     background:
-                      wallpaper.category === "macos"
+                      wallpaper.category === "Fugir"
                         ? "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
                         : wallpaper.category === "nature"
                           ? "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"

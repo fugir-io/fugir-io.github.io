@@ -60,7 +60,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Architecture Overview
 
-This is a **macOS desktop simulator** built with React 18, TypeScript, and Vite. It recreates the macOS Monterey/Big Sur desktop experience in a web browser with authentic UI elements, window management, and applications.
+This is a **Fugir Environment** built with React 18, TypeScript, and Vite. It recreates the Fugir Monterey/Big Sur desktop experience in a web browser with authentic UI elements, window management, and applications.
 
 ### Core Structure
 
@@ -122,7 +122,7 @@ const myApp = createAppConfig(
 ### Asset Structure
 
 - **`public/app-icons/`**: Application icons in multiple sizes (16px to 1024px)
-- **`src/assets/wallpapers/`**: Desktop wallpaper images organized by macOS version
+- **`src/assets/wallpapers/`**: Desktop wallpaper images organized by Fugir version
 - **`public/sounds/`**: System audio feedback and sounds
 - **`public/cursors/`**: Custom cursor SVGs for different states
 
@@ -235,3 +235,134 @@ The changelog system automatically categorizes commits:
 6. Automatic deployment to GitHub Pages
 
 See [docs/RELEASE_WORKFLOW.md](docs/RELEASE_WORKFLOW.md) for detailed documentation.
+
+
+## Changelog Format Guidelines
+
+When generating or updating changelog files for the Fugir Environment, follow these formatting guidelines:
+
+### File Structure
+
+- **Filename**: `CHANGELOG.md` (single file in project root)
+- **Title**: `# Fugir.io Fugir Environment - Changelog`
+
+### Content Structure
+
+1. **Overview Section**
+   - Brief summary of the release
+   - Highlight major themes or features introduced
+
+2. **New Applications & Features**
+   - New desktop applications added to the simulator
+   - Significant UI/UX improvements
+   - Desktop environment enhancements
+   - Window management improvements
+
+3. **User Interface Improvements**
+   - Visual enhancements and theme updates
+   - Wallpaper and appearance changes
+   - Dock and menu bar improvements
+   - Animation and interaction refinements
+
+4. **Performance & Technical Improvements**
+   - Rendering optimizations
+   - Memory usage improvements
+   - Load time enhancements
+   - State management optimizations
+
+5. **Bug Fixes & Stability**
+   - Application crashes and errors resolved
+   - Window management issues fixed
+   - UI/UX inconsistencies corrected
+   - Authentication and routing fixes
+
+6. **Developer Experience**
+   - Build system improvements
+   - Testing framework enhancements
+   - Development workflow optimizations
+   - Documentation updates
+
+### Content Classification Guidelines
+
+**New Applications & Features**:
+- New desktop applications (Calculator, Notes, Safari, etc.)
+- System-level features (Spotlight, Notification Center, etc.)
+- Authentication and user management features
+- Desktop environment capabilities
+
+**User Interface Improvements**:
+- Visual design updates and theme changes
+- Wallpaper collections and customization options
+- Dock animations and interactions
+- Menu bar functionality and appearance
+- Window styling and behaviors
+
+**Performance & Technical Improvements**:
+- React component optimizations
+- Zustand store improvements
+- Bundle size reductions
+- Rendering performance enhancements
+- PWA and caching improvements
+
+**Bug Fixes & Stability**:
+- Application-specific bug fixes
+- Window management and focus issues
+- State persistence problems
+- Cross-browser compatibility fixes
+- Mobile responsiveness issues
+
+### Example Changelog Entry
+
+```markdown
+## Version 1.2.0 - Desktop Applications Update
+
+### Overview
+Major release introducing new desktop applications and enhanced window management system.
+
+### New Applications & Features
+- **Calculator App**: Full-featured calculator with scientific mode
+- **Notes App**: Rich text editor with save/load functionality  
+- **Enhanced Window Management**: Improved resizing and focus handling
+- **Spotlight Search**: System-wide search functionality
+
+### User Interface Improvements
+- **New Wallpaper Collection**: Added 15 new Fugir-style wallpapers
+- **Dock Animations**: Smooth hover effects and app launch animations
+- **Dark Mode Support**: Complete dark theme implementation
+- **Menu Bar Enhancements**: Dynamic menu updates based on active app
+
+### Performance & Technical Improvements
+- **Bundle Size Reduction**: 20% smaller initial load through code splitting
+- **Rendering Optimizations**: Improved frame rates for window animations
+- **State Management**: More efficient Zustand store architecture
+- **PWA Enhancements**: Better offline caching and app installation
+
+### Bug Fixes & Stability
+- **Window Focus**: Fixed issues with window stacking and focus management
+- **Mobile Responsiveness**: Improved touch interactions on mobile devices
+- **Authentication**: Resolved Auth0 callback handling edge cases
+- **Cross-Browser**: Fixed Safari-specific rendering issues
+
+### Developer Experience
+- **Enhanced Testing**: Added comprehensive component test coverage
+- **Build Optimizations**: Faster development builds and hot reloading
+- **Documentation**: Updated component documentation and usage examples
+```
+
+### Formatting Guidelines
+
+- Use consistent bullet point formatting (`-` for main points)
+- Use `**Bold**` for emphasis on feature names and key terms
+- Use code blocks for technical details and configuration
+- Use consistent date format: (YYYY-MM-DD)
+- Group related changes under logical subsections
+- Focus on user-facing benefits and visual improvements
+- Include performance metrics when available
+
+### Language Style
+
+- Write user-focused descriptions emphasizing desktop experience
+- Highlight visual and interactive improvements
+- Use clear, accessible language for general users
+- Emphasize the authentic Fugir experience recreation
+- Maintain consistent tone focused on user benefits

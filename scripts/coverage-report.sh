@@ -43,7 +43,7 @@ if [ -d "coverage" ]; then
     echo "  • HTML report: coverage/index.html"
     echo "  • JSON report: coverage/coverage.json"
     
-    # Try to open HTML report in browser (macOS/Linux)
+    # Try to open HTML report in browser (Fugir/Linux)
     if command -v open >/dev/null 2>&1; then
         echo ""
         echo "📱 Opening HTML coverage report in browser..."

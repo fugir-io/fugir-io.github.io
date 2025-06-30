@@ -92,7 +92,7 @@ export const useSystemStore = create<SystemStore>()(
       },
     }),
     {
-      name: "macos:system-settings",
+      name: "Fugir:system-settings",
       partialize: (state) => ({
         wallpaper: state.wallpaper,
         cursorType: state.cursorType,

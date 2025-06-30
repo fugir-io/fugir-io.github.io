@@ -77,7 +77,7 @@ const VSCode: React.FC = () => {
           <span style={{ color: "#808080" }}>&gt;</span>
         </div>
         <div style={{ marginLeft: "80px", color: "#ce9178" }}>
-          "Hello, macOS!"
+          "Hello, Fugir!"
         </div>
         <div style={{ marginLeft: "60px" }}>
           <span style={{ color: "#808080" }}>&lt;/</span>

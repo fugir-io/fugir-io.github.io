@@ -24,7 +24,7 @@ export default defineConfig({
       ],
       manifest: {
         name: "Mac OS Monterey React Web",
-        short_name: "macOS React",
+        short_name: "Fugir React",
         theme_color: "#ffffff",
         description: "Mac OS Monterey Web written in React",
         icons: [

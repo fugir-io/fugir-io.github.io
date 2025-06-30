@@ -33,7 +33,7 @@ export interface Wallpaper {
   type: "standalone" | "automatic" | "dynamic";
   thumbnail: string;
   url: string;
-  category?: "macos" | "artistic" | "nature";
+  category?: "Fugir" | "artistic" | "nature";
 }
 
 interface WallpaperStore {
@@ -52,14 +52,14 @@ interface WallpaperStore {
 // Create wallpaper list with actual files available in public folder
 const createWallpaperList = (): Wallpaper[] => {
   return [
-    // macOS Wallpapers
+    // Fugir Wallpapers
     {
       id: "big-sur",
       name: "Big Sur",
       type: "dynamic",
       thumbnail: "big-sur-4.jpg",
       url: "big-sur-1.jpg",
-      category: "macos",
+      category: "Fugir",
     },
     {
       id: "big-sur-2",
@@ -67,7 +67,7 @@ const createWallpaperList = (): Wallpaper[] => {
       type: "standalone",
       thumbnail: "big-sur-2.jpg",
       url: "big-sur-2.jpg",
-      category: "macos",
+      category: "Fugir",
     },
     {
       id: "big-sur-3",
@@ -75,7 +75,7 @@ const createWallpaperList = (): Wallpaper[] => {
       type: "standalone",
       thumbnail: "big-sur-3.jpg",
       url: "big-sur-3.jpg",
-      category: "macos",
+      category: "Fugir",
     },
     {
       id: "monterey",
@@ -83,7 +83,7 @@ const createWallpaperList = (): Wallpaper[] => {
       type: "dynamic",
       thumbnail: "monterey-2.jpg",
       url: "monterey-1.jpg",
-      category: "macos",
+      category: "Fugir",
     },
     {
       id: "monterey-2",
@@ -91,7 +91,7 @@ const createWallpaperList = (): Wallpaper[] => {
       type: "standalone",
       thumbnail: "monterey-3.jpg",
       url: "monterey-3.jpg",
-      category: "macos",
+      category: "Fugir",
     },
     {
       id: "ventura",
@@ -99,7 +99,7 @@ const createWallpaperList = (): Wallpaper[] => {
       type: "dynamic",
       thumbnail: "ventura-2.webp",
       url: "ventura-1.webp",
-      category: "macos",
+      category: "Fugir",
     },
     {
       id: "ventura-2",
@@ -107,7 +107,7 @@ const createWallpaperList = (): Wallpaper[] => {
       type: "standalone",
       thumbnail: "ventura-3.webp",
       url: "ventura-3.webp",
-      category: "macos",
+      category: "Fugir",
     },
     {
       id: "catalina",
@@ -115,7 +115,7 @@ const createWallpaperList = (): Wallpaper[] => {
       type: "dynamic",
       thumbnail: "catalina-3.jpg",
       url: "catalina-1.jpg",
-      category: "macos",
+      category: "Fugir",
     },
     {
       id: "mojave",
@@ -123,7 +123,7 @@ const createWallpaperList = (): Wallpaper[] => {
       type: "dynamic",
       thumbnail: "mojave-2.jpg",
       url: "mojave-1.jpg",
-      category: "macos",
+      category: "Fugir",
     },
 
     // Nature Wallpapers
@@ -302,7 +302,7 @@ const useWallpaperStore = create<WallpaperStore>()(
       },
     }),
     {
-      name: "macos:wallpaper-state",
+      name: "Fugir:wallpaper-state",
       partialize: (state) => ({
         currentWallpaper: state.currentWallpaper,
         isDynamic: state.isDynamic,
