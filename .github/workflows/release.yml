@@ -67,14 +67,56 @@ jobs:
 
           echo "✅ Version validation passed"
 
-  test:
-    name: Run Tests
+  update-version:
+    name: Update Package Version
     runs-on: ubuntu-latest
     needs: validate
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: Update package.json version
+        run: |
+          VERSION="${{ needs.validate.outputs.version }}"
+          echo "Updating package.json version to $VERSION"
+          
+          # Update package.json version
+          npm version --no-git-tag-version $VERSION
+          
+          # Verify the update
+          UPDATED_VERSION=$(node -p "require('./package.json').version")
+          echo "Updated package.json version: $UPDATED_VERSION"
+
+      - name: Commit version update
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add package.json package-lock.json
+          git commit -m "chore: bump version to ${{ needs.validate.outputs.version }} [skip ci]"
+          git push origin main
+
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    needs: [validate, update-version]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -111,11 +153,13 @@ jobs:
   security-scan:
     name: Security Scan
     runs-on: ubuntu-latest
-    needs: validate
+    needs: [validate, update-version]
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -158,6 +202,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
+          ref: main
           fetch-depth: 0
 
       - name: Download build artifacts
@@ -211,53 +256,22 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  deploy:
-    name: Deploy to GitHub Pages
-    runs-on: ubuntu-latest
-    needs: [validate, test, security-scan, create-release]
-    environment:
-      name: production
-      url: https://fugir-io.github.io
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build for production
-        run: npm run build
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          cname: fugir-io.github.io
-
   notify:
     name: Notify Release
     runs-on: ubuntu-latest
-    needs: [validate, create-release, deploy]
+    needs: [validate, create-release]
     if: always()
 
     steps:
       - name: Release Success Notification
-        if: needs.create-release.result == 'success' && needs.deploy.result == 'success'
+        if: needs.create-release.result == 'success'
         run: |
           echo "🎉 Release ${{ needs.validate.outputs.tag }} completed successfully!"
-          echo "🚀 Deployed to: https://fugir-io.github.io"
           echo "📦 Release: https://github.com/fugir-io/fugir-io.github.io/releases/tag/${{ needs.validate.outputs.tag }}"
+          echo "🚀 Site will be deployed automatically via GitHub Pages workflow"
 
       - name: Release Failure Notification
-        if: needs.create-release.result == 'failure' || needs.deploy.result == 'failure'
+        if: needs.create-release.result == 'failure'
         run: |
           echo "❌ Release ${{ needs.validate.outputs.tag }} failed!"
           echo "Please check the workflow logs for details."

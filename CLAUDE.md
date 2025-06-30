@@ -227,12 +227,12 @@ The changelog system automatically categorizes commits:
 
 ### Release Workflow
 
-1. Version bump updates `package.json` and generates changelog
-2. Git commit and tag creation
-3. GitHub Actions workflow triggers on tag push
-4. Automated testing, security scanning, and deployment
+1. Create and push version tag using Makefile commands
+2. GitHub Actions workflow triggers on tag push
+3. Workflow updates `package.json` version and commits back to main
+4. Automated testing, security scanning, and release creation
 5. GitHub release creation with artifacts
-6. Automatic deployment to GitHub Pages
+6. GitHub Pages deployment triggers automatically when release is published
 
 See [docs/RELEASE_WORKFLOW.md](docs/RELEASE_WORKFLOW.md) for detailed documentation.
 

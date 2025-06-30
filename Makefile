@@ -6,7 +6,7 @@ ERROR_COLOR := \033[31m
 INFO_COLOR := \033[36m
 NO_COLOR := \033[0m
 
-.PHONY: help install dev build test lint format clean changelog status
+.PHONY: help install dev build test lint format clean changelog status version-major version-minor version-patch release check-git
 
 # Default target
 help: ## Show this help message
@@ -58,6 +58,43 @@ MAJOR := $(shell echo $(CURRENT_VERSION) | cut -d. -f1)
 MINOR := $(shell echo $(CURRENT_VERSION) | cut -d. -f2)
 PATCH := $(shell echo $(CURRENT_VERSION) | cut -d. -f3)
 
+# Version management
+version-major: check-git ## Create major version tag (breaking changes)
+	$(eval NEW_VERSION := $(shell echo $$(($(MAJOR) + 1)).0.0))
+	@echo "$(INFO_COLOR)Creating major release tag v$(NEW_VERSION)$(NO_COLOR)"
+	@git tag -a v$(NEW_VERSION) -m "Release v$(NEW_VERSION)"
+	@echo "$(INFO_COLOR)Tag created. Run 'make release' to publish$(NO_COLOR)"
+
+version-minor: check-git ## Create minor version tag (new features)
+	$(eval NEW_VERSION := $(MAJOR).$(shell echo $$(($(MINOR) + 1))).0)
+	@echo "$(INFO_COLOR)Creating minor release tag v$(NEW_VERSION)$(NO_COLOR)"
+	@git tag -a v$(NEW_VERSION) -m "Release v$(NEW_VERSION)"
+	@echo "$(INFO_COLOR)Tag created. Run 'make release' to publish$(NO_COLOR)"
+
+version-patch: check-git ## Create patch version tag (bug fixes)
+	$(eval NEW_VERSION := $(MAJOR).$(MINOR).$(shell echo $$(($(PATCH) + 1))))
+	@echo "$(INFO_COLOR)Creating patch release tag v$(NEW_VERSION)$(NO_COLOR)"
+	@git tag -a v$(NEW_VERSION) -m "Release v$(NEW_VERSION)"
+	@echo "$(INFO_COLOR)Tag created. Run 'make release' to publish$(NO_COLOR)"
+
+release: ## Push release tag to trigger release workflow
+	@echo "$(INFO_COLOR)Pushing release tag...$(NO_COLOR)"
+	@git push origin --tags
+	@echo "$(INFO_COLOR)Release workflow triggered. Check GitHub Actions for progress.$(NO_COLOR)"
+
+check-git: ## Check git status before operations
+	@if [ -n "$$(git status --porcelain)" ]; then \
+		echo "$(ERROR_COLOR)Error: Working directory is not clean. Please commit or stash changes.$(NO_COLOR)"; \
+		exit 1; \
+	fi
+	@if [ "$$(git rev-parse --abbrev-ref HEAD)" != "main" ]; then \
+		echo "$(ERROR_COLOR)Warning: Not on main branch. Current branch: $$(git rev-parse --abbrev-ref HEAD)$(NO_COLOR)"; \
+		read -p "Continue anyway? [y/N] " -n 1 -r; \
+		echo; \
+		if [[ ! $$REPLY =~ ^[Yy]$$ ]]; then \
+			exit 1; \
+		fi; \
+	fi
 
 changelog: ## Generate or update changelog for specified version (TAG_VERSION=1.2.3 make generate-changelog)
 	@if [ -z "$(TAG_VERSION)" ]; then \
