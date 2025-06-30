@@ -53,7 +53,7 @@ jobs:
 
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "tag=$TAG_NAME" >> $GITHUB_OUTPUT
-          
+
           echo "✅ Extracted version: $VERSION"
           echo "✅ Tag name: $TAG_NAME"
 
@@ -67,10 +67,10 @@ jobs:
         run: |
           VERSION="${{ steps.extract-version.outputs.version }}"
           echo "Updating package.json version to $VERSION"
-          
+
           # Update package.json version
           npm version --no-git-tag-version $VERSION
-          
+
           # Verify the update
           UPDATED_VERSION=$(node -p "require('./package.json').version")
           echo "Updated package.json version: $UPDATED_VERSION"
