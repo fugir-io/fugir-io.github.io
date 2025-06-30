@@ -136,7 +136,7 @@ export const useVoiceRecognition = (): VoiceRecognitionHook => {
 
       recognitionRef.current = recognition;
       recognition.start();
-    } catch (err) {
+    } catch {
       setError("Failed to start voice recognition");
       setIsListening(false);
     }

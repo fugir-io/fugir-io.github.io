@@ -1,5 +1,3 @@
-/// <reference path="../../types/speech.d.ts" />
-
 import React from "react";
 import { useVoiceRecognition } from "@/hooks/useVoiceRecognition";
 import styles from "./VoiceControl.module.css";
@@ -119,7 +117,7 @@ export const VoiceControl: React.FC<VoiceControlProps> = ({
 
       {transcript && (
         <div className={styles.voiceTranscript}>
-          <span>"{transcript}"</span>
+          <span>&quot;{transcript}&quot;</span>
         </div>
       )}
 
