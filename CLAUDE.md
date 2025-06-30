@@ -236,7 +236,6 @@ The changelog system automatically categorizes commits:
 
 See [docs/RELEASE_WORKFLOW.md](docs/RELEASE_WORKFLOW.md) for detailed documentation.
 
-
 ## Changelog Format Guidelines
 
 When generating or updating changelog files for the Fugir Environment, follow these formatting guidelines:
@@ -285,12 +284,14 @@ When generating or updating changelog files for the Fugir Environment, follow th
 ### Content Classification Guidelines
 
 **New Applications & Features**:
+
 - New desktop applications (Calculator, Notes, Safari, etc.)
 - System-level features (Spotlight, Notification Center, etc.)
 - Authentication and user management features
 - Desktop environment capabilities
 
 **User Interface Improvements**:
+
 - Visual design updates and theme changes
 - Wallpaper collections and customization options
 - Dock animations and interactions
@@ -298,6 +299,7 @@ When generating or updating changelog files for the Fugir Environment, follow th
 - Window styling and behaviors
 
 **Performance & Technical Improvements**:
+
 - React component optimizations
 - Zustand store improvements
 - Bundle size reductions
@@ -305,6 +307,7 @@ When generating or updating changelog files for the Fugir Environment, follow th
 - PWA and caching improvements
 
 **Bug Fixes & Stability**:
+
 - Application-specific bug fixes
 - Window management and focus issues
 - State persistence problems
@@ -317,33 +320,39 @@ When generating or updating changelog files for the Fugir Environment, follow th
 ## Version 1.2.0 - Desktop Applications Update
 
 ### Overview
+
 Major release introducing new desktop applications and enhanced window management system.
 
 ### New Applications & Features
+
 - **Calculator App**: Full-featured calculator with scientific mode
-- **Notes App**: Rich text editor with save/load functionality  
+- **Notes App**: Rich text editor with save/load functionality
 - **Enhanced Window Management**: Improved resizing and focus handling
 - **Spotlight Search**: System-wide search functionality
 
 ### User Interface Improvements
+
 - **New Wallpaper Collection**: Added 15 new Fugir-style wallpapers
 - **Dock Animations**: Smooth hover effects and app launch animations
 - **Dark Mode Support**: Complete dark theme implementation
 - **Menu Bar Enhancements**: Dynamic menu updates based on active app
 
 ### Performance & Technical Improvements
+
 - **Bundle Size Reduction**: 20% smaller initial load through code splitting
 - **Rendering Optimizations**: Improved frame rates for window animations
 - **State Management**: More efficient Zustand store architecture
 - **PWA Enhancements**: Better offline caching and app installation
 
 ### Bug Fixes & Stability
+
 - **Window Focus**: Fixed issues with window stacking and focus management
 - **Mobile Responsiveness**: Improved touch interactions on mobile devices
 - **Authentication**: Resolved Auth0 callback handling edge cases
 - **Cross-Browser**: Fixed Safari-specific rendering issues
 
 ### Developer Experience
+
 - **Enhanced Testing**: Added comprehensive component test coverage
 - **Build Optimizations**: Faster development builds and hot reloading
 - **Documentation**: Updated component documentation and usage examples
