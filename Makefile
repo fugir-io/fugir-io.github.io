@@ -6,7 +6,7 @@ ERROR_COLOR := \033[31m
 INFO_COLOR := \033[36m
 NO_COLOR := \033[0m
 
-.PHONY: help install dev build test lint format clean changelog status version-major version-minor version-patch release check-git
+.PHONY: help install dev build test lint format clean changelog codereview status version-major version-minor version-patch release check-git
 
 # Default target
 help: ## Show this help message
@@ -103,6 +103,10 @@ changelog: ## Generate or update changelog for specified version (TAG_VERSION=1.
 	fi
 	echo "$(INFO_COLOR)Generating changelog for version$(NO_COLOR)"; \
 	claude -p --dangerously-skip-permissions "CRITICAL: Update or create the changelog for version $(TAG_VERSION). Analyze BOTH git commits AND code structure to understand changes:\n\nCODE ANALYSIS REQUIRED:\n1. EXAMINE src/components/ directory for new desktop applications\n2. IDENTIFY UI/UX improvements in Desktop/, Dock/, TopBar/ components\n3. UNDERSTAND app system changes in src/configs/apps/\n4. REVIEW state management updates in Zustand stores\n5. CHECK for wallpaper, theme, and visual enhancements\n\nCONTENT CLASSIFICATION:\n1. **New Applications & Features** → New desktop apps, system features, major UI additions\n2. **User Interface Improvements** → Visual enhancements, animations, wallpapers, themes\n3. **Performance & Technical Improvements** → React optimizations, bundle size, rendering improvements\n4. **Bug Fixes & Stability** → Component fixes, window management, authentication issues\n5. **Developer Experience** → Build system, testing, development workflow improvements\n\nSPECIFIC FOCUS for $(TAG_VERSION):\n- Focus on authentic Fugir desktop experience recreation\n- Highlight user-facing visual and interactive improvements\n- Emphasize new desktop applications and system features\n- Document window management and desktop environment enhancements\n- Include performance metrics for rendering and load times when available\n\nKEY MESSAGING:\n- Authentic Fugir experience in the browser\n- New desktop applications and system capabilities\n- Enhanced window management and user interactions\n- Visual fidelity and animation improvements\n- Cross-browser compatibility and mobile responsiveness\n\nWrite user-focused descriptions emphasizing the desktop simulation experience. Reference CLAUDE.md changelog guidelines. Only modify CHANGELOG-X.X.md files in docs/releases."
+
+codereview: ## Perform code review of current branch changes using Claude
+	@echo "$(INFO_COLOR)Performing code review of current branch changes...$(NO_COLOR)"
+	claude -p --dangerously-skip-permissions "Provide a code review for the current changes on the branch compared to its origin. Focus on the following aspects:\n\n- **Functionality**: Does the code achieve its intended purpose effectively?\n- **Logic**: Are there any logical errors or inefficiencies in the implementation?\n- **Strategy**: Is the approach taken appropriate and scalable?\n- **Componentization**: Are components well-structured and reusable?\n- **Testing**: Are there sufficient tests, especially integration tests, to ensure reliability?\n- **Goal Alignment**: Does the code align with the branch's intended goals?\n\nSummarize the findings in a clear and concise manner."
 
 status: ## Show current project status
 	@echo "Project: fugir-io"

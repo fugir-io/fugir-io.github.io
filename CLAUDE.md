@@ -45,6 +45,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `make release` - Trigger GitHub release workflow
 - `make status` - Show current project status
 
+**Code Quality:**
+
+- `make codereview` - Perform automated code review of current branch changes
+
 **Maintenance:**
 
 - `make audit` - Run security audit
@@ -375,3 +379,31 @@ Major release introducing new desktop applications and enhanced window managemen
 - Use clear, accessible language for general users
 - Emphasize the authentic Fugir experience recreation
 - Maintain consistent tone focused on user benefits
+
+## Code Review Process
+
+The project includes an automated code review system accessible through the Makefile:
+
+### Running Code Reviews
+
+Use `make codereview` to perform an automated code review of current branch changes. This command uses Claude in auto mode to analyze code changes compared to the branch origin.
+
+### Code Review Focus Areas
+
+The automated review evaluates:
+
+- **Functionality**: Does the code achieve its intended purpose effectively?
+- **Logic**: Are there any logical errors or inefficiencies in the implementation?
+- **Strategy**: Is the approach taken appropriate and scalable?
+- **Componentization**: Are components well-structured and reusable?
+- **Testing**: Are there sufficient tests, especially integration tests, to ensure reliability?
+- **Goal Alignment**: Does the code align with the branch's intended goals?
+
+### Integration with Development Workflow
+
+- Run code reviews before creating pull requests
+- Use as part of the CI pipeline for quality assurance
+- Integrate with peer review processes for comprehensive code quality
+- Leverage for refactoring and optimization recommendations
+
+The code review system provides structured feedback to maintain code quality and ensure alignment with project goals and architectural patterns.
